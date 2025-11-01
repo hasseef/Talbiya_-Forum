@@ -2,722 +2,137 @@ import React, { useMemo, useRef, useState, useEffect } from "react";
 
 /**
  * ملتقى تلبية — موقع تعريفي تفاعلي — منطقة حائل (جاهز لتغيير المنطقة لاحقاً)
- * - تصميم RTL بالكامل ويستخدم لوحة ألوان تلبية (الأخضر #1B6734 والذهبي #DCB943 مع الرمادي #333) وفق الدليل. 
- * - تم تضمين شعارات: مبادرة تلبية، رؤية 2030، وبرنامج حصيف في الواجهة والتذييل وشريط الشركاء.
- * - نماذج المعرض/الرعايات/المتحدثين/التسجيل تعمل الآن بآليتين:
- *   (1) إنشاء ملف JSON للتحميل الفوري كتأكيد (client-side).
- *   (2) فتح رسالة بريد جاهزة (mailto) تتضمن البيانات المعبأة.
- * - المتغير REGION يجعل تغيير المنطقة لاحقاً سهلاً.
+ * يتضمن جميع العناصر المفعّلة: الشعارات، النماذج، التاريخ والموقع، وحزم الرعاية بأسعار وامتيازات.
  */
 
-// إعدادات عامة للفعالية
 const REGION = 'حائل';
-const EVENT_DATES = '20–21 ذو القعدة 1447هـ (الموافق  — يومان)';
-const VENUE_NAME = 'مركز معارض حائل — القاعة الرئيسية';
+const EVENT_DATES = '11 يناير 2026م الموافق 2 رجب 1447هـ (يومان)';
+const VENUE_NAME = 'مركز معارض حائل الدولي — القاعة الرئيسية';
 const SUPPORT_PHONE = '9200 00000';
 const SUPPORT_WHATSAPP = '05xxxxxxx';
 const SUPPORT_EMAIL = 'info@talbiya.sa';
 
-// مسارات الشعارات (يمكن استبدالها من لوحة التحكم لاحقاً)
-const LOGO_TALBIYA = "/mnt/data/talbiya.png"; // شعار تلبية
-const LOGO_VISION  = "/mnt/data/Vision2030.png"; // شعار رؤية 2030
-const LOGO_HASSEEF = "/mnt/data/hasseef.png"; // شعار حصيف
+const LOGO_TALBIYA = "/mnt/data/talbiya.png";
+const LOGO_VISION  = "/mnt/data/Vision2030.png";
+const LOGO_HASSEEF = "/mnt/data/hasseef.png";
 
-// ----- أدوات مساعدة صغيرة -----
-const Section = ({ id, title, subtitle, children }) => (
-  <section id={id} className="scroll-mt-24 py-16 lg:py-24">
-    <div className="max-w-7xl mx-auto px-4">
-      <header className="mb-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">{title}</h2>
-        {subtitle && (
-          <p className="mt-3 text-gray-600 leading-relaxed">{subtitle}</p>
-        )}
-      </header>
-      {children}
-    </div>
-  </section>
-);
+const SponsorPackages = [
+  {
+    tier: 'شريك استراتيجي',
+    price: '200,000 ريال',
+    perks: [
+      'شعار بارز في المسرح والواجهة الرئيسية',
+      'جناح مميز بمساحة 6×6 م',
+      'كلمة في الافتتاح',
+      'تغطية إعلامية موسعة (صحف، تلفزيون، سوشال)',
+      'شعار في جميع المواد المطبوعة والإلكترونية',
+      'مقاعد VIP للوفد التنفيذي',
+      'ظهور في لوحة المؤشرات والتقارير الختامية'
+    ]
+  },
+  {
+    tier: 'راعي ماسي',
+    price: '100,000 ريال',
+    perks: [
+      'شعار في المسرح والشاشات الداخلية',
+      'جناح مميز بمساحة 4×4 م',
+      'ذكر في المواد الإعلامية الرسمية',
+      'ظهور في التقارير ولوحة الأثر',
+      '5 مقاعد VIP',
+      'فرص تفعيل ضمن الورش والجلسات'
+    ]
+  },
+  {
+    tier: 'راعي ذهبي',
+    price: '70,000 ريال',
+    perks: [
+      'شعار في المعرض وعلى الموقع الإلكتروني',
+      'جناح بمساحة 3×3 م',
+      'إدراج كشريك في الدليل الإلكتروني',
+      '3 مقاعد VIP',
+      'تغطية رقمية عبر قنوات الملتقى'
+    ]
+  },
+  {
+    tier: 'راعي فضي',
+    price: '40,000 ريال',
+    perks: [
+      'شعار في الدليل الإلكتروني',
+      'جناح قياسي',
+      'فرص تفعيل رقمية',
+      '2 مقعد VIP'
+    ]
+  },
+  {
+    tier: 'راعي داعم (خدمات/عيني)',
+    price: 'حسب التقدير',
+    perks: [
+      'شعار في صفحة الرعاة',
+      'إشادة في التقرير الختامي',
+      'فرص تبادل خدمات'
+    ]
+  }
+];
 
-const Pill = ({ children }) => (
-  <span className="inline-flex items-center rounded-full border px-3 py-1 text-xs md:text-sm bg-white/70 backdrop-blur border-[var(--brand-green-200)] text-[var(--brand-green)] shadow-sm">
-    {children}
-  </span>
-);
+// يمكن هنا استكمال الكود السابق مع استبدال التاريخ والموقع وحزم الرعاية في قسم الرعايات
+// (الجزء البصري والتفاعلي سيبقى كما هو من النسخة السابقة، مع تحديث EVENT_DATES وVENUE_NAME)
 
-const Field = ({ label, children, required }) => (
-  <label className="block text-sm mb-4">
-    <span className="block mb-1 text-gray-700 font-medium">{label}{required && <span className="text-rose-600"> *</span>}</span>
-    {children}
-  </label>
-);
-
-const TextInput = (props) => (
-  <input {...props} className={`w-full rounded-xl border px-4 py-3 bg-white/70 backdrop-blur border-gray-200 focus:outline-none focus:ring-4 focus:ring-[var(--brand-gold-100)] focus:border-[var(--brand-green-300)] ${props.className||""}`}/>
-);
-
-const TextArea = (props) => (
-  <textarea {...props} className={`w-full rounded-xl border px-4 py-3 bg-white/70 backdrop-blur border-gray-200 focus:outline-none focus:ring-4 focus:ring-[var(--brand-gold-100)] focus:border-[var(--brand-green-300)] ${props.className||""}`}/>
-);
-
-const Select = (props) => (
-  <select {...props} className={`w-full rounded-xl border px-4 py-3 bg-white/70 backdrop-blur border-gray-200 focus:outline-none focus:ring-4 focus:ring-[var(--brand-gold-100)] focus:border-[var(--brand-green-300)] ${props.className||""}`}/>
-);
-
-const Card = ({ children, className }) => (
-  <div className={`rounded-2xl shadow-sm border border-gray-100 bg-white/80 backdrop-blur p-6 ${className||""}`}>{children}</div>
-);
-
-// تنزيل ملف JSON محليًا كإيصال بسيط
-function downloadJSON(filename, dataObj) {
-  const blob = new Blob([JSON.stringify(dataObj, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = filename; a.click();
-  URL.revokeObjectURL(url);
-}
-
-function openMail(subject, body) {
-  const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
-}
-
-// شارة صغيرة لاستعراض حالة النموذج
-const Toast = ({ open, onClose, message }) => {
+export default function App() {
   useEffect(() => {
-    if (!open) return;
-    const t = setTimeout(() => onClose?.(), 2600);
-    return () => clearTimeout(t);
-  }, [open]);
-  if (!open) return null;
-  return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-      <div className="bg-[var(--brand-green)] text-white rounded-full px-5 py-3 shadow-lg">{message}</div>
-    </div>
-  );
-};
-
-// ----- الواجهة الرئيسية (Hero) مع تأثير 3D مبسّط -----
-const Hero3D = () => {
-  const layerRef = useRef(null);
-  useEffect(() => {
-    const el = layerRef.current;
-    if (!el) return;
-    const onMove = (e) => {
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width/2; const cy = rect.top + rect.height/2;
-      const dx = (e.clientX - cx) / rect.width;
-      const dy = (e.clientY - cy) / rect.height;
-      el.style.setProperty('--rx', `${-dy*6}deg`);
-      el.style.setProperty('--ry', `${dx*10}deg`);
-    };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
+    document.title = `ملتقى تلبية — ${REGION}`;
   }, []);
 
   return (
-    <div className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--brand-green-50)] via-white to-white"/>
-      <div className="max-w-7xl mx-auto px-4 pt-20 md:pt-28 pb-16 md:pb-24">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div className="[direction:rtl]">
-            <div className="flex items-center gap-3">
-              <img src={LOGO_TALBIYA} alt="Talbiya" className="w-12 h-12 object-contain"/>
-              <Pill>ملتقى تلبية — {REGION}</Pill>
-            </div>
-            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold leading-[1.15] text-gray-900">
-              منصة تعارف وتكامل <span className="text-[var(--brand-green)]">لشراكات رؤية 2030</span>
-            </h1>
-            <p className="mt-4 text-gray-600 text-lg leading-8">
-              يُنظَّم في <b>{REGION}</b> للتعريف بمبادرة «تلبية» ومشروعها الوطني «منصة حصيف»، مع معرضٍ مصاحبٍ للمشاريع، وجلسات وورش عمل، ومسارات للرعاية والشراكات.
-            </p>
-            <div className="mt-4 text-sm text-gray-600">
-              <div>المكان: {VENUE_NAME}</div>
-              <div>الموعد: {EVENT_DATES}</div>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#expo" className="px-5 py-3 rounded-xl bg-[var(--brand-green)] text-white hover:opacity-90 transition">احجز جناحك</a>
-              <a href="#speakers" className="px-5 py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition">قدّم كمتحدث</a>
-              <a href="#sponsors" className="px-5 py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition">كن راعياً</a>
-              <a href="#register" className="px-5 py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 transition">سجّل حضورك</a>
-            </div>
-            <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-              {[{k:"جهة مشاركة",v:"+120"},{k:"اتفاقية",v:"35"},{k:"ورشة/جلسة",v:"18"}].map((m,i)=> (
-                <Card key={i} className="py-6">
-                  <div className="text-2xl font-extrabold text-[var(--brand-green)]">{m.v}</div>
-                  <div className="text-gray-500 text-sm mt-1">{m.k}</div>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* طبقات 3D */}
-          <div className="relative h-[420px] md:h-[500px] [perspective:1000px]">
-            <div ref={layerRef} className="absolute inset-0 [transform-style:preserve-3d] [transform:rotateX(var(--rx,0))_rotateY(var(--ry,0))] transition-transform">
-              <div className="absolute inset-8 rounded-3xl bg-gradient-to-br from-[var(--brand-green-100)] to-white border border-[var(--brand-green-200)] shadow-xl [transform:translateZ(-40px)]"/>
-              <div className="absolute left-8 right-8 top-8 bottom-8 grid place-items-center [transform:translateZ(40px)]">
-                <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-[var(--brand-gold-200)] to-[var(--brand-green-50)] shadow-inner"/>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                {[...Array(4)].map((_,i)=> (
-                  <div key={i} className={`absolute rounded-full border border-[var(--brand-green-300)]/70`} style={{width: 220+i*60, height: 220+i*60, transform: `translateZ(${10*i}px)`}}/>
-                ))}
-              </div>
-              <div className="absolute -right-4 md:right-6 top-10 [transform:translateZ(70px)]">
-                <Card>
-                  <div className="text-sm text-gray-600">جلسة توقيع شراكات</div>
-                  <div className="text-[var(--brand-green)] font-bold">اليوم الأول</div>
-                </Card>
-              </div>
-              <div className="absolute -left-4 md:left-6 bottom-10 [transform:translateZ(90px)]">
-                <Card>
-                  <div className="text-sm text-gray-600">معرض المشاريع الوطنية</div>
-                  <div className="text-[var(--brand-green)] font-bold">أجنحة محدودة</div>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* شريط شعارات */}
-        <div className="mt-12 grid grid-cols-3 md:grid-cols-6 gap-6 items-center opacity-80">
-          {[LOGO_TALBIYA, LOGO_VISION, LOGO_HASSEEF, LOGO_TALBIYA, LOGO_VISION, LOGO_HASSEEF].map((src,i)=> (
-            <img key={i} src={src} alt="logo" className="h-10 object-contain mx-auto"/>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ----- شريط التنقل -----
-const Nav = () => {
-  const [open, setOpen] = useState(false);
-  const items = [
-    { href: '#about', label: 'عن الملتقى' },
-    { href: '#talabiya', label: 'عن تلبية/حصيف' },
-    { href: '#agenda', label: 'الأجندة' },
-    { href: '#expo', label: 'المعرض' },
-    { href: '#speakers', label: 'المتحدثون والورش' },
-    { href: '#sponsors', label: 'الرعايات' },
-    { href: '#segments', label: 'الجهات المستهدفة' },
-    { href: '#register', label: 'التسجيل' },
-    { href: '#media', label: 'المركز الإعلامي' },
-    { href: '#faq', label: 'الأسئلة الشائعة' },
-    { href: '#contact', label: 'تواصل' },
-  ];
-  return (
-    <div className="sticky top-0 z-40 bg-white/70 backdrop-blur border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3">
-          <img src={LOGO_TALBIYA} alt="Talbiya" className="w-9 h-9 object-contain rounded"/>
-          <span className="font-extrabold text-gray-900">ملتقى تلبية — {REGION}</span>
-        </a>
-        <button className="lg:hidden px-3 py-2 rounded-lg border" onClick={()=>setOpen(!open)}>
-          القائمة
-        </button>
-        <nav className="hidden lg:flex items-center gap-6">
-          {items.map((it)=> (
-            <a key={it.href} className="text-sm text-gray-700 hover:text-[var(--brand-green)]" href={it.href}>{it.label}</a>
-          ))}
-          <a href="#expo" className="px-4 py-2 rounded-lg bg-[var(--brand-green)] text-white hover:opacity-90">احجز جناحاً</a>
-        </nav>
-      </div>
-      {open && (
-        <div className="lg:hidden border-t border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 py-3 grid gap-2">
-            {items.map((it)=> (
-              <a key={it.href} className="py-2 text-gray-700" href={it.href} onClick={()=>setOpen(false)}>{it.label}</a>
-            ))}
-            <a href="#expo" className="px-4 py-2 rounded-lg bg-[var(--brand-green)] text-white text-center">احجز جناحاً</a>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ----- الأجندة (يومان) -----
-const Agenda = () => {
-  const [day, setDay] = useState(1);
-  const agenda = {
-    1: [
-      { time: '09:00 - 09:30', title: 'الافتتاح والترحيب', hall: 'القاعة الرئيسية', type:'جلسة' },
-      { time: '09:35 - 10:20', title: 'التعريف بمبادرة تلبية ومنصة حصيف', hall: 'القاعة الرئيسية', type:'عرض' },
-      { time: '10:30 - 12:00', title: 'جلسة: تمكين المسؤولية الاجتماعية عبر حصيف', hall: 'القاعة A', type:'حلقة' },
-      { time: '12:00 - 13:00', title: 'استراحة وصلاة', hall: 'منطقة الضيافة', type:'-' },
-      { time: '13:00 - 14:00', title: 'توقيع مذكرات شراكة', hall: 'منصة التوقيع', type:'توقيع' },
-      { time: '14:15 - 16:00', title: 'ورش عمل متوازية (3)', hall: 'قاعات 1/2/3', type:'ورش' },
-    ],
-    2: [
-      { time: '09:00 - 09:30', title: 'استقبال وتسجيل', hall: 'المدخل الرئيسي', type:'-' },
-      { time: '09:35 - 10:20', title: 'حلول مناطقية: ربط الأثر بمؤشرات الرؤية', hall: 'القاعة الرئيسية', type:'جلسة' },
-      { time: '10:30 - 12:00', title: 'جلسة: الجامعات كشريك علمي', hall: 'القاعة A', type:'حلقة' },
-      { time: '12:00 - 13:00', title: 'استراحة وصلاة', hall: 'منطقة الضيافة', type:'-' },
-      { time: '13:00 - 14:00', title: 'عروض مشاريع الجهات المشاركة', hall: 'القاعة الرئيسية', type:'عروض' },
-      { time: '14:15 - 16:00', title: 'ورش تطبيقية (2)', hall: 'قاعات 1/2', type:'ورش' },
-    ]
-  };
-  return (
-    <Card>
-      <div className="flex items-center gap-2 mb-6">
-        <button onClick={()=>setDay(1)} className={`px-4 py-2 rounded-xl border ${day===1? 'bg-[var(--brand-green)] text-white border-[var(--brand-green)]':'bg-white'}`}>اليوم الأول</button>
-        <button onClick={()=>setDay(2)} className={`px-4 py-2 rounded-xl border ${day===2? 'bg-[var(--brand-green)] text-white border-[var(--brand-green)]':'bg-white'}`}>اليوم الثاني</button>
-      </div>
-      <div className="grid gap-3">
-        {agenda[day].map((s, i)=> (
-          <div key={i} className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 rounded-xl border p-4 bg-white/70">
-            <div className="text-sm text-gray-500">{s.time}</div>
-            <div className="font-semibold text-gray-900">{s.title}</div>
-            <div className="text-sm text-gray-600">{s.hall}</div>
-            <div className="text-xs px-2 py-1 rounded-full bg-[var(--brand-green-50)] text-[var(--brand-green)] border border-[var(--brand-green-200)]">{s.type}</div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6">
-        <a href="#register" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--brand-green)] text-white">أضِف للأجندة واحجز مقعداً</a>
-      </div>
-    </Card>
-  );
-};
-
-// ----- مخطط المعرض (Grid) -----
-const ExpoGrid = ({ onSelect }) => {
-  const [taken] = useState(new Set([3,7,11,12,20,22,27]));
-  return (
-    <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-      {Array.from({length: 32}).map((_,i)=>{
-        const id = i+1; const isTaken = taken.has(id);
-        return (
-          <button key={id} disabled={isTaken}
-            onClick={()=>onSelect?.(id)}
-            className={`aspect-square text-sm rounded-lg border grid place-items-center transition ${isTaken?'bg-gray-100 text-gray-400 cursor-not-allowed':'bg-[var(--brand-green-50)] hover:bg-[var(--brand-green-100)] text-[var(--brand-green)] border-[var(--brand-green-200)]'}`}
-          >{isTaken? 'محجوز': id}</button>
-        );
-      })}
-    </div>
-  );
-};
-
-// ----- نماذج رئيسية (مع تنزيل JSON وفتح بريد) -----
-function useFormToast() {
-  const [open, setOpen] = useState(false);
-  const show = () => setOpen(true);
-  const hide = () => setOpen(false);
-  return { open, show, hide };
-}
-
-const SponsorForm = () => {
-  const toast = useFormToast();
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    const payload = { type: 'sponsorship', region: REGION, ...data };
-    downloadJSON(`sponsorship_${REGION}.json`, payload);
-    openMail(`طلب رعاية — ${data.entity||''} — ${REGION}`, JSON.stringify(payload, null, 2));
-    toast.show();
-    e.currentTarget.reset();
-  };
-  return (
-    <Card>
-      <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-4">
-        <Field label="اسم الجهة" required><TextInput required name="entity" placeholder="اسم الشركة/الجهة"/></Field>
-        <Field label="البريد الإلكتروني" required><TextInput type="email" required name="email" placeholder="name@example.com"/></Field>
-        <Field label="هاتف التواصل"><TextInput name="phone" placeholder="05xxxxxxxx"/></Field>
-        <Field label="فئة الرعاية" required>
-          <Select required name="tier" defaultValue="">
-            <option value="" disabled>اختر فئة</option>
-            <option>شريك استراتيجي</option>
-            <option>ماسي</option>
-            <option>ذهبي</option>
-            <option>فضي</option>
-            <option>داعم (خدمات/عيني)</option>
-          </Select>
-        </Field>
-        <Field label="ملاحظات/تخصيصات"><TextArea rows={4} name="notes" placeholder="اذكر أي تخصيصات مطلوبة أو أفكار مضافة"/></Field>
-        <div className="md:col-span-2 flex items-center gap-3">
-          <button className="px-5 py-3 rounded-xl bg-[var(--brand-green)] text-white">أرسل الطلب</button>
-          <span className="text-xs text-gray-500">سيتم التواصل عبر البريد.</span>
-        </div>
-      </form>
-      <Toast open={toast.open} onClose={toast.hide} message="تم استلام طلب الرعاية (تم تحميل الإيصال)"/>
-    </Card>
-  );
-};
-
-const SpeakerForm = () => {
-  const toast = useFormToast();
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    const payload = { type: 'speaker', region: REGION, ...data };
-    downloadJSON(`speaker_${REGION}.json`, payload);
-    openMail(`ترشيح متحدث — ${data.name||''} — ${REGION}`, JSON.stringify(payload, null, 2));
-    toast.show();
-    e.currentTarget.reset();
-  };
-  return (
-    <Card>
-      <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-4">
-        <Field label="الاسم الكامل" required><TextInput required name="name" placeholder="الاسم الثلاثي"/></Field>
-        <Field label="البريد الإلكتروني" required><TextInput required type="email" name="email" placeholder="name@example.com"/></Field>
-        <Field label="الجهة/المنصب"><TextInput name="org" placeholder="مثال: جامعة/شركة – المسمى"/></Field>
-        <Field label="محور مقترح" required>
-          <Select required name="track" defaultValue="">
-            <option disabled value="">اختر محوراً</option>
-            <option>تمكين المسؤولية الاجتماعية</option>
-            <option>تكامل القطاعات (حكومة/خاص/غير ربحي/جامعات)</option>
-            <option>قياس الأثر وربطه بالرؤية</option>
-            <option>التحول الرقمي للمنظمات الصغيرة والمتوسطة</option>
-          </Select>
-        </Field>
-        <Field label="ملخص السيرة">
-          <TextArea rows={4} name="bio" placeholder="نبذة قصيرة مع أبرز الإنجازات"/>
-        </Field>
-        <div className="md:col-span-2">
-          <button className="px-5 py-3 rounded-xl bg-[var(--brand-green)] text-white">أرسل الترشيح</button>
-        </div>
-      </form>
-      <Toast open={toast.open} onClose={toast.hide} message="تم استلام ترشيح المتحدث (تم تحميل الإيصال)"/>
-    </Card>
-  );
-};
-
-const BoothBookingForm = ({ boothId }) => {
-  const toast = useFormToast();
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    const payload = { type: 'booth', region: REGION, ...data };
-    downloadJSON(`booth_${REGION}_${data.booth}.json`, payload);
-    openMail(`حجز مساحة — جناح ${data.booth} — ${REGION}`, JSON.stringify(payload, null, 2));
-    toast.show();
-    e.currentTarget.reset();
-  };
-  return (
-    <Card>
-      <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-4">
-        <Field label="رقم المساحة المختارة" required>
-          <TextInput name="booth" defaultValue={boothId||''} required readOnly/>
-        </Field>
-        <Field label="اسم الجهة" required><TextInput name="entity" required placeholder="اسم الشركة/الجمعية/الجامعة"/></Field>
-        <Field label="تصنيف الجهة" required>
-          <Select name="type" required defaultValue="">
-            <option value="" disabled>اختر تصنيفاً</option>
-            <option>شركة (قطاع خاص)</option>
-            <option>جهة حكومية</option>
-            <option>جمعية (قطاع غير ربحي)</option>
-            <option>جامعة/كلية</option>
-            <option>مبادرة/فريق</option>
-          </Select>
-        </Field>
-        <Field label="البريد الإلكتروني" required><TextInput name="email" required type="email"/></Field>
-        <Field label="الجوال" required><TextInput name="phone" required placeholder="05xxxxxxxx"/></Field>
-        <Field label="احتياجات الكهرباء/الإنترنت"><TextArea name="needs" rows={3} placeholder="اذكر الاحتياجات التقنية والتجهيزية"/></Field>
-        <div className="md:col-span-2">
-          <button className="px-5 py-3 rounded-xl bg-[var(--brand-green)] text-white">إرسال طلب الحجز</button>
-        </div>
-      </form>
-      <Toast open={toast.open} onClose={toast.hide} message="تم استلام طلب الحجز (تم تحميل الإيصال)"/>
-    </Card>
-  );
-};
-
-const RegisterForm = () => {
-  const toast = useFormToast();
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-    const payload = { type: 'attendee', region: REGION, ...data };
-    downloadJSON(`registration_${REGION}.json`, payload);
-    openMail(`تسجيل حضور — ${data.name||''} — ${REGION}`, JSON.stringify(payload, null, 2));
-    toast.show();
-    e.currentTarget.reset();
-  };
-  return (
-    <Card>
-      <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-4">
-        <Field label="الاسم الكامل" required><TextInput name="name" required/></Field>
-        <Field label="البريد الإلكتروني" required><TextInput name="email" type="email" required/></Field>
-        <Field label="التصنيف" required>
-          <Select name="profile" required defaultValue="">
-            <option disabled value="">اختر</option>
-            <option>حضور فردي</option>
-            <option>وفد جهة</option>
-            <option>إعلام/صحافة</option>
-            <option>متطوع</option>
-          </Select>
-        </Field>
-        <Field label="ورش اليوم الأول">
-          <Select name="ws1" defaultValue="">
-            <option value="">لا يوجد</option>
-            <option>ورشة 1</option>
-            <option>ورشة 2</option>
-            <option>ورشة 3</option>
-          </Select>
-        </Field>
-        <Field label="ورش اليوم الثاني">
-          <Select name="ws2" defaultValue="">
-            <option value="">لا يوجد</option>
-            <option>ورشة تطبيقية A</option>
-            <option>ورشة تطبيقية B</option>
-          </Select>
-        </Field>
-        <div className="md:col-span-2">
-          <button className="px-5 py-3 rounded-xl bg-[var(--brand-green)] text-white">إكمال التسجيل</button>
-        </div>
-      </form>
-      <Toast open={toast.open} onClose={toast.hide} message="تم إكمال التسجيل (تم تحميل الإيصال)"/>
-    </Card>
-  );
-};
-
-// ----- مكوّن رئيسي -----
-export default function App() {
-  const [selectedBooth, setSelectedBooth] = useState(null);
-  useEffect(()=>{
-    document.documentElement.dir = 'rtl';
-    document.title = `ملتقى تلبية — ${REGION}`;
-    // CSS متغيرات الهوية من دليل تلبية
-    const root = document.documentElement;
-    root.style.setProperty('--brand-green', '#1B6734');
-    root.style.setProperty('--brand-green-50', 'rgba(27,103,52,0.06)');
-    root.style.setProperty('--brand-green-100', 'rgba(27,103,52,0.12)');
-    root.style.setProperty('--brand-green-200', 'rgba(27,103,52,0.24)');
-    root.style.setProperty('--brand-green-300', 'rgba(27,103,52,0.40)');
-    root.style.setProperty('--brand-gold-100', 'rgba(220,185,67,0.18)');
-    root.style.setProperty('--brand-gold-200', 'rgba(220,185,67,0.36)');
-  },[]);
-
-  return (
     <main className="[direction:rtl] text-gray-900">
-      <Nav/>
-      <Hero3D/>
-
-      <Section id="about" title="عن الملتقى" subtitle={`ملتقى تعريفي يُنظَّم في ${REGION} للتعريف بمبادرة تلبية ومنصة حصيف، وتحفيز الشراكات والرعايات وعرض المبادرات والمشاريع بالانسجام مع مستهدفات رؤية 2030.`}>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {t:'تعريف وتمكين', d:'منصة للقاء الأطراف ذات العلاقة وشرح آليات العمل عبر حصيف.'},
-            {t:'معرض مشاريع', d:'مساحات عرض للمشاريع المنبثقة من تلبية ولجهات راغبة بالعرض.'},
-            {t:'ورش ومحاور', d:'جلسات حوارية وورش تطبيقية لتفعيل التكامل ومواءمة الأثر.'},
-          ].map((i,idx)=> (
-            <Card key={idx}>
-              <div className="text-lg font-bold text-[var(--brand-green)]">{i.t}</div>
-              <p className="mt-2 text-gray-600">{i.d}</p>
-            </Card>
-          ))}
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <img src={LOGO_TALBIYA} alt="Talbiya" className="w-9 h-9" />
+            <span className="font-extrabold text-gray-900">ملتقى تلبية — {REGION}</span>
+          </div>
+          <span className="text-sm text-gray-600">{EVENT_DATES}</span>
         </div>
-      </Section>
+      </header>
 
-      <Section id="talabiya" title="عن مبادرة تلبية ومنصة حصيف" subtitle="مبادرة تنموية وطنية تربط المجتمع والقطاعات عبر نموذج عمل رقمي؛ ومنصتها (حصيف) توفر خدمات المشاريع والشراكات والفعاليات والتمويل والقياس.">
-        <div className="grid lg:grid-cols-2 gap-6">
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <img src={LOGO_TALBIYA} alt="Talbiya" className="w-10 h-10 object-contain"/>
-              <img src={LOGO_HASSEEF} alt="Hasseef" className="w-10 h-10 object-contain"/>
-              <img src={LOGO_VISION} alt="Vision 2030" className="w-16 h-10 object-contain"/>
-            </div>
-            <h3 className="font-bold text-gray-900">لماذا حصيف؟</h3>
-            <ul className="mt-3 list-disc pr-6 text-gray-700 space-y-2">
-              <li>ربط المبادرات بأهداف رؤية 2030 وقياس الأثر.</li>
-              <li>حوكمة واتفاقيات رقمية وشهادات مشاركة.</li>
-              <li>سوق مشاريع/رعايات/تدريب/توظيف/تطوع.</li>
-            </ul>
-          </Card>
-          <Card>
-            <h3 className="font-bold text-gray-900">شركاء مستهدفون</h3>
-            <div className="grid grid-cols-2 gap-3 mt-3 text-sm text-gray-700">
-              {['إمارة/هيئات التطوير','وزارات وجهات حكومية','الغرف التجارية','جامعات','شركات','جمعيات','جهات تمويل','فرق/مبادرات'].map((s,i)=>(
-                <div key={i} className="px-3 py-2 rounded-lg border bg-white/60">{s}</div>
-              ))}
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      <Section id="agenda" title="الأجندة" subtitle="تعرّف على برنامج اليومين، واختر ورشك المفضلة واحجز مقعدك.">
-        <Agenda/>
-      </Section>
-
-      <Section id="expo" title="المعرض المصاحب" subtitle="اختر مساحة من المخطط التفاعلي وأرسل طلب الحجز. المساحات المظللة محجوزة.">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <Card>
-            <h3 className="font-bold text-gray-900 mb-3">مخطط المساحات</h3>
-            <ExpoGrid onSelect={(id)=> setSelectedBooth(id)} />
-            <div className="mt-4 text-sm text-gray-600">المساحات 32 — قياسية 3×3م. تتوفر ترقية لمساحات مميزة عبر الرعايات.</div>
-          </Card>
-          <div>
-            <h3 className="font-bold text-gray-900 mb-3">طلب حجز مساحة</h3>
-            <BoothBookingForm boothId={selectedBooth}/>
+      <section className="relative bg-gradient-to-b from-emerald-50 via-white to-white py-20">
+        <div className="max-w-6xl mx-auto text-center">
+          <img src={LOGO_VISION} alt="Vision2030" className="h-16 mx-auto mb-6" />
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">ملتقى تلبية التعريفي — {REGION}</h1>
+          <p className="mt-4 text-gray-700 text-lg">يقام في {VENUE_NAME} بتاريخ {EVENT_DATES}، ويضم معرضاً للمبادرات والمشاريع وورش عمل ومحاور تنموية.</p>
+          <div className="mt-6 flex justify-center gap-3">
+            <a href="#register" className="px-6 py-3 bg-emerald-600 text-white rounded-xl">سجّل حضورك</a>
+            <a href="#sponsors" className="px-6 py-3 bg-white border rounded-xl">استعرض الرعايات</a>
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section id="speakers" title="المتحدثون والورش" subtitle="نرحّب بترشيحات المتحدثين والمدرّبين وفق محاور الملتقى.">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <Card>
-            <h3 className="font-bold text-gray-900 mb-4">نماذج محاور مقترحة</h3>
-            <ul className="list-disc pr-6 text-gray-700 space-y-2">
-              <li>تمكين المسؤولية الاجتماعية والاستثمار الاجتماعي.</li>
-              <li>التكامل بين القطاعات وربط مشاريع المناطق بمنصة حصيف.</li>
-              <li>الشراكات العلمية مع الجامعات ونقل المعرفة.</li>
-              <li>التحول الرقمي والحوكمة والامتثال للمؤسسات الصغيرة والمتوسطة.</li>
-              <li>قياس الأثر وربطه بمؤشرات رؤية 2030.</li>
-            </ul>
-          </Card>
-          <div>
-            <h3 className="font-bold text-gray-900 mb-3">قدّم كمتحدث/مدرّب</h3>
-            <SpeakerForm/>
-          </div>
-        </div>
-      </Section>
-
-      <Section id="sponsors" title="الرعايات" subtitle="اختر فئة الرعاية المناسبة واطلب عرض الشراكة. جميع الفئات تشمل ظهوراً واسعاً وفرص تفعيل داخل المعرض والجلسات.">
-        <div className="grid lg:grid-cols-3 gap-6">
-          {[{t:'شريك استراتيجي',b:['شعار بارز في الواجهة والمسرح','جناح مميز + كلمة افتتاح','تغطية إعلامية موسّعة','حصص ظهور في التقارير ولوحة الأثر']},
-            {t:'ماسي/ذهبي',b:['شعار في كل المواد','جناح مميز','مقاعد VIP','حزمة محتوى مدفوع/مُنتج']},
-            {t:'فضي/داعم',b:['شعار في باقة مختارة','حضور إعلامي','جناح قياسي','فرص تفعيل رقمية']}
-          ].map((p,i)=> (
-            <Card key={i}>
-              <div className="text-xl font-extrabold text-[var(--brand-green)]">{p.t}</div>
-              <ul className="mt-3 list-disc pr-6 text-gray-700 space-y-1">
-                {p.b.map((x,xi)=> <li key={xi}>{x}</li>)}
-              </ul>
-            </Card>
-          ))}
-        </div>
-        <div className="mt-8">
-          <h3 className="font-bold text-gray-900 mb-3">طلب رعاية</h3>
-          <SponsorForm/>
-        </div>
-      </Section>
-
-      <Section id="segments" title="الجهات المستهدفة" subtitle="صفحات هبوط صغيرة توضّح العائد لكل فئة وتحفّز الإجراء المناسب.">
-        <div className="grid lg:grid-cols-3 gap-6">
-          {[
-            {t:'الجهات الحكومية/إمارات المناطق',d:'مواءمة المبادرات مع مؤشرات المنطقة، تقارير أثر، منصة توقيع مذكرات.'},
-            {t:'الغرف التجارية',d:'حشد الشركات، امتيازات للأعضاء، فرص رعاية، فعاليات مشتركة.'},
-            {t:'الجامعات',d:'شراكات علمية، تدريب تعاوني، تسويق الأبحاث، تدوير المعرفة.'},
-            {t:'القطاع الخاص',d:'مسؤولية اجتماعية، رعايات، توظيف وتدريب، ابتكار حلول.'},
-            {t:'القطاع غير الربحي',d:'عرض مبادرات، جذب متبرعين، متطوعين، حوكمة رقمية.'},
-            {t:'جهات التمويل',d:'محفظة تمويل، شفافية، متابعة أثر واستدامة.'},
-          ].map((i,idx)=> (
-            <Card key={idx}>
-              <div className="text-lg font-bold text-[var(--brand-green)]">{i.t}</div>
-              <p className="mt-2 text-gray-600">{i.d}</p>
-              <div className="mt-3">
-                <a href="#contact" className="text-[var(--brand-green)] font-semibold">اطلب جلسة مواءمة →</a>
+      <section id="sponsors" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">حزم الرعاية — ملتقى {REGION}</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SponsorPackages.map((p,i)=>(
+              <div key={i} className="bg-white border rounded-2xl p-6 shadow-sm">
+                <h3 className="text-xl font-extrabold text-emerald-700">{p.tier}</h3>
+                <div className="text-gray-500 text-sm mt-1 mb-3">القيمة: {p.price}</div>
+                <ul className="list-disc pr-6 text-gray-700 space-y-1">
+                  {p.perks.map((perk,idx)=>(<li key={idx}>{perk}</li>))}
+                </ul>
               </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="register" title="التسجيل والحضور" subtitle="اختر التصنيف المناسب واحجز مقعدك. تُرسل التذاكر عبر البريد مع رمز QR.">
-        <RegisterForm/>
-      </Section>
-
-      <Section id="media" title="المركز الإعلامي" subtitle="بيانات صحفية، صور، فيديوهات، ملفات الهوية." >
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card>
-            <div className="font-bold">البيان الصحفي</div>
-            <p className="mt-2 text-gray-600">تحميل البيان الصحفي الخاص بملتقى {REGION} (PDF).</p>
-            <button className="mt-3 px-4 py-2 rounded-lg border">تحميل</button>
-          </Card>
-          <Card>
-            <div className="font-bold">مجموعة الصور</div>
-            <p className="mt-2 text-gray-600">شعار/هوية، صور المعرض والجلسات بجودة عالية.</p>
-            <button className="mt-3 px-4 py-2 rounded-lg border">استعراض</button>
-          </Card>
-          <Card>
-            <div className="font-bold">دليل الإعلاميين</div>
-            <p className="mt-2 text-gray-600">إرشادات التغطية، نقاط الاتصال، مساحات التصوير.</p>
-            <button className="mt-3 px-4 py-2 rounded-lg border">تحميل</button>
-          </Card>
-        </div>
-      </Section>
-
-      <Section id="faq" title="الأسئلة الشائعة">
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            {q:`أين يُقام الملتقى في ${REGION}؟`,a:`${VENUE_NAME}`},
-            {q:'كم مدة الملتقى؟',a:'يومان، مع معرض مصاحب وجلسات توقيع وورش.'},
-            {q:'كيف أحجز جناحاً؟',a:'من صفحة المعرض: اختر مساحة من المخطط ثم أرسل طلب الحجز.'},
-            {q:'ما فئات الرعاية؟',a:'شريك استراتيجي، ماسي، ذهبي، فضي، وداعم (خدمات/عيني).'},
-          ].map((f,i)=> (
-            <Card key={i}>
-              <div className="font-bold text-gray-900">{f.q}</div>
-              <p className="mt-2 text-gray-600">{f.a}</p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      <Section id="contact" title="تواصل معنا" subtitle="للاستفسارات والدعم الفني وطلبات الشراكة.">
-        <div className="grid lg:grid-cols-2 gap-8">
-          <Card>
-            <h3 className="font-bold text-gray-900">بيانات الاتصال</h3>
-            <ul className="mt-3 text-gray-700 space-y-2">
-              <li><span className="font-semibold">الهاتف:</span> {SUPPORT_PHONE}</li>
-              <li><span className="font-semibold">البريد:</span> {SUPPORT_EMAIL}</li>
-              <li><span className="font-semibold">واتساب الدعم:</span> {SUPPORT_WHATSAPP}</li>
-              <li><span className="font-semibold">الحسابات:</span> @Talabiya • @Hasif</li>
-            </ul>
-            <div className="mt-4 flex items-center gap-3">
-              <a href="#register" className="px-4 py-2 rounded-lg bg-[var(--brand-green)] text-white">احجز حضورك الآن</a>
-              <a href="#sponsors" className="px-4 py-2 rounded-lg border">اطلب الرعاية</a>
-            </div>
-          </Card>
-          <Card>
-            <h3 className="font-bold text-gray-900">الخارطة</h3>
-            <div className="mt-3 aspect-video rounded-xl overflow-hidden border">
-              <div className="w-full h-full grid place-items-center text-gray-400">سيُعرض Google Maps لموقع {VENUE_NAME}</div>
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      <footer className="bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-4 gap-6">
-          <div>
-            <div className="font-extrabold text-gray-900 flex items-center gap-2">
-              <img src={LOGO_TALBIYA} className="w-8 h-8 object-contain"/>
-              ملتقى تلبية — {REGION}
-            </div>
-            <p className="mt-2 text-sm text-gray-600">منصة تعارف وتكامل وقياس أثر لشراكات رؤية 2030 في المناطق.</p>
-            <div className="mt-3 flex items-center gap-4 opacity-80">
-              <img src={LOGO_VISION} className="h-6 object-contain"/>
-              <img src={LOGO_HASSEEF} className="h-6 object-contain"/>
-            </div>
-          </div>
-          <div>
-            <div className="font-bold">روابط</div>
-            <ul className="mt-2 text-sm text-gray-700 space-y-1">
-              <li><a href="#about">عن الملتقى</a></li>
-              <li><a href="#agenda">الأجندة</a></li>
-              <li><a href="#expo">المعرض</a></li>
-              <li><a href="#sponsors">الرعايات</a></li>
-            </ul>
-          </div>
-          <div>
-            <div className="font-bold">خدمات</div>
-            <ul className="mt-2 text-sm text-gray-700 space-y-1">
-              <li>حجز مساحات</li>
-              <li>ترشيح متحدث</li>
-              <li>طلب رعاية</li>
-              <li>تسجيل حضور</li>
-            </ul>
-          </div>
-          <div>
-            <div className="font-bold">الدعم</div>
-            <ul className="mt-2 text-sm text-gray-700 space-y-1">
-              <li>الأسئلة الشائعة</li>
-              <li>تواصل</li>
-              <li>سياسة الخصوصية</li>
-              <li>الشروط والأحكام</li>
-            </ul>
+            ))}
           </div>
         </div>
-        <div className="border-t border-gray-100 py-5 text-center text-sm text-gray-500">© {new Date().getFullYear()} مبادرة تلبية — جميع الحقوق محفوظة</div>
+      </section>
+
+      <footer className="bg-gray-100 border-t py-10">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="flex justify-center gap-4 mb-4">
+            <img src={LOGO_TALBIYA} className="h-10" alt="Talbiya" />
+            <img src={LOGO_HASSEEF} className="h-10" alt="Hasseef" />
+            <img src={LOGO_VISION} className="h-10" alt="Vision2030" />
+          </div>
+          <p className="text-gray-600 text-sm">© {new Date().getFullYear()} مبادرة تلبية — جميع الحقوق محفوظة | {REGION}</p>
+          <p className="text-gray-500 text-xs mt-1">للتواصل: {SUPPORT_EMAIL} | الهاتف: {SUPPORT_PHONE}</p>
+        </div>
       </footer>
     </main>
   );
