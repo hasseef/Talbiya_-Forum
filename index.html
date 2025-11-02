@@ -110,47 +110,29 @@ function normalizeRow(r){
 }
 
 async function fetchFromSheet() {
-  // إن لم يُضبط SHEET_URL سنستخدم النسخة الافتراضية المضمّنة
+  // إذا لم يُضبط SHEET_URL نستخدم النسخة الافتراضية المضمّنة
   if (!SHEET_URL || SHEET_URL.includes('REPLACE_SHEET_ID')) {
     const rows = parseCSV(DEFAULT_SHEET_CSV);
     const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
     return mapped;
   }
   const res = await fetch(SHEET_URL, { cache: 'no-store' });
-  const contentType = res.headers.get('content-type')||'';
+  const contentType = res.headers.get('content-type') || '';
   const text = await res.text();
   let rows = [];
   try {
     if (contentType.includes('application/json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
       const json = JSON.parse(text);
-      rows = Array.isArray(json) ? json : (json.rows||json.data||[]);
+      rows = Array.isArray(json) ? json : (json.rows || json.data || []);
     } else {
       rows = parseCSV(text);
     }
   } catch (e) {
     console.error('Parsing error', e); rows = [];
   }
-  const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
-  return mapped;
-});
-  const contentType = res.headers.get('content-type')||'';
-  const text = await res.text();
-  let rows = [];
-  try {
-    if (contentType.includes('application/json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
-      const json = JSON.parse(text);
-      rows = Array.isArray(json) ? json : (json.rows||json.data||[]);
-    } else {
-      rows = parseCSV(text);
-    }
-  } catch (e) {
-    console.error('Parsing error', e); rows = [];
-  }
-  // فلترة وتحويل
   const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
   return mapped;
 }
-
 function buildRegionLink(id, venueName) {
   const url = new URL(window.location.href);
   url.searchParams.set('region', id);
