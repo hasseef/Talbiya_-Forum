@@ -303,35 +303,74 @@ aljouf,الجوف,—,مركز الجوف الدولي للمعارض`;
     function RegistrationSection(){ return (<section id="register" className="py-16 bg-gray-50"><div className="container mx-auto px-4">
       <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">التسجيل والحجوزات</h3>
       <div className="grid md:grid-cols-2 gap-6">
-        <form className="bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-2xl p-6 shadow-glass" onSubmit={(e)=>{e.preventDefault(); const f=e.target; sendFormOrMail('register', {الاسم:f[0].value, البريد:f[1].value, الجوال:f[2].value, الصفة:f[3].value});}}>
-          <div className="font-extrabold text-[var(--green-identity)] mb-3">تسجيل الحضور</div>
-          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الاسم الكامل" required />
-          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="البريد الإلكتروني" type="email" required />
-          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الجوال" />
-          <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
-            <option value="" disabled>اختر الصفة</option>
-            <option>فرد</option>
-            <option>جهة</option>
-          </select>
-          <button className="w-full px-5 py-3 bg-[var(--green-identity)] text-white rounded-xl">إرسال</button>
-        </form>
-        <form id="expo-form" className="bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-2xl p-6 shadow-glass" onSubmit={(e)=>{e.preventDefault(); const f=e.target; sendFormOrMail('expo', {نوع_العارض:f[0].value, المساحة:f[1].value, نبذة:f[2].value});}}>
-          <div className="font-extrabold text-[var(--green-identity)] mb-3">طلب جناح في المعرض</div>
-          <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
-            <option value="" disabled>نوع العارض</option>
-            <option>مشروع من مبادرة تلبية</option>
-            <option>جمعية</option>
-            <option>شركة</option>
-          </select>
-          <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
-            <option value="" disabled>المساحة المطلوبة</option>
-            <option>3×3 م</option>
-            <option>4×4 م</option>
-            <option>6×6 م</option>
-          </select>
-          <textarea className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="نبذة مختصرة عن المشاركة" rows="4"></textarea>
-          <button className="w-full px-5 py-3 bg-[var(--green-identity)] text-white rounded-xl">إرسال الطلب</button>
-        </form>
+        
+<form className="bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-2xl p-6 shadow-glass" onSubmit={(e)=>{
+  e.preventDefault();
+  const f = e.target;
+  const payload = {
+    'الاسم': f.fullname.value,
+    'البريد': f.email.value,
+    'الجوال': f.phone.value,
+    'الصفة': f.role.value,
+    'المنطقة المختارة': document.querySelector('header select')?.selectedOptions[0]?.textContent || ''
+  };
+  sendFormOrMail('register', payload);
+}}>
+  <div className="font-extrabold text-[var(--green-identity)] mb-3">تسجيل الحضور</div>
+  <input name="fullname" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الاسم الكامل" required />
+  <input name="email" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="البريد الإلكتروني" type="email" required />
+  <input name="phone" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الجوال" />
+  <select name="role" className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="" required>
+    <option value="" disabled>اختر الصفة</option>
+    <option>فرد</option>
+    <option>جهة</option>
+    <option>متحدث/مدرب</option>
+    <option>راعٍ محتمل</option>
+  </select>
+  <button className="w-full px-5 py-3 bg-[var(--green-identity)] text-white rounded-xl">إرسال</button>
+</form>
+
+        
+<form id="expo-form" className="bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-2xl p-6 shadow-glass" onSubmit={(e)=>{
+  e.preventDefault();
+  const f = e.target;
+  const payload = {
+    'اسم الجهة/المبادرة': f.org.value,
+    'نوع العارض': f.exhibitor_type.value,
+    'المساحة المطلوبة': f.size.value,
+    'نبذة': f.brief.value,
+    'مسؤول التواصل': f.contact.value,
+    'البريد': f.email.value,
+    'الجوال': f.phone.value
+  };
+  sendFormOrMail('expo', payload);
+}}>
+  <div className="font-extrabold text-[var(--green-identity)] mb-3">طلب جناح في المعرض</div>
+  <input name="org" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="اسم الجهة/المبادرة" required />
+  <select name="exhibitor_type" className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="" required>
+    <option value="" disabled>نوع العارض</option>
+    <option>جهة حكومية</option>
+    <option>جهة مانحة</option>
+    <option>جامعة</option>
+    <option>شركة</option>
+    <option>جمعية</option>
+    <option>أخرى</option>
+  </select>
+  <select name="size" className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="" required>
+    <option value="" disabled>المساحة المطلوبة</option>
+    <option>3×3 م</option>
+    <option>4×4 م</option>
+    <option>6×6 م</option>
+  </select>
+  <textarea name="brief" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="نبذة مختصرة عن المشاركة" rows="4" required></textarea>
+  <div className="grid sm:grid-cols-3 gap-3">
+    <input name="contact" className="w-full border rounded-xl px-3 py-2" placeholder="مسؤول التواصل" required />
+    <input name="email" className="w-full border rounded-xl px-3 py-2" placeholder="البريد الإلكتروني" type="email" required />
+    <input name="phone" className="w-full border rounded-xl px-3 py-2" placeholder="الجوال" />
+  </div>
+  <button className="w-full mt-4 px-5 py-3 bg-[var(--green-identity)] text-white rounded-xl">إرسال الطلب</button>
+</form>
+
       </div></div></section>); }
 
     function SpeakerCFPSection(){ return (<section id="cfp" className="py-16 bg-white"><div className="container mx-auto px-4">
@@ -423,7 +462,46 @@ aljouf,الجوف,—,مركز الجوف الدولي للمعارض`;
 
           <EventDetails region={active} />
         {showAdmin && <AdminPanel regions={regions} setRegions={setRegions} />}
-        <AboutTalbiya /><AboutHasseefBrief /><ProgramAgenda /><ExpoSection /><SponsorshipSection /><RegistrationSection /><SpeakerCFPSection />
+        <AboutTalbiya /><AboutHasseefBrief /><ProgramAgenda /><ExpoSection /><SponsorshipSection />
+        <section id="sponsor-form" className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">نموذج التقديم على الرعاية</h3>
+            <form className="bg-white/70 dark:bg-white/5 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-2xl p-6 max-w-3xl mx-auto shadow-glass" onSubmit={(e)=>{
+              e.preventDefault();
+              const f = e.target;
+              const payload = {
+                'اسم الجهة': f.org.value,
+                'السجل التجاري/الترخيص': f.cr.value,
+                'الشخص المسؤول': f.contact.value,
+                'البريد': f.email.value,
+                'الجوال': f.phone.value,
+                'باقة الرعاية': f.tier.value,
+                'روابط حسابات': f.links.value,
+                'ملاحظات': f.notes.value
+              };
+              sendFormOrMail('sponsor', payload);
+            }}>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <input name="org" className="w-full border rounded-xl px-3 py-2" placeholder="اسم الجهة" required />
+                <input name="cr" className="w-full border rounded-xl px-3 py-2" placeholder="السجل التجاري/الترخيص" />
+                <input name="contact" className="w-full border rounded-xl px-3 py-2" placeholder="الشخص المسؤول" required />
+                <input name="email" className="w-full border rounded-xl px-3 py-2" placeholder="البريد الإلكتروني" type="email" required />
+                <input name="phone" className="w-full border rounded-xl px-3 py-2" placeholder="الجوال" />
+                <select name="tier" className="w-full border rounded-xl px-3 py-2" defaultValue="" required>
+                  <option value="" disabled>اختر باقة الرعاية</option>
+                  <option>شريك استراتيجي</option>
+                  <option>راعي ماسي</option>
+                  <option>ذهبي</option>
+                  <option>فضي</option>
+                </select>
+              </div>
+              <input name="links" className="w-full border rounded-xl px-3 py-2 mt-3" placeholder="روابط الحسابات (اختياري)" />
+              <textarea name="notes" className="w-full border rounded-xl px-3 py-2 mt-3" placeholder="ملاحظات إضافية" rows="4"></textarea>
+              <button className="w-full mt-4 px-5 py-3 bg-[var(--green-identity)] text-white rounded-xl">إرسال طلب الرعاية</button>
+            </form>
+          </div>
+        </section>
+<RegistrationSection /><SpeakerCFPSection />
           <section id="contact" className="py-14 bg-gray-50">
             <div className="container mx-auto px-4 text-center">
               <h3 className="text-2xl font-bold mb-4">التواصل والدعم الفني</h3>
