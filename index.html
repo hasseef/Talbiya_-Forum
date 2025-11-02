@@ -1,86 +1,356 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 /**
- * ملتقى تلبية — موقع تعريفي تفاعلي — منطقة حائل (جاهز لتغيير المنطقة لاحقاً)
- * يتضمن جميع العناصر المفعّلة: الشعارات، النماذج، التاريخ والموقع، وحزم الرعاية بأسعار وامتيازات.
+ * ملتقيات تلبية — متعددة المناطق + روابط نظيفة لكل منطقة + إخفاء لوحة التحكم افتراضياً
+ * - صفحة واحدة (SPA) تولّد رابطاً خاصاً لكل منطقة: ?region=<id> أو #<id>
+ * - لوحة التحكم لا تظهر للمستخدم إطلاقاً إلا عند تمرير ?admin=1 (أو وجود tal_admin=true في localStorage)
+ * - زر "نسخ رابط الملتقى" لكل منطقة لنسخ الرابط النظيف للمشاركة.
  */
 
-const REGION = 'حائل';
-const EVENT_DATES = '11 يناير 2026م الموافق 2 رجب 1447هـ (يومان)';
-const VENUE_NAME = 'مركز معارض حائل الدولي — القاعة الرئيسية';
-const SUPPORT_PHONE = '9200 00000';
-const SUPPORT_WHATSAPP = '05xxxxxxx';
+const STORAGE_KEY = 'talbiya_regions_v1';
 const SUPPORT_EMAIL = 'info@talbiya.sa';
-
+const SUPPORT_PHONE = '9200 00000';
 const LOGO_TALBIYA = "/mnt/data/talbiya.png";
-const LOGO_VISION  = "/mnt/data/Vision2030.png";
+const LOGO_VISION = "/mnt/data/Vision2030.png";
 const LOGO_HASSEEF = "/mnt/data/hasseef.png";
 
-const SponsorPackages = [
-  {
-    tier: 'شريك استراتيجي',
-    price: '200,000 ريال',
-    perks: [
-      'شعار بارز في المسرح والواجهة الرئيسية',
-      'جناح مميز بمساحة 6×6 م',
-      'كلمة في الافتتاح',
-      'تغطية إعلامية موسعة (صحف، تلفزيون، سوشال)',
-      'شعار في جميع المواد المطبوعة والإلكترونية',
-      'مقاعد VIP للوفد التنفيذي',
-      'ظهور في لوحة المؤشرات والتقارير الختامية'
-    ]
-  },
-  {
-    tier: 'راعي ماسي',
-    price: '100,000 ريال',
-    perks: [
-      'شعار في المسرح والشاشات الداخلية',
-      'جناح مميز بمساحة 4×4 م',
-      'ذكر في المواد الإعلامية الرسمية',
-      'ظهور في التقارير ولوحة الأثر',
-      '5 مقاعد VIP',
-      'فرص تفعيل ضمن الورش والجلسات'
-    ]
-  },
-  {
-    tier: 'راعي ذهبي',
-    price: '70,000 ريال',
-    perks: [
-      'شعار في المعرض وعلى الموقع الإلكتروني',
-      'جناح بمساحة 3×3 م',
-      'إدراج كشريك في الدليل الإلكتروني',
-      '3 مقاعد VIP',
-      'تغطية رقمية عبر قنوات الملتقى'
-    ]
-  },
-  {
-    tier: 'راعي فضي',
-    price: '40,000 ريال',
-    perks: [
-      'شعار في الدليل الإلكتروني',
-      'جناح قياسي',
-      'فرص تفعيل رقمية',
-      '2 مقعد VIP'
-    ]
-  },
-  {
-    tier: 'راعي داعم (خدمات/عيني)',
-    price: 'حسب التقدير',
-    perks: [
-      'شعار في صفحة الرعاة',
-      'إشادة في التقرير الختامي',
-      'فرص تبادل خدمات'
-    ]
-  }
+// ضع هنا رابط Google Sheet المنشور كـ CSV أو JSON (قراءة فقط)
+// أمثلة مقبولة:
+// - CSV: https://docs.google.com/spreadsheets/d/<SHEET_ID>/pub?gid=0&single=true&output=csv
+// - JSON من AppScript: https://script.google.com/macros/s/<SCRIPT_ID>/exec
+// ضع رابط الـCSV المنشور من Google Sheet هنا عند الجاهزية
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/REPLACE_SHEET_ID/pub?gid=0&single=true&output=csv";
+
+// نسخة افتراضية مضمّنة (CSV) للاستخدام فورًا حتى قبل ربط Google Sheet
+const DEFAULT_SHEET_CSV = `id,name,date,venue
+riyadh,الرياض,—,مركز الرياض الدولي للمؤتمرات والمعارض
+makkah,مكة المكرمة,—,مركز جدة للمنتديات والفعاليات
+madinah,المدينة المنورة,—,مركز المؤتمرات – المدينة
+qassim,القصيم,20 إبريل 2026م الموافق 12 شوال 1447هـ,مركز معارض بريدة الدولي
+eastern,الشرقية,25 فبراير 2026م الموافق 17 شعبان 1447هـ,معارض الظهران الدولية — قاعة المؤتمرات
+asir,عسير,—,مركز أبها الدولي للمعارض
+tabuk,تبوك,—,مركز تبوك للمعارض
+hail,حائل,11 يناير 2026م الموافق 2 رجب 1447هـ,مركز معارض حائل الدولي — القاعة الرئيسية
+northborders,الحدود الشمالية,15 مارس 2026م الموافق 6 رمضان 1447هـ,مركز عرعر للمعارض والمناسبات
+jazan,جازان,—,مركز جازان للمعارض
+najran,نجران,—,مركز نجران للمعارض
+albaha,الباحة,—,مركز الباحة للمعارض
+aljouf,الجوف,—,مركز الجوف الدولي للمعارض`;
+
+const DEFAULT_REGIONS = [
+  { id: 'riyadh',       name: 'الرياض',            date: '—', venue: 'مركز الرياض الدولي للمؤتمرات والمعارض' },
+  { id: 'makkah',       name: 'مكة المكرمة',       date: '—', venue: 'مركز جدة للمنتديات والفعاليات' },
+  { id: 'madinah',      name: 'المدينة المنورة',   date: '—', venue: 'مركز المؤتمرات – المدينة' },
+  { id: 'qassim',       name: 'القصيم',            date: '20 إبريل 2026م الموافق 12 شوال 1447هـ', venue: 'مركز معارض بريدة الدولي' },
+  { id: 'eastern',      name: 'الشرقية',           date: '25 فبراير 2026م الموافق 17 شعبان 1447هـ', venue: 'معارض الظهران الدولية — قاعة المؤتمرات' },
+  { id: 'asir',         name: 'عسير',              date: '—', venue: 'مركز أبها الدولي للمعارض' },
+  { id: 'tabuk',        name: 'تبوك',              date: '—', venue: 'مركز تبوك للمعارض' },
+  { id: 'hail',         name: 'حائل',              date: '11 يناير 2026م الموافق 2 رجب 1447هـ', venue: 'مركز معارض حائل الدولي — القاعة الرئيسية' },
+  { id: 'northborders', name: 'الحدود الشمالية',    date: '15 مارس 2026م الموافق 6 رمضان 1447هـ', venue: 'مركز عرعر للمعارض والمناسبات' },
+  { id: 'jazan',        name: 'جازان',             date: '—', venue: 'مركز جازان للمعارض' },
+  { id: 'najran',       name: 'نجران',             date: '—', venue: 'مركز نجران للمعارض' },
+  { id: 'albaha',       name: 'الباحة',            date: '—', venue: 'مركز الباحة للمعارض' },
+  { id: 'aljouf',       name: 'الجوف',             date: '—', venue: 'مركز الجوف الدولي للمعارض' }
 ];
 
-// يمكن هنا استكمال الكود السابق مع استبدال التاريخ والموقع وحزم الرعاية في قسم الرعايات
-// (الجزء البصري والتفاعلي سيبقى كما هو من النسخة السابقة، مع تحديث EVENT_DATES وVENUE_NAME)
+const SponsorPackages = [
+  { tier: 'شريك استراتيجي', price: '200,000 ريال', perks: ['شعار بارز في المسرح والواجهة','جناح 6×6 م','كلمة افتتاح','تغطية إعلامية','ظهور في التقارير'] },
+  { tier: 'راعي ماسي', price: '100,000 ريال', perks: ['شعار في المسرح','جناح 4×4 م','تغطية رقمية','ظهور في التقارير'] },
+  { tier: 'ذهبي', price: '70,000 ريال', perks: ['شعار بالموقع','جناح 3×3 م','تغطية سوشال'] },
+  { tier: 'فضي', price: '40,000 ريال', perks: ['شعار في الدليل','جناح قياسي'] },
+  { tier: 'داعم', price: 'حسب التقدير', perks: ['شعار في صفحة الرعاة','إشادة في التقرير الختامي'] }
+];
+
+function loadRegions() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return DEFAULT_REGIONS;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : DEFAULT_REGIONS;
+  } catch { return DEFAULT_REGIONS; }
+}
+
+function saveRegions(regions) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(regions));
+}
+
+// --- تكامل Google Sheet (CSV/JSON) ---
+function parseCSV(text) {
+  // مُحلل CSV بسيط يدعم الفواصل والفواصل داخل علامات تنصيص مزدوجة
+  const lines = text.replace(/
+/g,'').split('
+').filter(Boolean);
+  if (!lines.length) return [];
+  const headers = lines[0].split(',').map(h=>h.trim());
+  const rows = [];
+  for (let i=1;i<lines.length;i++){
+    let row = []; let cur=''; let inQ=false; const s=lines[i];
+    for (let j=0;j<s.length;j++){
+      const c=s[j];
+      if (c==='"') { inQ = !inQ; continue; }
+      if (c===',' && !inQ) { row.push(cur); cur=''; continue; }
+      cur += c;
+    }
+    row.push(cur);
+    const obj = {};
+    headers.forEach((h,idx)=> obj[h.trim()] = (row[idx]||'').trim());
+    rows.push(obj);
+  }
+  return rows;
+}
+
+function normalizeRow(r){
+  // نتوقع الأعمدة: id, name, date, venue
+  return {
+    id: (r.id||'').trim() || (r.name||'').trim().normalize('NFKD'),
+    name: (r.name||'').trim(),
+    date: (r.date||'').trim(),
+    venue: (r.venue||'').trim(),
+  };
+}
+
+async function fetchFromSheet() {
+  // إن لم يُضبط SHEET_URL سنستخدم النسخة الافتراضية المضمّنة
+  if (!SHEET_URL || SHEET_URL.includes('REPLACE_SHEET_ID')) {
+    const rows = parseCSV(DEFAULT_SHEET_CSV);
+    const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
+    return mapped;
+  }
+  const res = await fetch(SHEET_URL, { cache: 'no-store' });
+  const contentType = res.headers.get('content-type')||'';
+  const text = await res.text();
+  let rows = [];
+  try {
+    if (contentType.includes('application/json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
+      const json = JSON.parse(text);
+      rows = Array.isArray(json) ? json : (json.rows||json.data||[]);
+    } else {
+      rows = parseCSV(text);
+    }
+  } catch (e) {
+    console.error('Parsing error', e); rows = [];
+  }
+  const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
+  return mapped;
+});
+  const contentType = res.headers.get('content-type')||'';
+  const text = await res.text();
+  let rows = [];
+  try {
+    if (contentType.includes('application/json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
+      const json = JSON.parse(text);
+      rows = Array.isArray(json) ? json : (json.rows||json.data||[]);
+    } else {
+      rows = parseCSV(text);
+    }
+  } catch (e) {
+    console.error('Parsing error', e); rows = [];
+  }
+  // فلترة وتحويل
+  const mapped = rows.map(normalizeRow).filter(r=> r.id && r.name);
+  return mapped;
+}
+
+function buildRegionLink(id, venueName) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('region', id);
+  const venueSlug = ((venueName || '').toString().trim().split(' ').join('-')).toLowerCase();
+  url.searchParams.set('venue', venueSlug);
+  // أخفِ أي مؤشر إداري من الرابط العام
+  url.searchParams.delete('admin');
+  url.hash = '';
+  return url.toString();
+}
+
+function copy(text) {
+  navigator.clipboard?.writeText(text);
+}
+
+function RegionPage({ region }) {
+  if (!region) return null;
+  const link = buildRegionLink(region.id, region.venue);
+  return (
+    <section className="py-16">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-emerald-700 mb-4">ملتقى تلبية — {region.name}</h2>
+        <p className="text-gray-700 mb-2"><b>التاريخ:</b> {region.date}</p>
+        <p className="text-gray-700 mb-6"><b>المكان:</b> {region.venue}</p>
+        <p className="text-gray-600 mb-6">ينظم الملتقى في {region.name} للتعريف بمبادرة تلبية ومنصة حصيف، وتحفيز الشراكات والرعايات، ومعرض مصاحب للمشاريع والورش.</p>
+
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          <a href={link} className="px-4 py-2 rounded-xl border">فتح الرابط الخاص بالمنطقة</a>
+          <button onClick={()=>copy(link)} className="px-4 py-2 rounded-xl bg-emerald-600 text-white">نسخ رابط الملتقى</button>
+        </div>
+
+        <h3 className="text-xl font-bold mb-3">حزم الرعاية المقترحة</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SponsorPackages.map((p, i) => (
+            <div key={i} className="bg-white border rounded-2xl p-6 shadow-sm">
+              <h4 className="text-lg font-extrabold text-emerald-700">{p.tier}</h4>
+              <div className="text-gray-500 text-sm mt-1 mb-3">القيمة: {p.price}</div>
+              <ul className="list-disc pr-6 text-gray-700 space-y-1">
+                {p.perks.map((perk, idx) => <li key={idx}>{perk}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <a href="#register" className="px-6 py-3 bg-emerald-600 text-white rounded-xl">سجّل حضورك في {region.name}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AdminPanel({ regions, setRegions }) {
+  const [form, setForm] = useState({ id: '', name: '', date: '', venue: '' });
+  const [editing, setEditing] = useState(null);
+  const [syncStatus, setSyncStatus] = useState('');
+  const [syncError, setSyncError] = useState('');
+
+  const reset = () => { setForm({ id: '', name: '', date: '', venue: '' }); setEditing(null); };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!form.name || !form.date || !form.venue) return;
+    if (editing) {
+      const next = regions.map(r => r.id === editing ? { ...form } : r);
+      setRegions(next); saveRegions(next); reset();
+    } else {
+      const id = form.id || form.name.normalize('NFKD');
+      const next = [...regions, { ...form, id }];
+      setRegions(next); saveRegions(next); reset();
+    }
+  };
+
+  const edit = (r) => { setForm(r); setEditing(r.id); };
+  const del = (id) => { const next = regions.filter(r => r.id !== id); setRegions(next); saveRegions(next); if (editing===id) reset(); };
+
+  const exportJSON = () => {
+    const blob = new Blob([JSON.stringify(regions, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob); const a = document.createElement('a');
+    a.href = url; a.download = 'talbiya_regions.json'; a.click(); URL.revokeObjectURL(url);
+  };
+
+  const importJSON = (file) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try { const data = JSON.parse(reader.result); if (Array.isArray(data)) { setRegions(data); saveRegions(data); } } catch {}
+    };
+    reader.readAsText(file);
+  };
+
+  const syncFromSheet = async () => {
+    try {
+      setSyncError('');
+      setSyncStatus('جارِ التحديث من الجدول...');
+      const data = await fetchFromSheet();
+      if (!data.length) { setSyncStatus(''); setSyncError('لم يتم العثور على بيانات صالحة.'); return; }
+      setRegions(data); saveRegions(data);
+      setSyncStatus('تم التحديث بنجاح من Google Sheet.');
+    } catch (e) {
+      setSyncStatus('');
+      setSyncError((e && e.message) ? e.message : 'تعذر الاتصال بالجدول. تأكد من الرابط والصلاحيات.');
+    }
+    setTimeout(()=> { setSyncStatus(''); }, 5000);
+  };
+
+  return (
+    <section id="admin" className="py-16 bg-gray-50 border-t">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold mb-6">لوحة التحكم — المناطق</h3>
+
+        <form onSubmit={onSubmit} className="grid md:grid-cols-4 gap-4 bg-white border rounded-2xl p-6">
+          <div>
+            <label className="text-sm text-gray-700">المعرّف (ثابت)</label>
+            <input value={form.id} onChange={(e)=>setForm({...form, id:e.target.value})} placeholder="مثال: riyadh" className="w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label className="text-sm text-gray-700">اسم المنطقة</label>
+            <input required value={form.name} onChange={(e)=>setForm({...form, name:e.target.value})} className="w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label className="text-sm text-gray-700">التاريخ</label>
+            <input required value={form.date} onChange={(e)=>setForm({...form, date:e.target.value})} className="w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label className="text-sm text-gray-700">المكان/القاعة</label>
+            <input required value={form.venue} onChange={(e)=>setForm({...form, venue:e.target.value})} placeholder="مثال: مركز الرياض الدولي للمؤتمرات" className="w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div className="md:col-span-4 flex items-center gap-3">
+            <button className="px-5 py-3 rounded-xl bg-emerald-600 text-white">{editing? 'تعديل المنطقة' : 'إضافة منطقة'}</button>
+            {editing && <button type="button" onClick={reset} className="px-5 py-3 rounded-xl border">إلغاء</button>}
+            <div className="ml-auto flex items-center gap-3">
+              <button type="button" onClick={exportJSON} className="px-4 py-2 rounded-xl border">تصدير JSON</button>
+              <label className="px-4 py-2 rounded-xl border cursor-pointer">
+                استيراد JSON
+                <input type="file" accept="application/json" className="hidden" onChange={(e)=> e.target.files?.[0] && importJSON(e.target.files[0]) }/>
+              </label>
+              <button type="button" onClick={syncFromSheet} className="px-4 py-2 rounded-xl border">تحديث من Google Sheet</button>
+            </div>
+          </div>
+          {syncStatus && <div className="md:col-span-4 text-sm text-emerald-700">{syncStatus}</div>}
+          {syncError && <pre className="md:col-span-4 text-sm text-rose-700 whitespace-pre-wrap bg-rose-50 border border-rose-100 rounded-xl p-3">{syncError}</pre>}
+        </form>
+
+        <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {regions.map((r)=> (
+            <div key={r.id} className="bg-white border rounded-2xl p-5">
+              <div className="font-bold text-emerald-700">{r.name}</div>
+              <div className="text-sm text-gray-600 mt-1">{r.date}</div>
+              <div className="text-sm text-gray-600">{r.venue}</div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a href={buildRegionLink(r.id, r.venue)} className="px-3 py-1 rounded-lg border">فتح الرابط</a>
+                <button onClick={()=>copy(buildRegionLink(r.id, r.venue))} className="px-3 py-1 rounded-lg border bg-emerald-50">نسخ الرابط</button>
+                <button onClick={()=>{setForm(r); setEditing(r.id);}} className="px-3 py-1 rounded-lg border">تعديل</button>
+                <button onClick={()=>{ const next = regions.filter(x=>x.id!==r.id); setRegions(next); saveRegions(next); if (editing===r.id) reset(); }} className="px-3 py-1 rounded-lg border text-rose-700">حذف</button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-xs text-gray-500 mt-6">ملاحظة: اجعل Google Sheet «عام — للعرض فقط»، ثم استخدم رابط CSV أو JSON في المتغيّر SHEET_URL. التحديث لا يظهر للجمهور إلا إذا كنت في وضع الإدارة.</p>
+      </div>
+    </section>
+  );
+}
 
 export default function App() {
+  const [regions, setRegions] = useState(DEFAULT_REGIONS);
+  const [activeId, setActiveId] = useState(DEFAULT_REGIONS[0].id);
+  const [showAdmin, setShowAdmin] = useState(false);
+
   useEffect(() => {
-    document.title = `ملتقى تلبية — ${REGION}`;
+    const loaded = loadRegions(); setRegions(loaded);
+    const params = new URLSearchParams(window.location.search);
+    const byQuery = params.get('region');
+    const byHash = window.location.hash?.replace('#','');
+    const initial = loaded.find(r=> r.id === (byQuery||byHash))?.id || loaded[0]?.id;
+    setActiveId(initial);
+
+    const adminParam = params.get('admin');
+    const adminLocal = localStorage.getItem('tal_admin') === 'true';
+    const shouldShow = adminParam === '1' || adminLocal;
+    setShowAdmin(!!shouldShow);
+
+    document.title = 'ملتقيات تلبية — مناطق المملكة';
   }, []);
+
+  useEffect(()=>{
+    // تحديث الرابط عند تغيير المنطقة ليشمل القاعة كـ slug
+    const region = regions.find(r=> r.id===activeId);
+    if (!region) return;
+    const url = new URL(window.location.href);
+    const venueSlug = ((region.venue || '').toString().trim().split(' ').join('-')).toLowerCase();
+    url.searchParams.set('region', activeId);
+    url.searchParams.set('venue', venueSlug);
+    url.searchParams.delete('admin');
+    url.hash = '';
+    window.history.replaceState({}, '', url);
+  }, [activeId, regions]);
+
+  const active = regions.find(r => r.id === activeId);
 
   return (
     <main className="[direction:rtl] text-gray-900">
@@ -88,40 +358,28 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img src={LOGO_TALBIYA} alt="Talbiya" className="w-9 h-9" />
-            <span className="font-extrabold text-gray-900">ملتقى تلبية — {REGION}</span>
+            <span className="font-extrabold text-gray-900">ملتقيات تلبية التعريفية</span>
           </div>
-          <span className="text-sm text-gray-600">{EVENT_DATES}</span>
+          <div className="flex items-center gap-3">
+            <label className="text-sm text-gray-600">اختر المنطقة:</label>
+            <select value={activeId} onChange={(e)=>setActiveId(e.target.value)} className="rounded-xl border px-3 py-2">
+              {regions.map(r=> <option key={r.id} value={r.id}>{r.name}</option>)}
+            </select>
+          </div>
         </div>
       </header>
 
-      <section className="relative bg-gradient-to-b from-emerald-50 via-white to-white py-20">
-        <div className="max-w-6xl mx-auto text-center">
-          <img src={LOGO_VISION} alt="Vision2030" className="h-16 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">ملتقى تلبية التعريفي — {REGION}</h1>
-          <p className="mt-4 text-gray-700 text-lg">يقام في {VENUE_NAME} بتاريخ {EVENT_DATES}، ويضم معرضاً للمبادرات والمشاريع وورش عمل ومحاور تنموية.</p>
-          <div className="mt-6 flex justify-center gap-3">
-            <a href="#register" className="px-6 py-3 bg-emerald-600 text-white rounded-xl">سجّل حضورك</a>
-            <a href="#sponsors" className="px-6 py-3 bg-white border rounded-xl">استعرض الرعايات</a>
-          </div>
+      <section className="text-center py-16 bg-gradient-to-b from-emerald-50 to-white">
+        <div className="max-w-4xl mx-auto">
+          <img src={LOGO_VISION} className="h-16 mx-auto mb-6" alt="Vision" />
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">ملتقيات تلبية التعريفية بالمناطق</h1>
+          <p className="text-gray-700 mb-6">منصة وطنية متنقلة تُعرّف بمبادرة تلبية ومشروعها منصة حصيف، بالشراكة مع إمارات المناطق، والغرف التجارية، والجامعات، والقطاعات التنموية.</p>
         </div>
       </section>
 
-      <section id="sponsors" className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">حزم الرعاية — ملتقى {REGION}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SponsorPackages.map((p,i)=>(
-              <div key={i} className="bg-white border rounded-2xl p-6 shadow-sm">
-                <h3 className="text-xl font-extrabold text-emerald-700">{p.tier}</h3>
-                <div className="text-gray-500 text-sm mt-1 mb-3">القيمة: {p.price}</div>
-                <ul className="list-disc pr-6 text-gray-700 space-y-1">
-                  {p.perks.map((perk,idx)=>(<li key={idx}>{perk}</li>))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RegionPage region={active} />
+
+      {showAdmin && <AdminPanel regions={regions} setRegions={setRegions} />}
 
       <footer className="bg-gray-100 border-t py-10">
         <div className="max-w-7xl mx-auto px-4 text-center">
@@ -130,7 +388,7 @@ export default function App() {
             <img src={LOGO_HASSEEF} className="h-10" alt="Hasseef" />
             <img src={LOGO_VISION} className="h-10" alt="Vision2030" />
           </div>
-          <p className="text-gray-600 text-sm">© {new Date().getFullYear()} مبادرة تلبية — جميع الحقوق محفوظة | {REGION}</p>
+          <p className="text-gray-600 text-sm">© {new Date().getFullYear()} مبادرة تلبية — جميع الحقوق محفوظة</p>
           <p className="text-gray-500 text-xs mt-1">للتواصل: {SUPPORT_EMAIL} | الهاتف: {SUPPORT_PHONE}</p>
         </div>
       </footer>
