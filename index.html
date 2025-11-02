@@ -10,9 +10,9 @@ import React, { useState, useEffect } from "react";
 const STORAGE_KEY = 'talbiya_regions_v1';
 const SUPPORT_EMAIL = 'info@talbiya.sa';
 const SUPPORT_PHONE = '9200 00000';
-const LOGO_TALBIYA = "/mnt/data/talbiya.png";
-const LOGO_VISION = "/mnt/data/Vision2030.png";
-const LOGO_HASSEEF = "/mnt/data/hasseef.png";
+const LOGO_TALBIYA = "/Talbiya_-Forum/assets/talbiya.png";
+const LOGO_VISION  = "/Talbiya_-Forum/assets/Vision2030.png";
+const LOGO_HASSEEF = "/Talbiya_-Forum/assets/hasseef.png";
 
 // ضع هنا رابط Google Sheet المنشور كـ CSV أو JSON (قراءة فقط)
 // أمثلة مقبولة:
@@ -298,6 +298,171 @@ function AdminPanel({ regions, setRegions }) {
   );
 }
 
+// ===== أقسام خاصة بالملتقى (بدون خدمات منصة حصيف) =====
+function AboutTalbiya(){
+  return (
+    <section id="about-talbiya" className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">عن مبادرة تلبية</h3>
+        <p className="text-gray-700 leading-8">
+          مبادرة تنموية وطنية انطلقت من منطقة حائل بدعم القيادة، بهدف تمكين الحلول المجتمعية والتنموية وربطها بالجهات ذات العلاقة، بما ينسجم مع مستهدفات رؤية المملكة 2030.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function AboutHasseefBrief(){
+  return (
+    <section id="about-hasseef" className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">تعريف بمشروع منصة حصيف</h3>
+        <p className="text-gray-700 leading-8">
+          «حصيف» مشروع تقني من مبادرة تلبية سيتم التعريف به داخل الملتقى بالتعاون مع إمارة المنطقة. يقتصر حضور حصيف هنا على التعريف والرؤية العامة دون تقديم أو تشغيل خدمات المنصة داخل الموقع.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ProgramAgenda(){
+  const items = [
+    { day:'اليوم الأول', sessions:[ 'الافتتاح والشراكات مع إمارة المنطقة', 'جلسة: دور مبادرة تلبية في تمكين الحلول', 'ورشة: تصميم مبادرات مجتمعية فعّالة' ]},
+    { day:'اليوم الثاني', sessions:[ 'جلسة: التعريف بمشروع حصيف (تعريفي فقط)', 'حلقة نقاش: فرص الرعاية والمسؤولية الاجتماعية', 'ورش تطبيقية للمشاريع المشاركة' ]},
+  ];
+  return (
+    <section id="agenda" className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">البرنامج</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          {items.map((d,i)=> (
+            <div key={i} className="border rounded-2xl p-6 bg-white">
+              <div className="font-extrabold text-emerald-700 mb-3">{d.day}</div>
+              <ul className="list-disc pr-6 text-gray-700 space-y-2">
+                {d.sessions.map((s,idx)=>(<li key={idx}>{s}</li>))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ExpoSection(){
+  return (
+    <section id="expo" className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">المعرض المصاحب</h3>
+        <p className="text-gray-700 mb-6">مساحات مخصصة لعرض المشاريع والمبادرات المنبثقة من تلبية، بالإضافة إلى مشاريع الجهات (شركات/جمعيات) الراغبة بالمشاركة بما ينسجم مع رؤية 2030.</p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[{t:'3×3 م'},{t:'4×4 م'},{t:'6×6 م'}].map((x,i)=>(
+            <div key={i} className="bg-white border rounded-2xl p-6 text-center">
+              <div className="text-3xl font-extrabold text-emerald-700 mb-2">{x.t}</div>
+              <div className="text-gray-600">خدمات أساسية: طاولة + كرسيان + كهرباء</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SponsorshipSection(){
+  const packs = [
+    { tier: 'شريك استراتيجي', price: '200,000 ريال', perks: ['هوية مشتركة بالافتتاح','شعار بارز','كلمة في الافتتاح','جناح 6×6 م','تغطية إعلامية'] },
+    { tier: 'راعي ماسي', price: '100,000 ريال', perks: ['شعار في المسرح','جناح 4×4 م','تغطية رقمية'] },
+    { tier: 'ذهبي', price: '70,000 ريال', perks: ['شعار بالموقع','جناح 3×3 م'] },
+    { tier: 'فضي', price: '40,000 ريال', perks: ['شعار في الدليل','ذكر في التقرير'] },
+  ];
+  return (
+    <section id="sponsor" className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">الرعايات</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {packs.map((p,i)=>(
+            <div key={i} className="bg-white border rounded-2xl p-6">
+              <div className="font-extrabold text-emerald-700">{p.tier}</div>
+              <div className="text-gray-500 text-sm mt-1 mb-3">القيمة: {p.price}</div>
+              <ul className="list-disc pr-5 text-gray-700 space-y-1">
+                {p.perks.map((k,idx)=>(<li key={idx}>{k}</li>))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <a href="#sponsor-form" className="px-6 py-3 bg-emerald-600 text-white rounded-xl">قدّم طلب رعاية</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RegistrationSection(){
+  return (
+    <section id="register" className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">التسجيل والحجوزات</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <form className="bg-white border rounded-2xl p-6" onSubmit={(e)=>e.preventDefault()}>
+            <div className="font-extrabold text-emerald-700 mb-3">تسجيل الحضور</div>
+            <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الاسم الكامل" required/>
+            <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="البريد الإلكتروني" type="email" required/>
+            <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الجوال"/>
+            <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
+              <option value="" disabled>اختر الصفة</option>
+              <option>فرد</option>
+              <option>جهة</option>
+            </select>
+            <button className="px-5 py-3 bg-emerald-600 text-white rounded-xl">إرسال</button>
+          </form>
+
+          <form id="expo-form" className="bg-white border rounded-2xl p-6" onSubmit={(e)=>e.preventDefault()}>
+            <div className="font-extrabold text-emerald-700 mb-3">طلب جناح في المعرض</div>
+            <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
+              <option value="" disabled>نوع العارض</option>
+              <option>مشروع من مبادرة تلبية</option>
+              <option>جمعية</option>
+              <option>شركة</option>
+            </select>
+            <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
+              <option value="" disabled>المساحة المطلوبة</option>
+              <option>3×3 م</option>
+              <option>4×4 م</option>
+              <option>6×6 م</option>
+            </select>
+            <textarea className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="نبذة مختصرة عن المشاركة" rows={4}></textarea>
+            <button className="px-5 py-3 bg-emerald-600 text-white rounded-xl">إرسال الطلب</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SpeakerCFPSection(){
+  return (
+    <section id="cfp" className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">تقديم متحدث/مدرب</h3>
+        <form className="bg-white border rounded-2xl p-6 max-w-3xl" onSubmit={(e)=>e.preventDefault()}>
+          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الاسم الكامل" required/>
+          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="البريد الإلكتروني" type="email" required/>
+          <input className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="الجوال"/>
+          <select className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="">
+            <option value="" disabled>المحور المقترح</option>
+            <option>الشراكات التنموية</option>
+            <option>الابتكار المجتمعي</option>
+            <option>التطوع والتمكين</option>
+          </select>
+          <textarea className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="نبذة عن المحتوى المقترح" rows={5}></textarea>
+          <button className="px-5 py-3 bg-emerald-600 text-white rounded-xl">إرسال</button>
+        </form>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [regions, setRegions] = useState(DEFAULT_REGIONS);
   const [activeId, setActiveId] = useState(DEFAULT_REGIONS[0].id);
@@ -354,14 +519,27 @@ export default function App() {
       <section className="text-center py-16 bg-gradient-to-b from-emerald-50 to-white">
         <div className="max-w-4xl mx-auto">
           <img src={LOGO_VISION} className="h-16 mx-auto mb-6" alt="Vision" />
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">ملتقيات تلبية التعريفية بالمناطق</h1>
-          <p className="text-gray-700 mb-6">منصة وطنية متنقلة تُعرّف بمبادرة تلبية ومشروعها منصة حصيف، بالشراكة مع إمارات المناطق، والغرف التجارية، والجامعات، والقطاعات التنموية.</p>
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">ملتقى تلبية التعريفي</h1>
+          <p className="text-gray-700 mb-6">فعالية تعريفية بمبادرة تلبية ومشروعها «حصيف» بالشراكة مع إمارة المنطقة، مع معرض مصاحب للمشاريع والورش — لمدة يومين.</p>
+          <div className="flex items-center justify-center gap-3">
+            <a href="#register" className="px-5 py-3 rounded-xl bg-emerald-600 text-white">سجّل حضورك</a>
+            <a href="#cfp" className="px-5 py-3 rounded-xl border">قدّم كمُتحدث/مدرّب</a>
+            <a href="#sponsor" className="px-5 py-3 rounded-xl border">الرعايات</a>
+          </div>
         </div>
       </section>
 
       <RegionPage region={active} />
 
       {showAdmin && <AdminPanel regions={regions} setRegions={setRegions} />}
+
+      <AboutTalbiya />
+      <AboutHasseefBrief />
+      <ProgramAgenda />
+      <ExpoSection />
+      <SponsorshipSection />
+      <RegistrationSection />
+      <SpeakerCFPSection />
 
       <footer className="bg-gray-100 border-t py-10">
         <div className="max-w-7xl mx-auto px-4 text-center">
