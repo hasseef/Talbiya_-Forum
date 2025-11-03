@@ -22,27 +22,25 @@
 <div id="root"></div>
 
 <script type="text/babel">
-/* ========== الهوية ========== */
+/* ===== الهوية العامة ===== */
 const PHONE = '0507208120';
-const PDF_FILE = 'ملتقى تلبية حائل.pdf';
 
-/* ضع روابط الصور إن أردت استخدام ملفات خارجية.
-   النسخة الحالية تستخدم أمثلة/بدائل SVG نصية لضمان الظهور فورًا. */
+/* شعارات Talbiya / Hasseef / Vision 2030 (مضمنة لضمان العمل على GitHub Pages) */
 const LOGO_TAL = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="56"><rect width="100%" height="100%" fill="white"/><text x="10" y="36" font-size="24" fill="#1B6734" font-family="Tahoma">Talbiya</text></svg>`);
 const LOGO_HAS = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="220" height="56"><rect width="100%" height="100%" fill="white"/><text x="10" y="36" font-size="24" fill="#1B6734" font-family="Tahoma">Hasseef</text></svg>`);
 const LOGO_VIS = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="56"><rect width="100%" height="100%" fill="white"/><text x="10" y="36" font-size="20" fill="#777" font-family="Tahoma">Vision 2030</text></svg>`);
 
-/* ========== شعارات إمارات المناطق (أدرجنا بدائل نصية لضمان الظهور) ========== */
+/* ===== شعارات إمارات المناطق (بدائل نصية أنيقة قابلة للاستبدال لاحقًا بملفات Base64) ===== */
 const EMIRATE_SRC = {
   'riyadh': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة الرياض</text></svg>`),
-  'makkah': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة مكة المكرمة</text></svg>`),
-  'madinah': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة المدينة المنورة</text></svg>`),
+  'makkah': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="420" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="26" fill="#0a7c39" font-family="Tahoma">إمارة منطقة مكة المكرمة</text></svg>`),
+  'madinah': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="420" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="26" fill="#0a7c39" font-family="Tahoma">إمارة منطقة المدينة المنورة</text></svg>`),
   'qassim': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة القصيم</text></svg>`),
-  'eastern': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة المنطقة الشرقية</text></svg>`),
+  'eastern': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="380" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="26" fill="#0a7c39" font-family="Tahoma">إمارة المنطقة الشرقية</text></svg>`),
   'aseer': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة عسير</text></svg>`),
   'tabuk': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة تبوك</text></svg>`),
   'hail': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة حائل</text></svg>`),
-  'northern-borders': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="420" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="26" fill="#0a7c39" font-family="Tahoma">إمارة منطقة الحدود الشمالية</text></svg>`),
+  'northern-borders': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="460" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="24" fill="#0a7c39" font-family="Tahoma">إمارة منطقة الحدود الشمالية</text></svg>`),
   'jazan': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة جازان</text></svg>`),
   'najran': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة نجران</text></svg>`),
   'albaha': 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="360" height="96"><rect width="100%" height="100%" fill="white"/><text x="12" y="58" font-size="28" fill="#0a7c39" font-family="Tahoma">إمارة منطقة الباحة</text></svg>`),
@@ -55,7 +53,7 @@ const EMIRATE_NAME = {
   'najran':'إمارة منطقة نجران','albaha':'إمارة منطقة الباحة','aljouf':'إمارة منطقة الجوف'
 };
 
-/* ========== مناطق وتاريخ ========== */
+/* ===== المناطق/التاريخ ===== */
 const STORAGE_KEY='talbiya_regions_sc_priv';
 const DEFAULT_REGIONS=[
   {id:'riyadh', name:'الرياض', date:'11 يناير 2026م', venue:'يُحدد لاحقًا'},
@@ -162,7 +160,7 @@ function Agenda(){
   );
 }
 
-/* ========== دليل الرعايات ========== */
+/* ===== دليل الرعايات ===== */
 const SPONSOR_TIERS = [
   {title:'شريك استراتيجي', price:'500,000+ ر.س', perks:[
     'ذكر في الهوية والمواد الدعائية بصفة الشريك الرئيسي',
@@ -212,7 +210,7 @@ function SponsorGuide(){
   );
 }
 
-/* ========== بريد عربي منسّق لكل النماذج ========== */
+/* ===== البريد العربي المنسّق لكل النماذج إلى info@talbiya.sa ===== */
 function mailtoArabic(id, payload, region) {
   const titles = {sponsor:'رعاية', cfp:'متحدث/مدرّب', register:'تسجيل حضور', expo:'طلب جناح', partner:'شراكة تنفيذية'};
   const subject = encodeURIComponent(`طلب عبر موقع ملتقى تلبية — ${titles[id]||id} — منطقة ${region.name}`);
@@ -229,7 +227,7 @@ function mailtoArabic(id, payload, region) {
   location.href = `mailto:info@talbiya.sa?subject=${subject}&body=${body}`;
 }
 
-/* ========== النماذج ========== */
+/* ===== النماذج ===== */
 function SponsorForm({region}){
   return (
     <section id="sponsor" className="py-14 bg-gray-50">
@@ -300,7 +298,7 @@ function RegisterExpo({region}){
           </form>
 
           <form className="glass border rounded-2xl p-6" onSubmit={(e)=>{e.preventDefault(); const f=e.target; mailtoArabic('expo', {'اسم الجهة/المبادرة': f.org.value,'نوع العارض': f.exhibitor_type.value,'المساحة المطلوبة': f.size.value,'نبذة': f.brief.value,'مسؤول التواصل': f.contact.value,'البريد': f.email.value,'الجوال': f.phone.value}, region);}}>
-            <div className="font-extrabold text:[var(--green)] mb-3">طلب جناح في المعرض</div>
+            <div className="font-extrabold text-[var(--green)] mb-3">طلب جناح في المعرض</div>
             <input name="org" className="w-full border rounded-xl px-3 py-2 mb-3" placeholder="اسم الجهة/المبادرة" required />
             <select name="exhibitor_type" className="w-full border rounded-xl px-3 py-2 mb-3" defaultValue="" required>
               <option value="" disabled>نوع العارض</option>
@@ -370,13 +368,13 @@ function Partners({activeId}){
             </div>
           ))}
         </div>
-        <p className="text-center text-gray-600 mt-6">هل ترغب جهتك أن تكون شريكًا؟ قدّم عبر نموذج الشراكة أدناه.</p>
+        <p className="text-center text-gray-600 mt-6">هل ترغب جهتك أن تكون شريكًا؟ قدّم عبر نموذج الشراكة أعلاه.</p>
       </div>
     </section>
   );
 }
 
-/* ========== التطبيق ========== */
+/* ===== التطبيق ===== */
 function App(){
   const [regions,setRegions]=React.useState(loadRegions());
   const [activeId,setActiveId]=React.useState(regions[0]?.id||'riyadh');
@@ -417,9 +415,6 @@ function App(){
         <div className="container mx-auto px-4">
           <p className="text-gray-600 text-sm">© {new Date().getFullYear()} مبادرة تلبية — جميع الحقوق محفوظة</p>
           <p className="text-gray-600 text-sm mt-1">للتواصل: {PHONE}</p>
-          <div className="mt-3">
-            <a href={PDF_FILE} className="px-4 py-2 rounded-xl border" target="_blank">تحميل ملف ملتقى تلبية — حائل (PDF)</a>
-          </div>
         </div>
       </footer>
     </main>
