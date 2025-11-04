@@ -14,7 +14,7 @@
   .ribbon { background:linear-gradient(90deg,#eafff3,#ffffff) }
   .logo-img { max-height:44px;height:44px;object-fit:contain;display:inline-block }
   .section { padding-block: 3.5rem }
-  .btn { padding:.75rem 1.25rem; border-radius: .9rem }
+  .btn { padding:.75rem 1.25rem; border-radius:.9rem }
   .btn-primary { background:var(--green); color:#fff }
   .btn-ghost { border:1px solid #ddd }
   .card { border:1px solid #e5e7eb; border-radius:1rem; padding:1.25rem; background:#fff }
@@ -31,10 +31,8 @@
 <header class="bg-white/85 border-b sticky top-0 z-50">
   <div class="container mx-auto px-4 h-16 flex items-center justify-between">
     <div id="siteTitle" class="font-extrabold">ملتقيات تلبية التعريفية</div>
-    <!-- مُبدّل المناطق يُعرض في الوضع الوطني فقط -->
     <div id="regionSelectorWrap" class="hidden"></div>
   </div>
-  <!-- شريط رعاية الإمارة يظهر فقط في الوضع الفرعي -->
   <div id="emirateRibbon" class="ribbon border-b hidden">
     <div class="container mx-auto px-4 h-14 flex items-center justify-center gap-3">
       <img id="emirateLogo" class="logo-img" alt="شعار الإمارة">
@@ -43,7 +41,6 @@
   </div>
 </header>
 
-<!-- بطل الصفحة (مشترك) -->
 <section class="section bg-gradient-to-b from-emerald-50 to-white text-center">
   <div class="container mx-auto px-4">
     <h1 class="text-3xl lg:text-4xl font-extrabold mb-3">ملتقى تلبية التعريفي</h1>
@@ -59,17 +56,13 @@
   </div>
 </section>
 
-<!-- الوضع الوطني: مولّد روابط المناطق -->
 <section id="homeRegions" class="section hidden">
   <div class="container mx-auto px-4">
     <h2 class="text-2xl font-bold mb-6 text-center">اختر منطقة لفتح صفحة ملتقاها الخاصة</h2>
-    <div class="grid-3">
-      <!-- سيتم حقن بطاقات المناطق هنا -->
-    </div>
+    <div class="grid-3" id="homeGrid"></div>
   </div>
 </section>
 
-<!-- الوضع الفرعي: صفحة منطقة واحدة فقط -->
 <section id="regionBlock" class="section hidden">
   <div class="container mx-auto px-4">
     <h2 id="regionTitle" class="text-3xl font-bold text-[var(--green)] mb-3"></h2>
@@ -147,32 +140,31 @@
         </ul>
       </div>
     </div>
-    <p class="text-center text-gray-600 mt-6">تُحدّد تفاصيل إضافية في اتفاقية الرعاية (بنود الظهور، التقارير، وبنود الهوية).</p>
   </div>
 </section>
 
 <section id="sponsor" class="section bg-gray-50 hidden">
   <div class="container mx-auto px-4">
     <h3 class="text-2xl font-bold mb-6 text-center">نموذج طلب رعاية</h3>
-    <form id="formSponsor" class="card max-w-3xl mx-auto">
-      <div class="grid-2">
-        <input name="org" class="w-full border rounded-xl px-3 py-2" placeholder="اسم الجهة" required>
-        <input name="cr"  class="w-full border rounded-xl px-3 py-2" placeholder="السجل التجاري/الترخيص">
-        <input name="contact" class="w-full border rounded-xl px-3 py-2" placeholder="الشخص المسؤول" required>
-        <input name="email" type="email" class="w-full border rounded-xl px-3 py-2" placeholder="البريد الإلكتروني" required>
-        <input name="phone" class="w-full border rounded-xl px-3 py-2" placeholder="الجوال">
-        <select name="tier" class="w-full border rounded-xl px-3 py-2" required>
-          <option value="" disabled selected>اختر باقة الرعاية</option>
-          <option>شريك استراتيجي — 500,000+ ر.س</option>
-          <option>راعي ماسي — 300,000 ر.س</option>
-          <option>ذهبي — 150,000 ر.س</option>
-          <option>فضي — 75,000 ر.س</option>
-        </select>
-      </div>
-      <input name="links" class="w-full border rounded-xl px-3 py-2 mt-3" placeholder="روابط الحسابات (اختياري)">
-      <textarea name="notes" class="w-full border rounded-xl px-3 py-2 mt-3" rows="4" placeholder="ملاحظات إضافية"></textarea>
-      <button class="w-full mt-4 btn btn-primary">إرسال طلب الرعاية</button>
-    </form>
+  <form id="formSponsor" class="card max-w-3xl mx-auto">
+    <div class="grid-2">
+      <input name="org" class="w-full border rounded-xl px-3 py-2" placeholder="اسم الجهة" required>
+      <input name="cr"  class="w-full border rounded-xl px-3 py-2" placeholder="السجل التجاري/الترخيص">
+      <input name="contact" class="w-full border rounded-xl px-3 py-2" placeholder="الشخص المسؤول" required>
+      <input name="email" type="email" class="w-full border rounded-xl px-3 py-2" placeholder="البريد الإلكتروني" required>
+      <input name="phone" class="w-full border rounded-xl px-3 py-2" placeholder="الجوال">
+      <select name="tier" class="w-full border rounded-xl px-3 py-2" required>
+        <option value="" disabled selected>اختر باقة الرعاية</option>
+        <option>شريك استراتيجي — 500,000+ ر.س</option>
+        <option>راعي ماسي — 300,000 ر.س</option>
+        <option>ذهبي — 150,000 ر.س</option>
+        <option>فضي — 75,000 ر.س</option>
+      </select>
+    </div>
+    <input name="links" class="w-full border rounded-xl px-3 py-2 mt-3" placeholder="روابط الحسابات (اختياري)">
+    <textarea name="notes" class="w-full border rounded-xl px-3 py-2 mt-3" rows="4" placeholder="ملاحظات إضافية"></textarea>
+    <button class="w-full mt-4 btn btn-primary">إرسال طلب الرعاية</button>
+  </form>
   </div>
 </section>
 
@@ -265,13 +257,12 @@
 <section id="partners" class="section bg-white hidden">
   <div class="container mx-auto px-4">
     <h3 class="text-2xl font-bold mb-6 text-center">شركاء الملتقى</h3>
-    <div class="grid-2 items-center">
-      <div class="card flex items-center justify-center h-24"><img id="partnerEmirate" class="max-h-16 object-contain" alt="إمارة المنطقة"></div>
-      <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">مبادرة تلبية</span></div>
-      <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">منصة حصيف</span></div>
-      <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">رؤية 2030</span></div>
-    </div>
-    <p class="text-center text-gray-600 mt-6">هل ترغب جهتك أن تكون شريكًا؟ قدّم عبر نموذج الشراكة أعلاه.</p>
+  <div class="grid-2 items-center">
+    <div class="card flex items-center justify-center h-24"><img id="partnerEmirate" class="max-h-16 object-contain" alt="إمارة المنطقة"></div>
+    <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">مبادرة تلبية</span></div>
+    <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">منصة حصيف</span></div>
+    <div class="card flex items-center justify-center h-24"><span class="text-emerald-700">رؤية 2030</span></div>
+  </div>
   </div>
 </section>
 
@@ -281,6 +272,25 @@
     <p class="text-gray-600 text-sm mt-1">للتواصل: 0507208120</p>
   </div>
 </footer>
+
+<!-- (1) ضع هنا خرائط Base64 للشعارات PNG داخل هذا الـJSON -->
+<script id="EMIRATE_SRC_DATA" type="application/json">
+{
+  "riyadh":   "",
+  "makkah":   "",
+  "madinah":  "",
+  "qassim":   "",
+  "eastern":  "",
+  "aseer":    "",
+  "tabuk":    "",
+  "hail":     "",
+  "northern-borders": "",
+  "jazan":    "",
+  "najran":   "",
+  "albaha":   "",
+  "aljouf":   ""
+}
+</script>
 
 <noscript style="display:block;text-align:center;margin:2rem 0;color:#666;">
   هذه الصفحة تتطلب تفعيل JavaScript لعرض المحتوى.
@@ -304,7 +314,15 @@ const REGIONS = [
   {id:'aljouf', name:'الجوف', date:'11 يناير 2026م', venue:'يُحدد لاحقًا'},
 ];
 
-/* ========== شعارات الإمارة: بدائل SVG نصّية أنيقة (يمكن لاحقًا استبدالها بPNG Base64 الحقيقية) ========== */
+/* أسماء الإمارة للبدائل النصّية */
+const EMIRATE_NAME = {
+  'riyadh':'إمارة منطقة الرياض','makkah':'إمارة منطقة مكة المكرمة','madinah':'إمارة منطقة المدينة المنورة',
+  'qassim':'إمارة منطقة القصيم','eastern':'إمارة المنطقة الشرقية','aseer':'إمارة منطقة عسير','tabuk':'إمارة منطقة تبوك',
+  'hail':'إمارة منطقة حائل','northern-borders':'إمارة منطقة الحدود الشمالية','jazan':'إمارة منطقة جازان',
+  'najran':'إمارة منطقة نجران','albaha':'إمارة منطقة الباحة','aljouf':'إمارة منطقة الجوف'
+};
+
+/* بديل SVG نصّي أنيق عند غياب PNG */
 function fallbackLogo(name){
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='480' height='96'>
     <rect width='100%' height='100%' fill='white'/>
@@ -312,22 +330,20 @@ function fallbackLogo(name){
   </svg>`;
   return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
 }
-const EMIRATE_NAME = {
-  'riyadh':'إمارة منطقة الرياض','makkah':'إمارة منطقة مكة المكرمة','madinah':'إمارة منطقة المدينة المنورة',
-  'qassim':'إمارة منطقة القصيم','eastern':'إمارة المنطقة الشرقية','aseer':'إمارة منطقة عسير','tabuk':'إمارة منطقة تبوك',
-  'hail':'إمارة منطقة حائل','northern-borders':'إمارة منطقة الحدود الشمالية','jazan':'إمارة منطقة جازان',
-  'najran':'إمارة منطقة نجران','albaha':'إمارة منطقة الباحة','aljouf':'إمارة منطقة الجوف'
-};
-// عند تضمين PNG لاحقًا سنملأ هذا القاموس ببيانات Base64 لكل إمارة:
-const EMIRATE_SRC = {}; 
 
-/* ========== أدوات عامة ========== */
+/* قراءة الـBase64 من كتلة JSON */
+function loadEmirateSrc(){
+  try{
+    const raw = document.getElementById('EMIRATE_SRC_DATA').textContent.trim();
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+const EMIRATE_SRC = loadEmirateSrc();
+
 const $ = (sel)=>document.querySelector(sel);
 const params = new URLSearchParams(location.search);
 const PRIVATE_MODE = params.get('private') === '1';
 const QUERY_REGION = params.get('region');
-
-function slug(t){ return (t||'').toString().trim().replace(/\s+/g,'-').toLowerCase() || 'venue' }
 
 function mailTo(subject, payload, region){
   const lines = [
@@ -343,23 +359,23 @@ function mailTo(subject, payload, region){
   location.href = `mailto:info@talbiya.sa?subject=${encodeURIComponent(subject)}&body=${body}`;
 }
 
-/* ========== الوضع الوطني (مولّد الروابط) ========== */
 function renderHome(){
   $('#homeRegions').classList.remove('hidden');
-  const grid = $('#homeRegions .grid-3');
+  const grid = document.getElementById('homeGrid');
   grid.innerHTML = '';
   REGIONS.forEach(r=>{
     const card = document.createElement('div');
     card.className = 'card';
+    const logo = EMIRATE_SRC[r.id] || fallbackLogo(EMIRATE_NAME[r.id]);
     card.innerHTML = `
       <div class="flex items-center gap-3 mb-3">
-        <img class="logo-img" src="${EMIRATE_SRC[r.id] || fallbackLogo(EMIRATE_NAME[r.id])}" alt="${EMIRATE_NAME[r.id]}">
+        <img class="logo-img" src="${logo}" alt="${EMIRATE_NAME[r.id]}">
         <div class="font-bold text-[var(--green)]">إمارة ${r.name}</div>
       </div>
       <div class="text-sm text-gray-700 mb-2"><b>التاريخ:</b> ${r.date}</div>
       <div class="text-sm text-gray-700 mb-4"><b>المكان:</b> ${r.venue}</div>
       <a class="btn btn-primary w-full inline-block text-center"
-         href="?region=${r.id}&private=1&venue=${encodeURIComponent(slug(r.venue))}">
+         href="?region=${r.id}&private=1">
          فتح صفحة الملتقى الخاص بالمنطقة
       </a>
     `;
@@ -367,30 +383,29 @@ function renderHome(){
   });
 }
 
-/* ========== الوضع الفرعي (صفحة منطقة واحدة) ========== */
 function renderRegion(r){
-  // رأس الإمارة
+  // شريط الإمارة
   $('#emirateRibbon').classList.remove('hidden');
   const logo = EMIRATE_SRC[r.id] || fallbackLogo(EMIRATE_NAME[r.id]);
   $('#emirateLogo').src = logo;
   $('#emirateLogo').alt = EMIRATE_NAME[r.id];
   $('#emirateText').textContent = `برعاية كريمة من ${EMIRATE_NAME[r.id]}`;
 
-  // عنوان الموقع أعلى: “ملتقى تلبية — <اسم المنطقة>”
+  // عنوان
   $('#siteTitle').textContent = 'ملتقى تلبية — ' + r.name;
 
-  // كتلة معلومات المنطقة
+  // معلومات المنطقة
   $('#regionBlock').classList.remove('hidden');
   $('#regionTitle').textContent = `ملتقى تلبية — ${r.name}`;
   $('#regionDate').textContent = r.date;
   $('#regionVenue').textContent = r.venue;
 
-  // إظهار باقي الأقسام الخاصة بالمنطقة فقط
+  // إظهار الأقسام الخاصة
   ['agenda','sponsor-guide','sponsor','cfp','register','partner','partners'].forEach(id=>{
     document.getElementById(id).classList.remove('hidden');
   });
 
-  // تفعيل النماذج للبريد
+  // ربط النماذج
   $('#formSponsor').addEventListener('submit', e=>{
     e.preventDefault(); const f=e.target;
     mailTo(`طلب عبر موقع ملتقى تلبية — رعاية — منطقة ${r.name}`, {
@@ -432,27 +447,11 @@ function renderRegion(r){
   document.getElementById('partnerEmirate').alt = EMIRATE_NAME[r.id];
 }
 
-/* ========== تشغيل ========== */
 document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  if (!QUERY_REGION) {
-    // الوضع الوطني — مولد روابط فقط
-    renderHome();
-    return;
-  }
-
-  // الوضع الفرعي — صفحة منطقة واحدة فقط
+  if (!QUERY_REGION) { renderHome(); return; }
   const region = REGIONS.find(x=> x.id === QUERY_REGION);
-  if (!region) {
-    // إن كانت بارامتر غير معروف، نرجع للوضع الوطني
-    renderHome();
-    return;
-  }
-  // تحديث المكان من الاستعلام (اختياري)
-  const v = params.get('venue');
-  if (v) region.venue = decodeURIComponent(v).replace(/-/g, ' ');
-
+  if (!region) { renderHome(); return; }
   renderRegion(region);
 });
 </script>
