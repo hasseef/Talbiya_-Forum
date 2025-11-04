@@ -1,226 +1,304 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ملتقى تلبية — الصفحة الرئيسية</title>
-  <meta name="description" content="موقع تعريفي لملتقيات تلبية التعريفية بالشراكة مع إمارات المناطق، مع عرض محاور المتحدثين والمعرض المصاحب.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --tal-green:#1B6734;
-      --tal-gold:#DCB943;
-      --vision-gray:#6f6f6f;
-      --bg:#f7f8f9;
-      --card:#ffffff;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --ring:rgba(27,103,52,.12);
-      --shadow: 0 10px 30px rgba(0,0,0,.06);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',system-ui,-apple-system;line-height:1.7}
-    a{color:var(--tal-green);text-decoration:none}
-    img{max-width:100%;height:auto}
-    header{position:sticky;top:0;background:#fff;box-shadow:var(--shadow);z-index:20}
-    .container{max-width:1200px;margin:0 auto;padding:16px}
-    .nav{display:flex;align-items:center;gap:12px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{height:38px}
-    .brand-title{font-weight:900;color:var(--tal-green)}
-    .hero{position:relative;overflow:hidden;background:
-      radial-gradient(1200px 400px at 80% -10%, rgba(220,185,67,0.12), transparent 60%),
-      radial-gradient(900px 300px at 10% -20%, rgba(27,103,52,.12), transparent 60%),
-      linear-gradient(180deg, #ffffff, #f6faf7);
-      border-bottom:1px solid #eef2f7;
-    }
-    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:32px 0}
-    .hero h1{font-size:clamp(22px,4.5vw,40px);margin:0 0 10px}
-    .hero p.lead{color:var(--muted);margin:0 0 16px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
-    .chip{background:#fff;border:1px solid #eef2f7;border-radius:999px;padding:8px 14px;font-size:14px;box-shadow:var(--shadow)}
-    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-    .btn{padding:12px 16px;border-radius:14px;border:1px solid transparent;font-weight:700;cursor:pointer}
-    .btn-primary{background:var(--tal-green);color:#fff}
-    .btn-outline{background:#fff;border-color:#e5e7eb;color:var(--ink)}
-    .btn-ghost{background:transparent;border-color:transparent;color:var(--muted);text-decoration:underline}
-    .logos{display:flex;gap:18px;align-items:center;flex-wrap:wrap;opacity:.9}
-    .logos img{height:46px;filter: saturate(.9)}
-    .section{padding:28px 0}
-    .grid{display:grid;gap:16px}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:640px){.grid-3,.grid-2,.grid-4{grid-template-columns:1fr} .logos img{height:40px}}
-    .card{background:var(--card);border:1px solid #eef2f7;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-    .region-card{display:flex;flex-direction:column;gap:8px}
-    .region-title{font-weight:900}
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;color:#374151}
-    .footer{background:#fff;border-top:1px solid #e5e7eb}
-    .muted{color:var(--muted)}
-    .pill{display:inline-flex;align-items:center;gap:8px;background:var(--ring);padding:6px 10px;border-radius:999px}
-    /* Speaker */
-    .speaker{display:flex;gap:12px;align-items:flex-start}
-    .avatar{width:64px;height:64px;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;flex:0 0 auto}
-    .topic{font-size:13px;color:#155e75;background:#ecfeff;border:1px solid #cffafe;border-radius:10px;padding:4px 10px;display:inline-block}
-    /* Admin panel */
-    .admin{display:none}
-    .admin.show{display:block}
-    .admin .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-    @media(max-width:900px){.admin .grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:600px){.admin .grid{grid-template-columns:1fr}}
-    pre.code{white-space:pre-wrap;background:#0b1220;color:#e5e7eb;border-radius:12px;padding:12px;font-size:12px;direction:ltr}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ملتقى تلبية — النسخة الموسعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--tal-green:#1B6734;--tal-gold:#DCB943;--vision-gray:#6f6f6f;--bg:#f7f8f9;--card:#ffffff;--ink:#1f2937;--muted:#6b7280;--ring:rgba(27,103,52,.12);--shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px}
+*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',system-ui;line-height:1.7}
+a{color:var(--tal-green);text-decoration:none} img{max-width:100%;height:auto}
+header{position:sticky;top:0;background:#fff;box-shadow:var(--shadow);z-index:20}
+.container{max-width:1200px;margin:0 auto;padding:16px}
+.nav{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}.brand img{height:38px}.brand-title{font-weight:900;color:var(--tal-green)}
+.hero{position:relative;overflow:hidden;background:
+radial-gradient(1200px 400px at 80% -10%, rgba(220,185,67,0.12), transparent 60%),
+radial-gradient(900px 300px at 10% -20%, rgba(27,103,52,.12), transparent 60%),
+linear-gradient(180deg, #ffffff, #f6faf7);border-bottom:1px solid #eef2f7}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:32px 0}
+.hero h1{font-size:clamp(22px,4.5vw,40px);margin:0 0 10px}
+.hero p.lead{color:var(--muted);margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.chip{background:#fff;border:1px solid #eef2f7;border-radius:999px;padding:8px 14px;font-size:14px;box-shadow:var(--shadow)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.btn{padding:12px 16px;border-radius:14px;border:1px solid transparent;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--tal-green);color:#fff}
+.btn-outline{background:#fff;border-color:#e5e7eb;color:var(--ink)}
+.btn-ghost{background:transparent;border-color:transparent;color:var(--muted);text-decoration:underline}
+.logos{display:flex;gap:18px;align-items:center;flex-wrap:wrap;opacity:.9}
+.logos img{height:46px;filter:saturate(.9)}
+.section{padding:28px 0}
+.grid{display:grid;gap:16px}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.grid-3,.grid-2,.grid-4{grid-template-columns:1fr} .logos img{height:40px}}
+.card{background:var(--card);border:1px solid #eef2f7;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.region-card{display:flex;flex-direction:column;gap:8px}.region-title{font-weight:900}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;color:#374151}
+.footer{background:#fff;border-top:1px solid #e5e7eb}
+.muted{color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--ring);padding:6px 10px;border-radius:999px}
+.speaker{display:flex;gap:12px;align-items:flex-start}
+.avatar{width:64px;height:64px;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;flex:0 0 auto}
+.topic{font-size:13px;color:#155e75;background:#ecfeff;border:1px solid #cffafe;border-radius:10px;padding:4px 10px;display:inline-block}
+.admin{display:none}.admin.show{display:block}.admin .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.admin .grid{grid-template-columns:1fr 1fr}} @media(max-width:600px){.admin .grid{grid-template-columns:1fr}}
+pre.code{white-space:pre-wrap;background:#0b1220;color:#e5e7eb;border-radius:12px;padding:12px;font-size:12px;direction:ltr}
+nav a{padding:6px 10px;border-radius:10px} nav a:hover{background:#f3f4f6}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="nav">
-        <div class="brand">
-          <img src="assets/talbiya.png" alt="Talbiya logo">
-          <div class="brand-title">ملتقى تلبية</div>
-        </div>
-        <div class="pill"><strong id="active-region-name">جميع المناطق</strong> <span class="muted" id="active-venue"></span></div>
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <img src="assets/talbiya.png" alt="Talbiya logo">
+        <div class="brand-title">ملتقى تلبية</div>
       </div>
+      <nav style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#regions" class="muted">المناطق</a>
+        <a href="#agenda" class="muted">الأجندة</a>
+        <a href="#exhibition" class="muted">المعرض</a>
+        <a href="#sponsor" class="muted">الرعايات</a>
+        <a href="#media" class="muted">المركز الإعلامي</a>
+        <a href="#contact" class="muted">التواصل</a>
+      </nav>
+      <div class="pill"><strong id="active-region-name">جميع المناطق</strong> <span class="muted" id="active-venue"></span></div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1>ملتقى «تلبية» التعريفي — حيث تتكامل الشراكات لمواءمة التنمية مع رؤية 2030</h1>
-          <p class="lead">منصة موحّدة لعرض مناطق المملكة، محاور المتحدثين، والمعرض المصاحب. اصنع رابطًا مخصصًا لمنطقتك وانشره مباشرة.</p>
-          <div class="chips">
-            <span class="chip">11 يناير 2026</span>
-            <span class="chip">2 رجب 1447هـ</span>
-            <span class="chip">المعرض المصاحب</span>
-            <span class="chip">ورش عمل ومحاور</span>
-          </div>
-          <div class="cta">
-            <a class="btn btn-primary" href="#regions">استعرض المناطق</a>
-            <a class="btn btn-outline" href="#speakers">المتحدثون</a>
-            <button class="btn btn-ghost" id="copy-link">نسخ رابط المنطقة الحالية</button>
-          </div>
-          <div class="logos" style="margin-top:18px">
-            <img src="assets/vision2030.png" alt="Vision 2030">
-            <img src="assets/hasseef.png" alt="Hasseef">
-            <img src="assets/talbiya.png" alt="Talbiya">
-          </div>
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>ملتقى «تلبية» التعريفي — حيث تتكامل الشراكات لمواءمة التنمية مع رؤية 2030</h1>
+        <p class="lead">واجهة موحّدة لعرض مناطق المملكة، محاور المتحدثين، الأجندة، المعرض، والرعايات — مع روابط نظيفة لكل منطقة.</p>
+        <div class="chips">
+          <span class="chip">11 يناير 2026</span>
+          <span class="chip">2 رجب 1447هـ</span>
+          <span class="chip">المعرض المصاحب</span>
+          <span class="chip">ورش عمل ومحاور</span>
         </div>
-        <div>
-          <div class="card">
-            <h3 style="margin-top:0">عن الملتقى</h3>
-            <p class="muted">ملتقى تعريفي بمبادرة «تلبية» ومشروع «حصيف» بالشراكة مع إمارة المنطقة، مع معرض مصاحب، وجلسات ومحاور يقدمها متحدثون مختصون.</p>
-            <ul class="muted" style="margin:0;padding-right:18px">
-              <li>صفحة رئيسية تعرض جميع المناطق (13 منطقة).</li>
-              <li>رابط نظيف لكل منطقة: <code>?region=&lt;id&gt;</code> ويدعم <code>&amp;venue=&lt;slug&gt;</code>.</li>
-              <li>إدارة المتحدثين لكل منطقة من لوحة إدارة مخفية.</li>
-            </ul>
-          </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="#regions">استعرض المناطق</a>
+          <a class="btn btn-outline" href="#speakers">المتحدثون</a>
+          <button class="btn btn-ghost" id="copy-link">نسخ رابط المنطقة الحالية</button>
+        </div>
+        <div class="logos" style="margin-top:18px">
+          <img src="assets/vision2030.png" alt="Vision 2030">
+          <img src="assets/hasseef.png" alt="Hasseef">
+          <img src="assets/talbiya.png" alt="Talbiya">
         </div>
       </div>
-    </section>
-
-    <section class="section" id="regions">
-      <div class="container">
-        <h2 style="margin-top:0">المناطق</h2>
-        <div class="grid grid-4" id="region-grid"></div>
-      </div>
-    </section>
-
-    <section class="section" id="speakers">
-      <div class="container">
-        <h2 style="margin-top:0">محاور المتحدثين</h2>
-        <div id="speakers-wrap" class="grid grid-3"></div>
-      </div>
-    </section>
-
-    <!-- Admin Panel (hidden by default) -->
-    <section class="section admin" id="admin-panel">
-      <div class="container">
-        <h2 style="margin-top:0">لوحة الإدارة (خاصة)</h2>
-        <p class="muted">لن تظهر هذه اللوحة للجمهور. تُعرض فقط بإضافة <code>?admin=1</code> للرابط، أو بتفعيل <code>localStorage.setItem('tal_admin','true')</code>.</p>
+      <div>
         <div class="card">
-          <div class="grid">
-            <div>
-              <label>مصدر البيانات</label>
-              <select id="source-select" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px">
-                <option value="local">الملف المضمن (data/speakers.json)</option>
-                <option value="upload">رفع JSON يدويًا</option>
-              </select>
-            </div>
-            <div>
-              <label>منطقة التحرير</label>
-              <select id="edit-region" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></select>
-            </div>
-            <div>
-              <label>اسم القاعة (سيُحوّل لجزء من الرابط)</label>
-              <input id="venue-input" type="text" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="مثال: مركز معارض حائل الدولي — القاعة الرئيسية">
-            </div>
-            <div style="display:flex;align-items:flex-end;gap:8px">
-              <button class="btn btn-outline" id="apply-venue">تطبيق القاعة وتحديث الرابط</button>
-              <button class="btn" id="export-json">تصدير JSON</button>
-              <input type="file" id="upload-json" accept="application/json" style="display:none">
-              <button class="btn btn-outline" id="upload-trigger">رفع JSON</button>
-            </div>
-          </div>
+          <h3 style="margin-top:0">عن الملتقى</h3>
+          <p class="muted">ملتقى تعريفي بمبادرة «تلبية» ومشروع «حصيف» بالشراكة مع إمارة المنطقة، مع معرض مصاحب، وجلسات ومحاور يقدمها متحدثون مختصون.</p>
+          <ul class="muted" style="margin:0;padding-right:18px">
+            <li>صفحة رئيسية تعرض جميع المناطق (13 منطقة).</li>
+            <li>رابط نظيف لكل منطقة: <code>?region=&lt;id&gt;&amp;venue=&lt;slug&gt;</code>.</li>
+            <li>إدارة المتحدثين لكل منطقة من لوحة إدارة مخفية.</li>
+          </ul>
         </div>
-
-        <div class="card" style="margin-top:16px">
-          <h3 style="margin-top:0">إضافة / تعديل متحدث</h3>
-          <div class="grid grid-4">
-            <div><label>المحور</label><input id="f-topic" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="اسم المحور"></div>
-            <div><label>اسم المتحدث</label><input id="f-name" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="الاسم الكامل"></div>
-            <div><label>رابط الصورة</label><input id="f-photo" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="URL أو assets/..."></div>
-            <div><label>نبذة مختصرة</label><input id="f-bio" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="سطرين عن المتحدث"></div>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px">
-            <button class="btn btn-primary" id="add-speaker">حفظ المتحدث</button>
-            <button class="btn btn-outline" id="clear-form">تفريغ الحقول</button>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:16px">
-          <h3 style="margin-top:0">المعطيات الحالية (للمراجعة)</h3>
-          <pre class="code" id="current-json"></pre>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 16px">
-      <div class="muted">© مبادرة تلبية — 2026</div>
-      <div class="logos">
-        <img src="assets/vision2030.png" alt="Vision 2030">
-        <img src="assets/hasseef.png" alt="Hasseef">
-        <img src="assets/talbiya.png" alt="Talbiya">
       </div>
     </div>
-  </footer>
+  </section>
+
+  <section class="section" id="regions">
+    <div class="container">
+      <h2 style="margin-top:0">المناطق</h2>
+      <div class="grid grid-4" id="region-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="speakers">
+    <div class="container">
+      <h2 style="margin-top:0">محاور المتحدثين</h2>
+      <div id="speakers-wrap" class="grid grid-3"></div>
+    </div>
+  </section>
+
+  <section class="section" id="agenda">
+    <div class="container">
+      <h2 style="margin-top:0">الأجندة (يومان)</h2>
+      <div class="card" id="agenda-card">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <button class="btn btn-outline" id="tab-day1">اليوم الأول</button>
+          <button class="btn btn-outline" id="tab-day2">اليوم الثاني</button>
+          <span class="muted" style="margin-right:auto">تظهر الأجندة وفق المنطقة المختارة</span>
+        </div>
+        <div id="agenda-table"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="exhibition">
+    <div class="container">
+      <h2 style="margin-top:0">المعرض المصاحب — طلب حجز مساحة</h2>
+      <form class="card" id="expo-form" onsubmit="return submitExpo(event)">
+        <div class="grid grid-2">
+          <div><label>اسم الجهة</label><input id="ex-name" required style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></div>
+          <div>
+            <label>نوع الجهة</label>
+            <select id="ex-type" required style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px">
+              <option value="شركة">شركة</option>
+              <option value="جمعية">جمعية</option>
+              <option value="جامعة">جامعة</option>
+              <option value="حكومية">جهة حكومية</option>
+            </select>
+          </div>
+          <div><label>المساحة المطلوبة</label><select id="ex-size" required style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"><option>3×3 م</option><option>4×4 م</option><option>6×6 م</option></select></div>
+          <div><label>بريد التواصل</label><input id="ex-email" type="email" required style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+          <span class="muted">سيتم توليد بريد جاهز يتضمن التفاصيل</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="sponsor">
+    <div class="container">
+      <h2 style="margin-top:0">الرعايات — كن شريكًا في الأثر</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3 style="margin:0">الشريك الاستراتيجي</h3>
+          <ul class="muted" style="padding-right:18px">
+            <li>شعار في الواجهة والمسرح</li><li>جناح مميز</li><li>كلمة ترحيبية</li><li>تغطية إعلامية</li>
+          </ul>
+          <a class="btn btn-primary" href="#contact">اطلب رعاية</a>
+        </div>
+        <div class="card">
+          <h3 style="margin:0">راعٍ ذهبي</h3>
+          <ul class="muted" style="padding-right:18px">
+            <li>شعار على الموقع</li><li>جناح قياسي</li><li>ذكر في النشرات</li>
+          </ul>
+          <a class="btn btn-primary" href="#contact">اطلب رعاية</a>
+        </div>
+        <div class="card">
+          <h3 style="margin:0">راعٍ فضي</h3>
+          <ul class="muted" style="padding-right:18px">
+            <li>شعار في صفحة الرعاة</li><li>تذاكر VIP محدودة</li>
+          </ul>
+          <a class="btn btn-primary" href="#contact">اطلب رعاية</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="media">
+    <div class="container">
+      <h2 style="margin-top:0">المركز الإعلامي</h2>
+      <div class="grid grid-3">
+        <div class="card"><strong>خبر صحفي</strong><p class="muted">نشر خبر تدشين الملتقى في المنطقة المستهدفة.</p><a class="btn btn-outline" href="#">تحميل البيان (PDF)</a></div>
+        <div class="card"><strong>هوية وشعارات</strong><p class="muted">شعارات تلبية، حصيف، والرؤية 2030.</p><div class="logos"><img src="assets/talbiya.png"><img src="assets/hasseef.png"><img src="assets/vision2030.png"></div></div>
+        <div class="card"><strong>صور الحدث</strong><p class="muted">ألبوم بعد التنفيذ — يُضاف لاحقًا.</p><a class="btn btn-outline" href="#">فتح الألبوم</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 style="margin-top:0">تواصل — الموقع والبيانات</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="margin:0">موقع القاعة</h3>
+          <p class="muted">يتم تحديثه تلقائيًا وفق المنطقة والقاعة المحددة.</p>
+          <div id="map-holder" style="height:260px;border-radius:12px;background:#e5e7eb;display:flex;align-items:center;justify-content:center" class="muted">
+            خريطة Google ستظهر هنا
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0">بيانات التواصل</h3>
+          <ul class="muted" style="padding-right:18px">
+            <li>البريد: info@talbiya.sa</li>
+            <li>هاتف الدعم: 0000 000 000</li>
+            <li>تويتر: @Talbiya</li>
+          </ul>
+          <a class="btn btn-primary" href="mailto:info@talbiya.sa">راسلنا الآن</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin Panel -->
+  <section class="section admin" id="admin-panel">
+    <div class="container">
+      <h2 style="margin-top:0">لوحة الإدارة (خاصة)</h2>
+      <p class="muted">لن تظهر هذه اللوحة للجمهور. تُعرض فقط بإضافة <code>?admin=1</code> للرابط، أو بتفعيل <code>localStorage.setItem('tal_admin','true')</code>.</p>
+      <div class="card">
+        <div class="grid">
+          <div>
+            <label>مصدر البيانات</label>
+            <select id="source-select" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px">
+              <option value="local">الملف المضمن (data/speakers.json)</option>
+              <option value="upload">رفع JSON يدويًا</option>
+            </select>
+          </div>
+          <div>
+            <label>منطقة التحرير</label>
+            <select id="edit-region" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></select>
+          </div>
+          <div>
+            <label>اسم القاعة (سيُحوّل لجزء من الرابط)</label>
+            <input id="venue-input" type="text" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="مثال: مركز معارض حائل الدولي — القاعة الرئيسية">
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px">
+            <button class="btn btn-outline" id="apply-venue">تطبيق القاعة وتحديث الرابط</button>
+            <button class="btn" id="export-json">تصدير JSON</button>
+            <input type="file" id="upload-json" accept="application/json" style="display:none">
+            <button class="btn btn-outline" id="upload-trigger">رفع JSON</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">إضافة / تعديل متحدث</h3>
+        <div class="grid grid-4">
+          <div><label>المحور</label><input id="f-topic" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="اسم المحور"></div>
+          <div><label>اسم المتحدث</label><input id="f-name" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="الاسم الكامل"></div>
+          <div><label>رابط الصورة</label><input id="f-photo" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="URL أو assets/..."></div>
+          <div><label>نبذة مختصرة</label><input id="f-bio" class="input" style="width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="سطرين عن المتحدث"></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary" id="add-speaker">حفظ المتحدث</button>
+          <button class="btn btn-outline" id="clear-form">تفريغ الحقول</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-top:0">المعطيات الحالية (للمراجعة)</h3>
+        <pre class="code" id="current-json"></pre>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 16px">
+    <div class="muted">© مبادرة تلبية — 2026</div>
+    <div class="logos">
+      <img src="assets/vision2030.png" alt="Vision 2030">
+      <img src="assets/hasseef.png" alt="Hasseef">
+      <img src="assets/talbiya.png" alt="Talbiya">
+    </div>
+  </div>
+</footer>
 
 <script>
 (function(){
-  const regionList = [
-    {id:'riyadh', name:'الرياض'},
-    {id:'makkah', name:'مكة المكرمة'},
-    {id:'madinah', name:'المدينة المنورة'},
-    {id:'qassim', name:'القصيم'},
-    {id:'eastern', name:'الشرقية'},
-    {id:'asir', name:'عسير'},
-    {id:'tabuk', name:'تبوك'},
-    {id:'hail', name:'حائل'},
-    {id:'northborders', name:'الحدود الشمالية'},
-    {id:'jazan', name:'جازان'},
-    {id:'najran', name:'نجران'},
-    {id:'albaha', name:'الباحة'},
-    {id:'aljouf', name:'الجوف'}
-  ];
+  const regionList = [{"id": "riyadh", "name": "الرياض"}, {"id": "makkah", "name": "مكة المكرمة"}, {"id": "madinah", "name": "المدينة المنورة"}, {"id": "qassim", "name": "القصيم"}, {"id": "eastern", "name": "الشرقية"}, {"id": "asir", "name": "عسير"}, {"id": "tabuk", "name": "تبوك"}, {"id": "hail", "name": "حائل"}, {"id": "northborders", "name": "الحدود الشمالية"}, {"id": "jazan", "name": "جازان"}, {"id": "najran", "name": "نجران"}, {"id": "albaha", "name": "الباحة"}, {"id": "aljouf", "name": "الجوف"}];
+
   const qs = new URLSearchParams(location.search);
   const isAdmin = qs.get('admin')==='1' || localStorage.getItem('tal_admin')==='true';
   const adminPanel = document.getElementById('admin-panel');
@@ -251,7 +329,6 @@
     copy(link);
   });
 
-  // Render region cards
   function renderRegions(){
     regionGrid.innerHTML = '';
     regionList.forEach(r=>{
@@ -265,7 +342,6 @@
     });
   }
 
-  // Render speakers for active region
   function renderSpeakers(){
     speakersWrap.innerHTML='';
     const rid = qs.get('region');
@@ -290,12 +366,8 @@
       speakersWrap.appendChild(empty);
       return;
     }
-    // Group by topic
     const byTopic = {};
-    list.forEach(s=>{
-      byTopic[s.topic] = byTopic[s.topic] || [];
-      byTopic[s.topic].push(s);
-    });
+    list.forEach(s=>{ byTopic[s.topic] = byTopic[s.topic] || []; byTopic[s.topic].push(s); });
     Object.keys(byTopic).forEach(topic=>{
       const box = document.createElement('div');
       box.className='card';
@@ -314,6 +386,36 @@
       });
       speakersWrap.appendChild(box);
     });
+  }
+
+  // Agenda
+  function renderAgenda(day){
+    const rid = new URLSearchParams(location.search).get("region") || "hail";
+    const ag = (DATA.agenda && DATA.agenda[rid]) || {};
+    const items = ag[day] || [];
+    const wrap = document.getElementById("agenda-table");
+    if(!wrap) return;
+    wrap.innerHTML = "";
+    if(items.length===0){ wrap.innerHTML = '<div class="muted">لا توجد أجندة لهذه المنطقة بعد.</div>'; return; }
+    const table = document.createElement("div"); table.className = "grid";
+    items.forEach(it=>{
+      const row = document.createElement("div"); row.className = "card";
+      const sp = (it.speakers||[]).map(s=>s.name).join("، ");
+      row.innerHTML = `<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div><strong>${it.title}</strong><div class="muted" style="font-size:14px">${sp || ''}</div></div>
+        <div class="badge">${it.time}</div>
+        <div class="badge">${it.hall}</div>
+      </div>`;
+      table.appendChild(row);
+    });
+    wrap.appendChild(table);
+  }
+  function bindAgendaTabs(){
+    const d1 = document.getElementById("tab-day1");
+    const d2 = document.getElementById("tab-day2");
+    if(!d1||!d2) return;
+    d1.onclick = ()=> renderAgenda("day1");
+    d2.onclick = ()=> renderAgenda("day2");
   }
 
   // Admin helpers
@@ -339,7 +441,7 @@
     DATA.venues = DATA.venues || {};
     DATA.venues[rid] = v;
     history.replaceState({}, '', buildLink(rid, v));
-    renderRegions(); renderSpeakers(); refreshAdmin();
+    renderRegions(); renderSpeakers(); refreshAdmin(); renderAgenda("day1");
   });
 
   document.getElementById('add-speaker').addEventListener('click', ()=>{
@@ -372,21 +474,43 @@
     if(!file) return;
     const text = await file.text();
     try{ DATA = JSON.parse(text); }catch(err){ alert('ملف JSON غير صالح'); return; }
-    renderRegions(); renderSpeakers(); refreshAdmin();
+    renderRegions(); renderSpeakers(); refreshAdmin(); renderAgenda("day1");
   });
 
-  // Load data file
+  // Load data
   fetch('data/speakers.json')
     .then(r=>r.json())
     .then(j=>{ DATA = j; proceed(); })
-    .catch(()=>{ DATA = {meta:{}, regions:regionList, venues:{}, speakers:{} }; proceed(); });
+    .catch(()=>{ DATA = {meta:{}, regions:regionList, venues:{}, speakers:{}, agenda:{} }; proceed(); });
 
   function proceed(){
     renderRegions();
     renderSpeakers();
     refreshAdmin();
+    bindAgendaTabs();
+    renderAgenda("day1");
   }
 
-})();</script>
+  // Exhibition form
+  window.submitExpo = function(e){
+    e.preventDefault();
+    const rid = new URLSearchParams(location.search).get("region") || "hail";
+    const name = document.getElementById("ex-name").value;
+    const typ = document.getElementById("ex-type").value;
+    const size = document.getElementById("ex-size").value;
+    const email = document.getElementById("ex-email").value;
+    const body = encodeURIComponent(`طلب حجز مساحة
+المنطقة: ${rid}
+الجهة: ${name}
+النوع: ${typ}
+المساحة: ${size}
+البريد: ${email}`);
+    const link = "mailto:info@talbiya.sa?subject=" + encodeURIComponent("طلب حجز جناح - ملتقى تلبية") + "&body=" + body;
+    window.location.href = link;
+    return false;
+  }
+
+})();
+</script>
 </body>
 </html>
