@@ -1,424 +1,87 @@
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ملتقى تلبية — نسخة جاهزة للنشر</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ملتقيات تلبية | الموقع الرئيسي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--tal-green:#1B6734;--bg:#f7f8f9;--card:#ffffff;--ink:#1f2937;--muted:#6b7280;--ring:rgba(27,103,52,.12);--shadow:0 10px 30px rgba(0,0,0,.06);--radius:18px}
-*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',system-ui;line-height:1.7}
-a{color:var(--tal-green);text-decoration:none} img{max-width:100%;height:auto}
-header{position:sticky;top:0;background:#fff;box-shadow:var(--shadow);z-index:20}
-.container{max-width:1200px;margin:0 auto;padding:16px}
-.nav{display:flex;align-items:center;gap:12px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px}.brand img{height:38px}.brand-title{font-weight:900;color:var(--tal-green)}
-.hero{background:linear-gradient(180deg, #ffffff, #f6faf7);border-bottom:1px solid #eef2f7}
-.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:32px 0}
-.hero h1{font-size:clamp(22px,4.5vw,40px);margin:0 0 10px}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
-.chip{background:#fff;border:1px solid #eef2f7;border-radius:999px;padding:8px 14px;font-size:14px;box-shadow:var(--shadow)}
-.btn{padding:12px 16px;border-radius:14px;border:1px solid #e5e7eb;background:#fff;font-weight:700;cursor:pointer}
-.btn-primary{background:var(--tal-green);color:#fff;border-color:transparent}
-.section{padding:28px 0}
-.grid{display:grid;gap:16px}
-.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:640px){.grid-3,.grid-2,.grid-4{grid-template-columns:1fr} .logos img{height:40px} .card{padding:14px;border-radius:16px} .avatar{width:56px;height:56px;border-radius:14px}}
-.card{background:var(--card);border:1px solid #eef2f7;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-.region-card{display:flex;flex-direction:column;gap:8px}.region-title{font-weight:900}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-size:12px;color:#374151}
-.footer{background:#fff;border-top:1px solid #e5e7eb}
-.muted{color:var(--muted)}
-.pill{display:inline-flex;align-items:center;gap:8px;background:var(--ring);padding:6px 10px;border-radius:999px}
-.speaker{display:flex;gap:12px;align-items:flex-start}
-.avatar{width:64px;height:64px;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;background:#fff;flex:0 0 auto}
-.topic{font-size:13px;color:#155e75;background:#ecfeff;border:1px solid #cffafe;border-radius:10px;padding:4px 10px;display:inline-block}
-nav a{padding:6px 10px;border-radius:10px} nav a:hover{background:#f3f4f6}
-.emirate-logo img{height:56px} @media(max-width:480px){ .emirate-logo img{height:42px} }
-</style>
-</head>
+:root{--brand:#2e7d32;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--accent:#e8f5e9;--radius:18px;--shadow:0 10px 25px rgba(0,0,0,.06)}
+*{box-sizing:border-box}body{margin:0;font-family:Tajawal,system-ui,Arial;background:var(--bg);color:var(--ink)}img{max-width:100%;display:block}
+.container{width:min(1100px,100%);margin:auto;padding:0 16px}
+header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border)}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}.brand{display:flex;gap:10px;align-items:center}.brand img{height:46px}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav a{padding:10px 14px;border-radius:10px;border:1px solid var(--border);color:var(--ink);text-decoration:none}nav a.active,nav a:hover{background:var(--accent);color:#0a3d16}
+.hero{background:radial-gradient(1200px 500px at 50% -200px,#e8f5e9 10%,transparent 70%),#fff;border-bottom:1px solid var(--border)}.wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;padding:28px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:10px;box-shadow:var(--shadow)}.btn{background:var(--brand);color:#fff;border:0;padding:10px 12px;border-radius:12px;cursor:pointer}.btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+section{padding:26px 0}.grid{display:grid;gap:14px}.grid.cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.p{padding:14px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#0a3d16;border-radius:999px;padding:8px 12px;font-size:14px}
+.speaker{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center}.speaker img{width:76px;height:76px;object-fit:cover;border-radius:50%;border:2px solid #e0f2f1}
+.agenda-item{display:grid;grid-template-columns:100px 1fr;gap:12px}.partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}.partners img{width:100%;height:80px;object-fit:contain;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.agenda-item{grid-template-columns:1fr}.speaker{grid-template-columns:64px 1fr}.speaker img{width:64px;height:64px}}
+</style></head>
 <body>
-<header>
-  <div class="container">
-    <div class="nav">
-      <div class="brand">
-        <img src="assets/talbiya.png" alt="Talbiya logo">
-        <div class="brand-title">ملتقى تلبية</div>
-      </div>
-      <nav style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="#regions" class="muted">المناطق</a>
-        <a href="#agenda" class="muted">الأجندة</a>
-        <a href="#exhibition" class="muted">المعرض</a>
-        <a href="#sponsor" class="muted">الرعايات</a>
-        <a href="#media" class="muted">المركز الإعلامي</a>
-        <a href="#contact" class="muted">التواصل</a>
-      </nav>
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="pill"><strong id="active-region-name">جميع المناطق</strong> <span class="muted" id="active-venue"></span></div>
-        <div class="emirate-logo" id="emirate-logo"></div>
-      </div>
+<header><div class="container topbar">
+  <div class="brand"><img src="./assets/talbiya.png" alt="مبادرة تلبية"/><strong>ملتقيات تلبية</strong></div>
+  <nav id="nav"><a href="#overview" class="active">الصفحة الرئيسية</a><a href="#agenda">الجدول</a><a href="#speakers">المتحدثون</a><a href="#partners">الشركاء</a><a href="#register">التسجيل</a></nav>
+</div></header>
+<div class="hero"><div class="container wrap">
+  <div>
+    <h1>ملتقى تلبية – <span id="regionTitle">كل المناطق</span></h1>
+    <div class="toolbar">
+      <div><label>المنطقة: </label><select id="regionSelect"></select></div>
+      <div><label>المحور: </label><select id="topicSelect"><option value="all">كل المحاور</option></select></div>
+      <button class="btn" id="copyLink">نسخ رابط هذه المنطقة</button>
+      <button class="btn ghost" id="importJson">استيراد بيانات منطقة (JSON)</button>
+      <input type="file" id="fileInput" accept="application/json" hidden />
     </div>
+    <p style="margin:8px 2px;color:#64748b">اختر منطقة ثم انسخ الرابط لمشاركتها كصفحة فرعية.</p>
   </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <h1>ملتقى «تلبية» التعريفي — روابط مستقلة لكل منطقة مع عرض محاور المتحدثين</h1>
-        <div class="chips">
-          <span class="chip">متجاوب للجوال 100%%</span>
-          <span class="chip">لوحة إدارة للمحتوى</span>
-          <span class="chip">شعار الإمارة تلقائي</span>
-        </div>
-        <div class="logos" style="margin-top:18px">
-          <img src="assets/vision2030.png" alt="Vision 2030">
-          <img src="assets/hasseef.png" alt="Hasseef">
-          <img src="assets/talbiya.png" alt="Talbiya">
-        </div>
-      </div>
-      <div><div class="card"><strong>ملاحظة:</strong> اختر منطقة من الأسفل أو أضف <code>?region=hail</code> للرابط لعرض بيانات حائل مع الصور.</div></div>
-    </div>
-  </section>
-
-  <section class="section" id="regions">
-    <div class="container">
-      <h2 style="margin-top:0">المناطق</h2>
-      <div class="grid grid-4" id="region-grid"></div>
-    </div>
-  </section>
-
-  <section class="section" id="speakers">
-    <div class="container">
-      <h2 style="margin-top:0">محاور المتحدثين</h2>
-      <div id="speakers-wrap" class="grid grid-3"></div>
-    </div>
-  </section>
-
-  <section class="section" id="agenda">
-    <div class="container">
-      <h2 style="margin-top:0">الأجندة (يومان)</h2>
-      <div class="card" id="agenda-card">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-          <button class="btn" id="tab-day1">اليوم الأول</button>
-          <button class="btn" id="tab-day2">اليوم الثاني</button>
-          <span class="muted" style="margin-right:auto">تظهر الأجندة وفق المنطقة المختارة</span>
-        </div>
-        <div id="agenda-table"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="exhibition">
-    <div class="container">
-      <h2 style="margin-top:0">المعرض المصاحب — طلب حجز مساحة</h2>
-      <form class="card" id="expo-form" onsubmit="return submitExpo(event)">
-        <div class="grid grid-2">
-          <div><label>اسم الجهة</label><input id="ex-name" required style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></div>
-          <div>
-            <label>نوع الجهة</label>
-            <select id="ex-type" required style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px">
-              <option value="شركة">شركة</option>
-              <option value="جمعية">جمعية</option>
-              <option value="جامعة">جامعة</option>
-              <option value="حكومية">جهة حكومية</option>
-            </select>
-          </div>
-          <div><label>المساحة المطلوبة</label><select id="ex-size" required style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"><option>3×3 م</option><option>4×4 م</option><option>6×6 م</option></select></div>
-          <div><label>بريد التواصل</label><input id="ex-email" type="email" required style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn btn-primary" type="submit">إرسال الطلب</button>
-          <span class="muted">سيتم توليد بريد جاهز يتضمن التفاصيل</span>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <section class="section" id="sponsor">
-    <div class="container">
-      <h2 style="margin-top:0">الرعايات — كن شريكًا في الأثر</h2>
-      <div class="grid grid-3">
-        <div class="card"><h3 style="margin:0">الشريك الاستراتيجي</h3><ul class="muted" style="padding-right:18px"><li>شعار في الواجهة والمسرح</li><li>جناح مميز</li><li>كلمة ترحيبية</li><li>تغطية إعلامية</li></ul></div>
-        <div class="card"><h3 style="margin:0">راعٍ ذهبي</h3><ul class="muted" style="padding-right:18px"><li>شعار على الموقع</li><li>جناح قياسي</li><li>ذكر في النشرات</li></ul></div>
-        <div class="card"><h3 style="margin:0">راعٍ فضي</h3><ul class="muted" style="padding-right:18px"><li>شعار في صفحة الرعاة</li><li>تذاكر VIP محدودة</li></ul></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="media">
-    <div class="container">
-      <h2 style="margin-top:0">المركز الإعلامي</h2>
-      <div class="grid grid-3">
-        <div class="card"><strong>خبر صحفي</strong><p class="muted">نشر خبر تدشين الملتقى في المنطقة المستهدفة.</p><a class="btn" href="#">تحميل البيان (PDF)</a></div>
-        <div class="card"><strong>هوية وشعارات</strong><p class="muted">شعارات تلبية، حصيف، والرؤية 2030.</p><div class="logos"><img src="assets/talbiya.png"><img src="assets/hasseef.png"><img src="assets/vision2030.png"></div></div>
-        <div class="card"><strong>صور الحدث</strong><p class="muted">ألبوم بعد التنفيذ — يُضاف لاحقًا.</p><a class="btn" href="#">فتح الألبوم</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="container">
-      <h2 style="margin-top:0">تواصل — الموقع والبيانات</h2>
-      <div class="grid grid-2">
-        <div class="card"><h3 style="margin:0">موقع القاعة</h3><div id="map-holder" style="height:260px;border-radius:12px;background:#e5e7eb;display:flex;align-items:center;justify-content:center" class="muted">خريطة Google ستظهر هنا</div></div>
-        <div class="card"><h3 style="margin:0">بيانات التواصل</h3><ul class="muted" style="padding-right:18px"><li>البريد: info@talbiya.sa</li><li>هاتف الدعم: 0000 000 000</li><li>تويتر: @Talbiya</li></ul></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section admin" id="admin-panel">
-    <div class="container">
-      <h2 style="margin-top:0">لوحة الإدارة (خاصة)</h2>
-      <p class="muted">لا تظهر للجمهور — أضف <code>?admin=1</code> للرابط.</p>
-      <div class="card">
-        <div class="grid grid-2">
-          <div><label>منطقة التحرير</label><select id="edit-region" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px"></select></div>
-          <div><label>اسم القاعة</label><input id="venue-input" type="text" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="مثال: مركز معارض حائل الدولي — القاعة الرئيسية"></div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn" id="apply-venue">تطبيق القاعة وتحديث الرابط</button>
-          <button class="btn" id="export-json">تصدير JSON</button>
-          <input type="file" id="upload-json" accept="application/json" style="display:none">
-          <button class="btn" id="upload-trigger">رفع JSON</button>
-        </div>
-        <div style="margin-top:12px">
-          <h3 style="margin-top:0">إضافة / تعديل متحدث</h3>
-          <div class="grid grid-2">
-            <div><label>المحور</label><input id="f-topic" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="اسم المحور"></div>
-            <div><label>اسم المتحدث</label><input id="f-name" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="الاسم الكامل"></div>
-            <div><label>رابط الصورة</label><input id="f-photo" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="URL أو assets/..."></div>
-            <div><label>نبذة مختصرة</label><input id="f-bio" style="width:100%%;padding:10px;border:1px solid #e5e7eb;border-radius:12px" placeholder="سطرين عن المتحدث"></div>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px">
-            <button class="btn btn-primary" id="add-speaker">حفظ المتحدث</button>
-            <button class="btn" id="clear-form">تفريغ الحقول</button>
-          </div>
-        </div>
-        <div class="card" style="margin-top:16px">
-          <h3 style="margin-top:0">المعطيات الحالية (للمراجعة)</h3>
-          <pre id="current-json" style="white-space:pre-wrap;background:#0b1220;color:#e5e7eb;border-radius:12px;padding:12px;font-size:12px;direction:ltr"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <div><div class="logos" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;opacity:.9">
+    <img src="./assets/Vision2030.png" alt="رؤية 2030"/><img src="./assets/hasseef.png" alt="حصيف"/><img src="./assets/talbiya.png" alt="تلبية"/><img id="emirateLogo" src="" alt="شعار الإمارة" style="height:58px;display:none"/>
+  </div></div>
+</div></div>
+<main class="container">
+  <section id="overview"><div class="card p"><div class="badge">🗓️ <span id="dateStr">—</span> • 📍 <span id="venueStr">—</span></div><p id="about" style="margin:10px 0 0">—</p></div></section>
+  <section id="agenda"><h2>الجدول والمحاور</h2><div class="grid" id="agendaGrid"></div></section>
+  <section id="speakers"><h2>المتحدثون</h2><div class="grid cards" id="speakersGrid"></div></section>
+  <section id="partners"><h2>الشركاء والداعمون</h2><div class="partners" id="partnersGrid"></div></section>
+  <section id="register"><h2>التسجيل</h2><div class="card p"><form onsubmit="event.preventDefault();fakeSubmit()" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+    <input required name="name" placeholder="الاسم الثلاثي"/><input required type="email" name="email" placeholder="البريد"/><input name="org" placeholder="الجهة (اختياري)"/><select name="role"><option>حضور</option><option>متحدث</option><option>راعي</option></select>
+    <textarea name="notes" placeholder="ملاحظات" style="grid-column:1/-1;min-height:88px;border:1px solid var(--border);border-radius:12px;padding:10px"></textarea>
+    <div style="grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end"><button class="btn" type="submit">إرسال</button><button class="btn ghost" type="reset">تفريغ</button></div>
+  </form><p id="regMsg" style="display:none;margin-top:8px;color:#0a3d16">تم استلام التسجيل كتجربة محلية.</p></div></section>
 </main>
-
-<footer class="footer">
-  <div class="container" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 16px">
-    <div class="muted">© مبادرة تلبية — 2026</div>
-    <div class="logos">
-      <img src="assets/vision2030.png" alt="Vision 2030">
-      <img src="assets/hasseef.png" alt="Hasseef">
-      <img src="assets/talbiya.png" alt="Talbiya">
-    </div>
-  </div>
-</footer>
-
+<footer><div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span>© مبادرة تلبية</span><a href="#" id="downloadJson">تنزيل بيانات المنطقة الحالية (JSON)</a></div></footer>
 <script>
-(function(){
-  const regionList = [{"id": "riyadh", "name": "الرياض"}, {"id": "makkah", "name": "مكة المكرمة"}, {"id": "madinah", "name": "المدينة المنورة"}, {"id": "qassim", "name": "القصيم"}, {"id": "eastern", "name": "الشرقية"}, {"id": "asir", "name": "عسير"}, {"id": "tabuk", "name": "تبوك"}, {"id": "hail", "name": "حائل"}, {"id": "northborders", "name": "الحدود الشمالية"}, {"id": "jazan", "name": "جازان"}, {"id": "najran", "name": "نجران"}, {"id": "albaha", "name": "الباحة"}, {"id": "aljouf", "name": "الجوف"}];
-  const qs = new URLSearchParams(location.search);
-  const isAdmin = qs.get('admin')==='1' || localStorage.getItem('tal_admin')==='true';
-  const adminPanel = document.getElementById('admin-panel');
-  if(isAdmin){ adminPanel.classList.add('show'); }
-
-  const speakersWrap = document.getElementById('speakers-wrap');
-  const regionGrid = document.getElementById('region-grid');
-  const activeRegionName = document.getElementById('active-region-name');
-  const activeVenue = document.getElementById('active-venue');
-  const emirateLogo = document.getElementById('emirate-logo');
-
-  let DATA = null;
-
-  function slugify(s){ return (s||'').toString().trim().replace(/\s+/g,'-').replace(/-+/g,'-'); }
-  function buildLink(id, venue){
-    const url = new URL(location.href);
-    url.searchParams.set('region', id);
-    if(venue && venue.trim().length) url.searchParams.set('venue', slugify(venue));
-    url.searchParams.delete('admin'); url.hash='';
-    return url.toString();
-  }
-
-  function tryEmirateLogo(regionId){
-    const base = 'assets/emirates/';
-    const exts = ['.png','.jpg','.jpeg','.svg','.webp'];
-    emirateLogo.innerHTML='';
-    for(const ext of exts){
-      const img = new Image();
-      img.onload = ()=>{ emirateLogo.innerHTML=''; emirateLogo.appendChild(img); };
-      img.src = base + regionId + ext;
-    }
-  }
-
-  function renderRegions(){
-    regionGrid.innerHTML = '';
-    regionList.forEach(r=>{
-      const a = document.createElement('a');
-      a.href = buildLink(r.id, (DATA.venues && DATA.venues[r.id]) || '');
-      a.className='card region-card';
-      a.innerHTML = `<div class="region-title">${r.name}</div>
-        <div class="muted">رابط الملتقى الخاص</div>
-        <div class="badge">?region=${r.id}${DATA.venues && DATA.venues[r.id]?'&venue='+slugify(DATA.venues[r.id]):''}</div>`;
-      regionGrid.appendChild(a);
-    });
-  }
-
-  function renderSpeakers(){
-    speakersWrap.innerHTML='';
-    const rid = qs.get('region');
-    emirateLogo.innerHTML='';
-    if(!rid){
-      const card = document.createElement('div');
-      card.className='card';
-      card.innerHTML = '<div class="muted">اختر منطقة لعرض المتحدثين الخاصين بها.</div>';
-      speakersWrap.appendChild(card);
-      activeRegionName.textContent = 'جميع المناطق';
-      activeVenue.textContent = '';
-      return;
-    }
-    tryEmirateLogo(rid);
-    const region = regionList.find(x=>x.id===rid);
-    activeRegionName.textContent = region? region.name : rid;
-    activeVenue.textContent = (DATA.venues && DATA.venues[rid])? ' — ' + DATA.venues[rid] : '';
-    const list = (DATA.speakers && DATA.speakers[rid]) || [];
-    if(list.length===0){
-      const empty = document.createElement('div');
-      empty.className='card';
-      empty.innerHTML='<div class="muted">لا توجد بيانات متحدثين لهذه المنطقة حتى الآن.</div>';
-      speakersWrap.appendChild(empty);
-      return;
-    }
-    const byTopic = {};
-    list.forEach(s=>{ byTopic[s.topic] = byTopic[s.topic] || []; byTopic[s.topic].push(s); });
-    Object.keys(byTopic).forEach(topic=>{
-      const box = document.createElement('div');
-      box.className='card';
-      const people = byTopic[topic];
-      box.innerHTML = `<div class="topic">${topic}</div><div class="muted" style="margin:6px 0 12px">${people.length} متحدث/ـة</div>`;
-      people.forEach(p=>{
-        const row = document.createElement('div'); row.className='speaker';
-        row.innerHTML = `<div class="avatar"><img src="${p.photo||'assets/talbiya.png'}" alt="${p.name}"></div>
-          <div><div style="font-weight:800">${p.name||'متحدث'}</div><div class="muted" style="font-size:14px">${p.bio||''}</div></div>`;
-        box.appendChild(row);
-      });
-      speakersWrap.appendChild(box);
-    });
-  }
-
-  function renderAgenda(day){
-    const rid = new URLSearchParams(location.search).get("region") || "hail";
-    const ag = (DATA.agenda && DATA.agenda[rid]) || {};
-    const items = ag[day] || [];
-    const wrap = document.getElementById("agenda-table");
-    if(!wrap) return;
-    wrap.innerHTML = "";
-    if(items.length===0){ wrap.innerHTML = '<div class="muted">لا توجد أجندة لهذه المنطقة بعد.</div>'; return; }
-    const table = document.createElement("div"); table.className = "grid";
-    items.forEach(it=>{
-      const row = document.createElement("div"); row.className = "card";
-      const sp = (it.speakers||[]).map(s=>s.name).join("، ");
-      row.innerHTML = `<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-        <div><strong>${it.title}</strong><div class="muted" style="font-size:14px">${sp || ''}</div></div>
-        <div class="badge">${it.time}</div><div class="badge">${it.hall}</div>
-      </div>`;
-      table.appendChild(row);
-    });
-    wrap.appendChild(table);
-  }
-  function bindAgendaTabs(){
-    const d1 = document.getElementById("tab-day1");
-    const d2 = document.getElementById("tab-day2");
-    if(!d1||!d2) return;
-    d1.onclick = ()=> renderAgenda("day1");
-    d2.onclick = ()=> renderAgenda("day2");
-  }
-
-  // Admin
-  const editRegionSel = document.getElementById('edit-region');
-  const venueInput = document.getElementById('venue-input');
-  const exportBtn = document.getElementById('export-json');
-  const uploadInput = document.getElementById('upload-json');
-  const currentJson = document.getElementById('current-json');
-
-  function refreshAdmin(){
-    if(!isAdmin) return;
-    editRegionSel.innerHTML = regionList.map(r=>`<option value="${r.id}">${r.name}</option>`).join('');
-    const rid = qs.get('region') || 'hail';
-    editRegionSel.value = rid;
-    venueInput.value = (DATA.venues && DATA.venues[rid]) || '';
-    currentJson.textContent = JSON.stringify(DATA, null, 2);
-  }
-
-  document.getElementById('apply-venue').addEventListener('click', ()=>{
-    const rid = editRegionSel.value;
-    const v = venueInput.value.trim();
-    DATA.venues = DATA.venues || {};
-    DATA.venues[rid] = v;
-    history.replaceState({}, '', buildLink(rid, v));
-    renderRegions(); renderSpeakers(); refreshAdmin(); renderAgenda("day1");
-  });
-
-  document.getElementById('add-speaker').addEventListener('click', ()=>{
-    const rid = editRegionSel.value;
-    const topic = document.getElementById('f-topic').value.trim();
-    const name = document.getElementById('f-name').value.trim();
-    const photo = document.getElementById('f-photo').value.trim();
-    const bio = document.getElementById('f-bio').value.trim();
-    if(!topic || !name){ alert('الرجاء إدخال المحور واسم المتحدث.'); return; }
-    DATA.speakers = DATA.speakers || {};
-    DATA.speakers[rid] = DATA.speakers[rid] || [];
-    DATA.speakers[rid].push({ id: 'spk-'+rid+'-'+Date.now(), topic, name, bio, photo });
-    renderSpeakers(); refreshAdmin();
-  });
-  document.getElementById('clear-form').addEventListener('click', ()=>{
-    ['f-topic','f-name','f-photo','f-bio'].forEach(id=>document.getElementById(id).value='');
-  });
-
-  exportBtn.addEventListener('click', ()=>{
-    const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'speakers.json'; a.click();
-    URL.revokeObjectURL(a.href);
-  });
-  document.getElementById('upload-trigger').addEventListener('click', ()=> uploadInput.click());
-  uploadInput.addEventListener('change', async (e)=>{
-    const file = e.target.files[0]; if(!file) return;
-    const text = await file.text();
-    try{ DATA = JSON.parse(text); }catch(err){ alert('ملف JSON غير صالح'); return; }
-    renderRegions(); renderSpeakers(); refreshAdmin(); renderAgenda("day1");
-  });
-
-  // Load data
-  fetch('data/speakers.json').then(r=>r.json()).then(j=>{ DATA = j; proceed(); })
-  .catch(()=>{ DATA = {meta:{}, regions:regionList, venues:{}, speakers:{}, agenda:{} }; proceed(); });
-
-  function proceed(){
-    renderRegions(); renderSpeakers(); refreshAdmin(); bindAgendaTabs(); renderAgenda("day1");
-  }
-
-  // Expo form
-  window.submitExpo = function(e){
-    e.preventDefault();
-    const rid = new URLSearchParams(location.search).get("region") || "hail";
-    const name = document.getElementById("ex-name").value;
-    const typ = document.getElementById("ex-type").value;
-    const size = document.getElementById("ex-size").value;
-    const email = document.getElementById("ex-email").value;
-    const body = encodeURIComponent(`طلب حجز مساحة
-المنطقة: ${rid}
-الجهة: ${name}
-النوع: ${typ}
-المساحة: ${size}
-البريد: ${email}`);
-    const link = "mailto:info@talbiya.sa?subject=" + encodeURIComponent("طلب حجز جناح - ملتقى تلبية") + "&body=" + body;
-    window.location.href = link;
-    return false;
-  }
-
-})();</script>
+const DATA={meta:{regions:[{id:"all",name:"كل المناطق"},{id:"hail",name:"منطقة حائل"},{id:"eastern",name:"المنطقة الشرقية"},{id:"northborders",name:"الحدود الشمالية"}]},byRegion:{
+all:{about:"هذا هو الموقع الموحد لملتقيات تلبية. اختر منطقة للاطلاع على تفاصيلها، أو شارك رابط المنطقة مباشرة دون إظهار بقية المناطق.",date:"—",venue:"—",partners:["assets/talbiya.png","assets/hasseef.png","assets/Vision2030.png"],topics:[],speakers:[]},
+hail:{date:"ربيع الثاني 1447هـ",venue:"قاعة غرفة حائل",about:"يجمع ملتقى تلبية في حائل الجهات الحكومية والقطاعين الخاص وغير الربحي لبناء شراكات تنموية ترتبط بمستهدفات رؤية 2030.",emirateLogo:"assets/emirates/hail.png",
+topics:[{id:"gov",title:"تكامل الحكومة والقطاعات",time:"09:00",desc:"نماذج التكامل وتسريع الإجراءات"},{id:"csr",title:"المسؤولية الاجتماعية والاستثمار المؤثر",time:"10:30",desc:"آليات التمكين عبر حصيف"},{id:"youth",title:"تمكين الشباب والابتكار",time:"12:00",desc:"حلول مبتكرة ومسرعات"}],
+partners:["assets/Vision2030.png","assets/hasseef.png","assets/talbiya.png"],
+speakers:[
+{topic:"gov",name:"أ. راكان العقلاء",role:"حوكمة وتحول",bio:"مختص في تطوير العمليات وتنظيم الفعاليات التنموية.",photo:"assets/speakers/أ.راكان العقلاء.jpg"},
+{topic:"csr",name:"م. محمد الغزال",role:"ريادة وتقنية",bio:"عمل على تقنيات التحول الرقمي وحلول الاستدامة.",photo:"assets/speakers/م. محمد الغزال.png"},
+{topic:"csr",name:"م. أحمد الطائفي",role:"غير ربحي",bio:"خبرة في بناء الشراكات وإدارة المبادرات.",photo:"assets/speakers/م.أحمد الطائفي.png"},
+{topic:"youth",name:"م. بندر الحمدان",role:"ابتكار وريادة",bio:"يدعم مبادرات تمكين الشباب وريادة الأعمال.",photo:"assets/speakers/م.بندر الحمدان.png"},
+{topic:"gov",name:"د. هنادي داود",role:"إعلام وتنمية",bio:"متخصصة في الإعلام التنموي وتمكين المشاركة المجتمعية.",photo:"assets/speakers/د.هنادي داود.png"},
+{topic:"gov",name:"م. عماد سعد",role:"استدامة",bio:"خبرة في الاستدامة والمسؤولية الاجتماعية.",photo:"assets/speakers/م.عماد سعد.png"},
+{topic:"gov",name:"أ. فيصل الباسم",role:"تطوير أعمال",bio:"مهتم بالشراكات وتطوير الأعمال.",photo:"assets/speakers/أ.فيصل الباسم.jfif"}]},
+eastern:{date:"جمادى الأولى 1447هـ",venue:"الدمام – مركز المعارض",about:"نسخة المنطقة الشرقية بتركيز على الصناعة والسياحة وجودة الحياة.",emirateLogo:"assets/emirates/eastern.png",
+topics:[{id:"industry",title:"تحول صناعي ولوجستي",time:"09:30",desc:"تكامل سلاسل الإمداد"},{id:"tourism",title:"السياحة والفعاليات",time:"11:00",desc:"تنويع اقتصادي وفرص عمل"}],
+partners:["assets/Vision2030.png"],speakers:[{topic:"tourism",name:"متحدث قادم",role:"—",bio:"وصف تجريبي.",photo:"assets/talbiya.png"}]},
+northborders:{date:"جمادى الآخرة 1447هـ",venue:"عرعر – قاعة المؤتمرات",about:"تركيز على المشاريع الحدودية والموارد الطبيعية.",emirateLogo:"assets/emirates/northborders.png",
+topics:[{id:"mining",title:"تميز الموارد الطبيعية",time:"10:00",desc:"سلاسل القيمة ومهارات العمل"}],partners:["assets/Vision2030.png"],speakers:[]}
+}};
+const qs=s=>document.querySelector(s),regionSelect=qs('#regionSelect'),topicSelect=qs('#topicSelect'),emirateLogo=qs('#emirateLogo');
+DATA.meta.regions.forEach(r=>{const o=document.createElement('option');o.value=r.id;o.textContent=r.name;regionSelect.appendChild(o)});regionSelect.value=DATA.byRegion[new URLSearchParams(location.search).get('region')||'all']?'all':"all";
+function setRegion(id){const d=DATA.byRegion[id];qs('#regionTitle').textContent=DATA.meta.regions.find(x=>x.id===id)?.name||'—';qs('#about').textContent=d.about||'—';qs('#dateStr').textContent=d.date||'—';qs('#venueStr').textContent=d.venue||'—';if(d.emirateLogo){emirateLogo.src=d.emirateLogo;emirateLogo.style.display='block'}else{emirateLogo.style.display='none'};topicSelect.innerHTML='<option value="all">كل المحاور</option>'+ (d.topics||[]).map(t=>`<option value="${t.id}">${t.title}</option>`).join('');renderAgenda(d.topics);renderSpeakers(d.speakers);renderPartners(d.partners)}
+function renderAgenda(items=[]){const box=qs('#agendaGrid');box.innerHTML='';(items||[]).forEach(t=>{const el=document.createElement('div');el.className='card p';el.innerHTML=`<div class="agenda-item"><div>${t.time||''}</div><div><div style="font-weight:700">${t.title}</div><div style="color:#64748b;margin-top:4px">${t.desc||''}</div></div></div>`;box.appendChild(el)})}
+function renderSpeakers(list=[]){const topic=topicSelect.value;const items=topic==='all'?list:list.filter(s=>s.topic===topic);const box=qs('#speakersGrid');box.innerHTML='';(items||[]).forEach(s=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<div class="p speaker"><img src="${s.photo}" alt="${s.name}"/><div><div style="font-weight:700">${s.name}</div><div style="color:#64748b;font-size:14px">${s.role||''}</div><p style="margin:6px 0 0;color:#64748b">${s.bio||''}</p><div class="badge" style="margin-top:8px">المحور: ${topicTitle(s.topic)}</div></div></div>`;box.appendChild(el)})}
+function renderPartners(list=[]){const box=qs('#partnersGrid');box.innerHTML='';(list||[]).forEach(src=>{const el=document.createElement('div');el.className='card';el.innerHTML=`<div class="p"><img src="${src}" alt="شعار"></div>`;box.appendChild(el)})}
+function topicTitle(id){const r=DATA.byRegion[regionSelect.value];return (r.topics||[]).find(t=>t.id===id)?.title||id}
+regionSelect.addEventListener('change',()=>{setRegion(regionSelect.value);history.replaceState({},'',`?region=${regionSelect.value}#overview`)});topicSelect.addEventListener('change',()=>renderSpeakers(DATA.byRegion[regionSelect.value].speakers));
+qs('#copyLink').addEventListener('click',async()=>{const url=`${location.origin}${location.pathname}?region=${regionSelect.value}`;try{await navigator.clipboard.writeText(url);alert('تم نسخ رابط المنطقة: '+url)}catch{prompt('انسخ الرابط:',url)}});
+qs('#importJson').addEventListener('click',()=>qs('#fileInput').click());qs('#fileInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);const id=obj.id||prompt('معرف المنطقة:','custom');DATA.byRegion[id]=obj.data;regionSelect.value=id;setRegion(id);alert('تم استيراد بيانات المنطقة!')}catch(err){alert('تعذر قراءة الملف: '+err.message)}};r.readAsText(f)});
+qs('#downloadJson').addEventListener('click',e=>{e.preventDefault();const id=regionSelect.value;const data=DATA.byRegion[id];const payload={id,data};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`talbiya-${id}.json`;a.click()});
+function fakeSubmit(){qs('#regMsg').style.display='block';setTimeout(()=>qs('#regMsg').style.display='none',3500)}
+setRegion('hail');
+</script>
 </body></html>
