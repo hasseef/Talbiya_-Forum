@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "regions": [
+      {
+        "id": "riyadh",
+        "name": "منطقة الرياض"
+      },
+      {
+        "id": "makkah",
+        "name": "منطقة مكة المكرمة"
+      },
+      {
+        "id": "madinah",
+        "name": "منطقة المدينة المنورة"
+      },
+      {
+        "id": "qassim",
+        "name": "منطقة القصيم"
+      },
+      {
+        "id": "eastern",
+        "name": "المنطقة الشرقية"
+      },
+      {
+        "id": "asir",
+        "name": "منطقة عسير"
+      },
+      {
+        "id": "tabuk",
+        "name": "منطقة تبوك"
+      },
+      {
+        "id": "hail",
+        "name": "منطقة حائل"
+      },
+      {
+        "id": "northborders",
+        "name": "منطقة الحدود الشمالية"
+      },
+      {
+        "id": "jazan",
+        "name": "منطقة جازان"
+      },
+      {
+        "id": "najran",
+        "name": "منطقة نجران"
+      },
+      {
+        "id": "albaha",
+        "name": "منطقة الباحة"
+      },
+      {
+        "id": "aljouf",
+        "name": "منطقة الجوف"
+      }
+    ]
+  },
+  "byRegion": {
+    "riyadh": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة الرياض من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "makkah": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة مكة المكرمة من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "madinah": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة المدينة المنورة من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "qassim": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة القصيم من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "eastern": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة المنطقة الشرقية من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "asir": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة عسير من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "tabuk": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة تبوك من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "hail": {
+      "date": "ربيع الثاني 1447هـ",
+      "venue": "قاعة غرفة حائل",
+      "about": "يجمع ملتقى تلبية في حائل الجهات الحكومية والقطاعين الخاص وغير الربحي لبناء شراكات تنموية ترتبط بمستهدفات رؤية 2030.",
+      "emirateLogo": "",
+      "topics": [
+        {
+          "id": "gov",
+          "title": "تكامل الحكومة والقطاعات",
+          "time": "09:00",
+          "desc": "نماذج التكامل وتسريع الإجراءات"
+        },
+        {
+          "id": "csr",
+          "title": "المسؤولية الاجتماعية والاستثمار المؤثر",
+          "time": "10:30",
+          "desc": "آليات التمكين عبر حصيف"
+        },
+        {
+          "id": "youth",
+          "title": "تمكين الشباب والابتكار",
+          "time": "12:00",
+          "desc": "حلول مبتكرة ومسرعات"
+        }
+      ],
+      "speakers": [
+        {
+          "topic": "gov",
+          "name": "أ. راكان العقلاء",
+          "role": "حوكمة وتحول",
+          "bio": "مختص في تطوير العمليات وتنظيم الفعاليات التنموية.",
+          "photo": ""
+        },
+        {
+          "topic": "csr",
+          "name": "م. محمد الغزال",
+          "role": "ريادة وتقنية",
+          "bio": "عمل على تقنيات التحول الرقمي وحلول الاستدامة.",
+          "photo": ""
+        },
+        {
+          "topic": "csr",
+          "name": "م. أحمد الطائفي",
+          "role": "غير ربحي",
+          "bio": "خبرة في بناء الشراكات وإدارة المبادرات.",
+          "photo": ""
+        }
+      ],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "northborders": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة الحدود الشمالية من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "jazan": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة جازان من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "najran": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة نجران من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "albaha": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة الباحة من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    },
+    "aljouf": {
+      "date": "—",
+      "venue": "—",
+      "about": "نسخة منطقة الجوف من ملتقى تلبية.",
+      "emirateLogo": "",
+      "topics": [],
+      "speakers": [],
+      "partners": [
+        "assets/vision2030.svg",
+        "assets/hasseef.svg",
+        "assets/talbiya.svg"
+      ]
+    }
+  }
+}
