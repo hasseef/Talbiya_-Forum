@@ -1,10 +1,10 @@
 {
-  "id": "eastern",
+  "id": "northborders",
   "data": {
     "date": "—",
-    "venue": "معارض الظهران إكسبو",
-    "about": "المنطقة الشرقية: ملتقى تلبية يربط الجهات ويصنع شراكات تحقق أثرًا ملموسًا.",
-    "emirateLogo": "assets/emirates/eastern.png",
+    "venue": "عرعر - قاعة الغرفة التجارية",
+    "about": "منطقة الحدود الشمالية: ملتقى تلبية يربط الجهات ويصنع شراكات تحقق أثرًا ملموسًا.",
+    "emirateLogo": "assets/emirates/northborders.png",
     "topics": [
       {
         "id": "gov",
@@ -27,11 +27,11 @@
     ],
     "speakers": [
       {
-        "topic": "youth",
-        "name": "م. بندر الحمدان",
-        "role": "ابتكار وريادة",
-        "bio": "يدعم برامج تمكين الشباب وريادة الأعمال.",
-        "photo": "assets/speakers/م.بندر الحمدان.png"
+        "topic": "csr",
+        "name": "م. عماد سعد",
+        "role": "خبير استدامة",
+        "bio": "متخصص في المسؤولية الاجتماعية والاستدامة المؤسسية.",
+        "photo": "assets/speakers/م.عماد سعد.png"
       },
       {
         "topic": "csr",
