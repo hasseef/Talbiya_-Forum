@@ -1,8 +1,8 @@
 <!doctype html><html lang="ar" dir="rtl"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ملتقيات تلبية | النسخة المحدثة v6</title>
+<title>ملتقيات تلبية | النسخة v6.1</title>
 <link rel="icon" href="assets/talbiya.png"/>
-<meta name="description" content="منصة موحدة لإدارة ملتقيات تلبية في مناطق المملكة: محاور، متحدثون، شركاء، ورعاية وتسجيل.">
+<meta name="description" content="منصة موحدة لإدارة ملتقيات تلبية في مناطق المملكة: محاور، متحدثون، شركاء، رعاة، وتسجيل.">
 <style>
 :root{--green:#136A40;--gold:#CBA135;--ink:#1C1C1C;--muted:#65728A;--bg:#F6F7F9;--card:#FFFFFF;--border:#E7EAF0;--radius:20px;--shadow:0 14px 30px rgba(16,24,40,.08)}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Tajawal,Arial;color:var(--ink);background:var(--bg)}
@@ -103,7 +103,7 @@ section{padding:32px 0}
         <span>@talbiyaksa</span>
       </a>
       <a class="footer-pill" href="https://talbiya.sa/ar" target="_blank" rel="noopener" aria-label="الموقع الرسمي لمبادرة تلبية" title="الموقع الرسمي">
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.59 13.41a1.996 1.996 0 0 0 2.82 0l3.59-3.59a2 2 0 1 0-2.83-2.83l-.88.88l-1.41-1.41l.88-.88a4 4 0 1 1 5.66 5.66l-3.59 3.59a4 4 0 0 1-5.66 0l-1.17-1.17l1.41-1.41l-.88.88a4 4 0 0 1-5.66-5.66Z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.59 13.41a1.996 1.996 0 0 0 2.82 0l3.59-3.59a2 2 0 1 0-2.83-2.83l-.88.88l-1.41-1.41l.88-.88a4 4 0 1 1 5.66 5.66ل-3.59 3.59a4 4 0 0 1-5.66 0l-1.17-1.17l1.41-1.41l-.88.88a4 4 0 0 1-5.66-5.66Z"/></svg>
         <span>talbiya.sa/ar</span>
       </a>
       <a class="footer-pill" href="mailto:info@talbiya.sa" aria-label="راسلنا عبر البريد" title="البريد الإلكتروني">
@@ -114,12 +114,13 @@ section{padding:32px 0}
 
     <div class="footer-actions">
       <span>© مبادرة تلبية</span>
-      <span>نسخة محدثة v6</span>
+      <span>نسخة v6.1</span>
     </div>
   </div>
 </footer>
 
 <script>
+// شعار الإمارة مع Fallback للامتداد
 function setEmirateLogo(imgEl, regionId){
   const candidates=[`assets/emirates/${regionId}.png`,`assets/emirates/${regionId}.svg`,`assets/emirates/${regionId}.jpg`,`assets/emirates/${regionId}.webp`];
   let i=0; const tryNext=()=>{ if(i>=candidates.length){imgEl.style.display='none';return;} imgEl.onerror=()=>{i++; imgEl.src=candidates[i]||''}; imgEl.src=candidates[i]; imgEl.style.display='block'; };
@@ -185,7 +186,7 @@ if(currentRegion){document.getElementById('home').classList.add('hide');regionTa
 regionSelect.value=currentRegion;updateUI();
 
 function updateUI(){
-  setEmirateLogo(emirateImg, currentRegion);
+  setEmirateLogo(document.getElementById('emirateLogo'), currentRegion);
   const d=DATA.byRegion[currentRegion];
   topicSelect.innerHTML='<option value="all">كل المحاور</option>'+((d.topics||[]).map(t=>`<option value="${t.id}">${t.title}</option>`).join(''));
   agendaGrid.innerHTML=(d.topics||[]).map(t=>`<div class="card p"><div style="display:grid;grid-template-columns:100px 1fr;gap:12px"><div>${t.time||''}</div><div><div style="font-weight:700">${t.title}</div><div style="color:#65728A;margin-top:4px">${t.desc||''}</div></div></div></div>`).join('')||`<div class="card p" style="color:#65728A">لا توجد محاور بعد لهذه المنطقة.</div>`;
@@ -200,20 +201,6 @@ regionTabs.addEventListener('click',e=>{const a=e.target.closest('a[data-id]');i
 regionGrid.addEventListener('click',e=>{const a=e.target.closest('a[data-id]');if(!a)return;e.preventDefault();currentRegion=a.dataset.id;regionSelect.value=currentRegion;updateUI();location.hash='#agenda';});
 
 document.getElementById('copyLink').addEventListener('click',async()=>{const url=`${location.origin}${location.pathname}?region=${currentRegion}`;try{await navigator.clipboard.writeText(url);alert('تم نسخ رابط المنطقة: '+url);}catch{prompt('انسخ الرابط:',url);}});
-const speakerModal=document.getElementById('speakerModal');
-document.getElementById('speakersGrid').addEventListener('click',e=>{const b=e.target.closest('button[data-sp]');if(!b)return;const s=JSON.parse(decodeURIComponent(b.dataset.sp));document.getElementById('spName').textContent=s.name;const t=(DATA.byRegion[currentRegion].topics||[]).find(x=>x.id===s.topic)?.title||s.topic;document.getElementById('spTopic').textContent='المحور: '+t;document.getElementById('spBio').textContent=s.bio||'';speakerModal.style.display='flex';});
-document.getElementById('closeModal').addEventListener('click',()=>speakerModal.style.display='none');
-speakerModal.addEventListener('click',e=>{if(e.target===speakerModal)speakerModal.style.display='none';});
-
-const adminModal=document.getElementById('adminModal');
-document.getElementById('openAdmin').addEventListener('click',()=>adminModal.style.display='flex');
-document.getElementById('closeAdmin').addEventListener('click',()=>adminModal.style.display='none');
-adminModal.addEventListener('click',e=>{if(e.target===adminModal)adminModal.style.display='none';});
-
-document.getElementById('downloadJson').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({id:currentRegion,data:DATA.byRegion[currentRegion]},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`talbiya-${currentRegion}.json`;a.click();});
-document.getElementById('fileInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);if(!obj.id||!obj.data)throw new Error('صيغة الملف غير صحيحة: نحتاج { id, data }');DATA.byRegion[obj.id]=obj.data;currentRegion=obj.id;regionSelect.value=currentRegion;updateUI();alert('تم استيراد بيانات المنطقة ✅');}catch(err){alert('خطأ: '+err.message);}};r.readAsText(f);});
-
 document.getElementById('regForm').addEventListener('submit',e=>{e.preventDefault();regMsg.style.display='block';setTimeout(()=>regMsg.style.display='none',3000);});
-document.getElementById('snapTabs').addEventListener('change',e=>{document.getElementById('regionTabs').style.scrollSnapType=e.target.checked?'x mandatory':'initial';});
 </script>
 </body></html>

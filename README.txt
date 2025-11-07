@@ -1,1 +1,5 @@
-Talbiya - Forum Updated v6\n- افتح index.html أو ارفعه على GitHub Pages.\n- ضع شعارات الإمارات داخل assets/emirates/ بالاسم المعياري (riyadh.* ... aljouf.*).\n- روابط التذييل: X/TikTok/Instagram/الموقع/البريد.\n- شعار الإمارة يعمل بآلية Fallback حسب الامتداد.\n
+Talbiya - Forum v6.1
+- شعارات إمارات المناطق مدمجة (Placeholders) داخل assets/emirates/ بأسماء صحيحة — استبدلها بالشعارات الرسمية ببساطة مع الحفاظ على الاسم.
+- تمت إضافة روابط التواصل في التذييل.
+- آلية fallback لشعار الإمارة (png/svg/jpg/webp) مفعّلة.
+- روابط جميع المناطق في region_links.txt.
