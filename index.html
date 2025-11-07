@@ -1,209 +1,219 @@
 <!doctype html><html lang="ar" dir="rtl"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ملتقيات تلبية | النسخة الاحترافية (Prototype)</title>
-<meta name="description" content="منصة موحدة لإدارة ملتقيات تلبية على مستوى المناطق.">
-<link rel="icon" href="assets/talbiya.svg"/>
+<title>ملتقيات تلبية | النسخة المحدثة v6</title>
+<link rel="icon" href="assets/talbiya.png"/>
+<meta name="description" content="منصة موحدة لإدارة ملتقيات تلبية في مناطق المملكة: محاور، متحدثون، شركاء، ورعاية وتسجيل.">
 <style>
 :root{--green:#136A40;--gold:#CBA135;--ink:#1C1C1C;--muted:#65728A;--bg:#F6F7F9;--card:#FFFFFF;--border:#E7EAF0;--radius:20px;--shadow:0 14px 30px rgba(16,24,40,.08)}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui, -apple-system, Segoe UI, Roboto, Tajawal, Arial;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Tajawal,Arial;color:var(--ink);background:var(--bg)}
 .container{width:min(1200px,100%);margin:auto;padding:0 16px}
 header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:50}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
-.brand{display:flex;gap:10px;align-items:center}.brand img{height:42px}
-nav a{display:inline-block;margin:0 4px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);text-decoration:none;color:var(--ink)}
+.brand{display:flex;gap:10px;align-items:center}.brand img{height:46px}
+nav a{display:inline-block;margin:0 4px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);text-decoration:none;color:#1C1C1C}
 nav a:hover{background:#f0f5f2}
 .hero{border-bottom:1px solid var(--border);background:linear-gradient(180deg,#f2f7f4 0%, #ffffff 75%)}
 .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:28px 0}
 h1{margin:0 0 6px;font-size:clamp(24px,3vw,36px)}.lead{color:var(--muted)}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;background:#fff;border:1px solid var(--border);border-radius:22px;padding:12px;box-shadow:var(--shadow)}
 select,input[type="email"],textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#fff}
-.btn{background:var(--green);color:#fff;border:0;padding:10px 12px;border-radius:12px;cursor:pointer}.btn.ghost{background:#fff;color:var(--green);border:1px solid var(--green)}
+.btn{background:#136A40;color:#fff;border:0;padding:10px 12px;border-radius:12px;cursor:pointer}.btn.ghost{background:#fff;color:#136A40;border:1px solid #136A40}
 .grid{display:grid;gap:14px}.grid.cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.p{padding:16px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.p{padding:16px}
 .badge{display:inline-flex;align-items:center;gap:8px;background:#EAF3ED;color:#0A3D16;border-radius:999px;padding:8px 12px;font-size:13px;border:1px solid #D7E7DC}
 section{padding:32px 0}
 .region-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
-.region-grid a{display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:var(--ink)}
-.region-grid a:hover{box-shadow:var(--shadow)}
-.region-grid .title{font-weight:700;margin-bottom:4px}
-.speaker{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}.speaker img{width:72px;height:72px;border-radius:50%;object-fit:cover;background:#f2f2f2}
+.region-grid a{display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:#1C1C1C}
+.region-grid a:hover{box-shadow:var(--shadow)}.region-grid .title{font-weight:700;margin-bottom:4px}
+.speaker-card{display:flex;flex-direction:column;align-items:center;text-align:center}
+.speaker-card .ph{width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#f3f5f7;border:1px solid var(--border)}
+.speaker-card .ph img{width:100%;height:100%;object-fit:cover}
+.speaker-card .meta{padding-top:10px}
+.speaker-card .name{font-weight:800}
+.speaker-card .role{color:#65728A;font-size:14px;margin-top:2px}
+.speaker-card .bio{color:#65728A;margin-top:8px;font-size:14px}
 .partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}.partners img{width:100%;height:80px;object-fit:contain;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px}
-footer{border-top:1px solid var(--border);padding:16px 0;color:var(--muted)}
 .tabs{display:flex;gap:8px;overflow:auto;white-space:nowrap;scroll-snap-type:x mandatory;padding-bottom:8px}
-.tabs a{scroll-snap-align:start;display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--ink);text-decoration:none}
+.tabs a{scroll-snap-align:start;display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:#fff;color:#1C1C1C;text-decoration:none}
 .tabs a.active{background:#D9F0E3;border-color:#bfe4cb}
-.cta{position:fixed;left:16px;right:16px;bottom:16px;background:var(--green);color:#fff;text-align:center;padding:12px 16px;border-radius:16px;box-shadow:0 10px 20px rgba(0,0,0,.12);display:none;z-index:60}
-@media(max-width:900px){.cta{display:block}.hero .wrap{grid-template-columns:1fr}.speaker{grid-template-columns:60px 1fr}.speaker img{width:60px;height:60px}}
+.cta{position:fixed;left:16px;right:16px;bottom:16px;background:#136A40;color:#fff;text-align:center;padding:12px 16px;border-radius:16px;box-shadow:0 10px 20px rgba(0,0,0,.12);display:none;z-index:60}
+@media(max-width:900px){.cta{display:block}.hero .wrap{grid-template-columns:1fr}}
 :focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:10px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px}
 .modal .dialog{background:#fff;border-radius:16px;max-width:680px;width:100%;border:1px solid var(--border);box-shadow:var(--shadow)}
 .modal .dialog .hd{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding:12px 16px}
+.hide{display:none!important}
+.mono{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px;color:#475569}
+.footer-pill{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#1C1C1C;border:1px solid var(--border);border-radius:12px;padding:8px 10px}
+.footer-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 </style>
 </head><body>
 <header><div class="container topbar">
-  <div class="brand"><img src="assets/talbiya.svg" alt="شعار تلبية"><strong>ملتقيات تلبية</strong></div>
-  <nav>
-    <a href="#home">الرئيسية</a><a href="#regions">المناطق</a><a href="#agenda">الجدول</a>
-    <a href="#speakers">المتحدثون</a><a href="#partners">الشركاء</a><a href="#register">التسجيل</a>
-  </nav>
+  <div class="brand"><img src="assets/talbiya.png" alt="شعار مبادرة تلبية"><strong>ملتقيات تلبية</strong></div>
+  <nav><a href="#home">الرئيسية</a><a href="#regions">المناطق</a><a href="#agenda">الجدول</a><a href="#speakers">المتحدثون</a><a href="#partners">الشركاء</a><a href="#register">التسجيل</a></nav>
 </div></header>
 
 <div class="hero"><div class="container wrap">
   <div>
-    <h1>منصة ملتقيات تلبية – النسخة الاحترافية</h1>
-    <p class="lead">اختر منطقتك واستعرض الجداول والمحاور والمتحدثين وسجّل حضورك. روابط خاصة بكل منطقة، واستيراد بيانات بسرعة.</p>
+    <h1 id="heroTitle">منصة ملتقيات تلبية</h1>
+    <p class="lead" id="heroLead">اختر منطقتك واستعرض المحاور والمتحدثين وسجّل حضورك. لكل منطقة رابط خاص وشعار الإمارة.</p>
     <div class="toolbar">
-      <div><label>المنطقة: </label><select id="regionSelect"></select></div>
+      <div id="regionControl"><label>المنطقة: </label><select id="regionSelect"></select></div>
       <div><label>المحور: </label><select id="topicSelect"><option value="all">كل المحاور</option></select></div>
       <button class="btn" id="copyLink">نسخ رابط المنطقة</button>
       <button class="btn ghost" id="openAdmin">لوحة الإدارة (نموذج)</button>
     </div>
     <div class="tabs" id="regionTabs" style="margin-top:10px"></div>
   </div>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;opacity:.9">
-    <img src="assets/vision2030.svg" alt="رؤية 2030" width="140" height="60" loading="eager">
-    <img src="assets/hasseef.svg" alt="حصيف" width="140" height="60" loading="eager">
-    <img src="assets/talbiya.svg" alt="تلبية" width="140" height="60" loading="eager">
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;opacity:.95">
+    <img src="assets/Vision2030.png" alt="شعار رؤية السعودية 2030" width="140" height="60" loading="eager">
+    <img src="assets/hasseef.png" alt="شعار حصيف" width="140" height="60" loading="eager">
+    <img src="assets/talbiya.png" alt="شعار تلبية" width="120" height="60" loading="eager">
+    <img id="emirateLogo" alt="شعار إمارة المنطقة" width="120" height="60" style="display:none;object-fit:contain;border:1px solid #E7EAF0;border-radius:10px;background:#fff;padding:6px">
   </div>
 </div></div>
 
 <main class="container">
-  <section id="home">
-    <div class="card p">
-      <div class="badge">🗺️ عرض كل المناطق</div>
-      <p class="lead" style="margin-top:8px">اختر منطقة للاطلاع على التفاصيل، أو استخدم الشبكة التالية للوصول السريع.</p>
-      <div class="region-grid" id="regionGrid"></div>
-    </div>
-  </section>
-
+  <section id="home"><div class="card p"><div class="badge">🗺️ عرض كل المناطق</div><p class="lead" style="margin-top:8px">شبكة الوصول السريع للمناطق الإدارية.</p><div class="region-grid" id="regionGrid"></div></div></section>
   <section id="agenda"><h2>الجدول والمحاور</h2><div class="grid" id="agendaGrid"></div></section>
   <section id="speakers"><h2>المتحدثون</h2><div class="grid cards" id="speakersGrid"></div></section>
   <section id="partners"><h2>الشركاء والداعمون</h2><div class="partners" id="partnersGrid"></div></section>
-
-  <section id="register"><h2>التسجيل</h2><div class="card p">
-    <form id="regForm" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
-      <input name="name" placeholder="الاسم الثلاثي" required>
-      <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-      <input name="org" placeholder="الجهة (اختياري)">
-      <select name="role"><option>حضور</option><option>متحدث</option><option>راعي</option></select>
-      <textarea name="notes" placeholder="ملاحظات" style="grid-column:1/-1;min-height:88px"></textarea>
-      <div style="grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end">
-        <button class="btn" type="submit">إرسال</button><button class="btn ghost" type="reset">تفريغ</button>
-      </div>
-    </form>
-    <p id="regMsg" style="display:none;margin-top:8px;color:#0a3d16" aria-live="polite">تم استلام التسجيل كتجربة – شكراً لك.</p>
-  </div></section>
+  <section id="register"><h2>التسجيل</h2><div class="card p"><form id="regForm" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+    <input name="name" placeholder="الاسم الثلاثي" required><input type="email" name="email" placeholder="البريد الإلكتروني" required><input name="org" placeholder="الجهة (اختياري)">
+    <select name="role"><option>حضور</option><option>متحدث</option><option>راعي</option></select>
+    <textarea name="notes" placeholder="ملاحظات" style="grid-column:1/-1;min-height:88px"></textarea>
+    <div style="grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end"><button class="btn" type="submit">إرسال</button><button class="btn ghost" type="reset">تفريغ</button></div>
+  </form><p id="regMsg" style="display:none;margin-top:8px;color:#0a3d16" aria-live="polite">تم استلام التسجيل كتجربة – شكرًا لك.</p></div></section>
+  <div class="mono">ملاحظة: لا تظهر إلا بيانات المنطقة المحددة إذا استخدمت رابطًا بصيغة <code>?region=ID</code></div>
 </main>
 
-<footer><div class="container" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-  <span>© مبادرة تلبية</span><span>نسخة أولية للاختبار – Prototype</span>
-</div></footer>
+<footer>
+  <div class="container" style="display:flex;flex-direction:column;gap:14px;flex-wrap:wrap;padding:10px 0">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <a class="footer-pill" href="https://x.com/TalbiyaKSA" target="_blank" rel="noopener" aria-label="X - TalbiyaKSA" title="X">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.146 2H21L13.5 10.23 22 22h-6.146l-5.06-6.676L4.94 22H2l8.036-9.17L2 2h6.24l4.58 6.028L18.146 2Zm-2.15 18h1.19L7.08 4H5.8l10.195 16Z"/></svg>
+        <span>@TalbiyaKSA</span>
+      </a>
+      <a class="footer-pill" href="https://www.tiktok.com/@talbiyaksa" target="_blank" rel="noopener" aria-label="TikTok - talbiyaksa" title="TikTok">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 3h3a6.5 6.5 0 0 0 6.5 6.5v3A9.5 9.5 0 0 1 16.5 7v8.25A5.75 5.75 0 1 1 10.75 9.5v3A2.75 2.75 0 1 0 13.5 15V3Z"/></svg>
+        <span>@talbiyaksa</span>
+      </a>
+      <a class="footer-pill" href="https://www.instagram.com/talbiyaksa/" target="_blank" rel="noopener" aria-label="Instagram - talbiyaksa" title="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11Zm0 2a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7Zm5.75-.75a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5Z"/></svg>
+        <span>@talbiyaksa</span>
+      </a>
+      <a class="footer-pill" href="https://talbiya.sa/ar" target="_blank" rel="noopener" aria-label="الموقع الرسمي لمبادرة تلبية" title="الموقع الرسمي">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.59 13.41a1.996 1.996 0 0 0 2.82 0l3.59-3.59a2 2 0 1 0-2.83-2.83l-.88.88l-1.41-1.41l.88-.88a4 4 0 1 1 5.66 5.66l-3.59 3.59a4 4 0 0 1-5.66 0l-1.17-1.17l1.41-1.41l-.88.88a4 4 0 0 1-5.66-5.66Z"/></svg>
+        <span>talbiya.sa/ar</span>
+      </a>
+      <a class="footer-pill" href="mailto:info@talbiya.sa" aria-label="راسلنا عبر البريد" title="البريد الإلكتروني">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4l-8 5L4 8V6l8 5l8-5v2Z"/></svg>
+        <span>info@talbiya.sa</span>
+      </a>
+    </div>
 
-<a href="#register" class="cta">سجّل حضورك الآن</a>
-
-<div class="modal" id="speakerModal" role="dialog" aria-modal="true">
-  <div class="dialog"><div class="hd"><strong id="spName">اسم المتحدث</strong><button class="btn ghost" id="closeModal">إغلاق</button></div>
-    <div class="p"><div class="badge" id="spTopic">المحور: —</div><p id="spBio" style="margin:10px 0 0;color:#65728A">—</p></div>
-  </div>
-</div>
-
-<div class="modal" id="adminModal" role="dialog" aria-modal="true">
-  <div class="dialog"><div class="hd"><strong>لوحة الإدارة (نموذج)</strong><button class="btn ghost" id="closeAdmin">إغلاق</button></div>
-    <div class="p">
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
-        <div class="card p"><strong>استيراد بيانات منطقة (JSON)</strong><input type="file" id="fileInput" accept="application/json" style="margin-top:8px"></div>
-        <div class="card p"><strong>تصدير بيانات المنطقة الحالية</strong><button class="btn" id="downloadJson" style="margin-top:8px">تنزيل JSON</button></div>
-        <div class="card p"><strong>إعدادات عامة</strong><label><input type="checkbox" id="snapTabs"> تفعيل Scroll Snap لشريط المناطق</label></div>
-      </div>
+    <div class="footer-actions">
+      <span>© مبادرة تلبية</span>
+      <span>نسخة محدثة v6</span>
     </div>
   </div>
-</div>
+</footer>
 
 <script>
-const DATA = {"meta": {"regions": [{"id": "riyadh", "name": "منطقة الرياض"}, {"id": "makkah", "name": "منطقة مكة المكرمة"}, {"id": "madinah", "name": "منطقة المدينة المنورة"}, {"id": "qassim", "name": "منطقة القصيم"}, {"id": "eastern", "name": "المنطقة الشرقية"}, {"id": "asir", "name": "منطقة عسير"}, {"id": "tabuk", "name": "منطقة تبوك"}, {"id": "hail", "name": "منطقة حائل"}, {"id": "northborders", "name": "منطقة الحدود الشمالية"}, {"id": "jazan", "name": "منطقة جازان"}, {"id": "najran", "name": "منطقة نجران"}, {"id": "albaha", "name": "منطقة الباحة"}, {"id": "aljouf", "name": "منطقة الجوف"}]}, "byRegion": {"riyadh": {"date": "—", "venue": "—", "about": "نسخة منطقة الرياض من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "makkah": {"date": "—", "venue": "—", "about": "نسخة منطقة مكة المكرمة من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "madinah": {"date": "—", "venue": "—", "about": "نسخة منطقة المدينة المنورة من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "qassim": {"date": "—", "venue": "—", "about": "نسخة منطقة القصيم من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "eastern": {"date": "—", "venue": "—", "about": "نسخة المنطقة الشرقية من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "asir": {"date": "—", "venue": "—", "about": "نسخة منطقة عسير من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "tabuk": {"date": "—", "venue": "—", "about": "نسخة منطقة تبوك من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "hail": {"date": "ربيع الثاني 1447هـ", "venue": "قاعة غرفة حائل", "about": "يجمع ملتقى تلبية في حائل الجهات الحكومية والقطاعين الخاص وغير الربحي لبناء شراكات تنموية ترتبط بمستهدفات رؤية 2030.", "emirateLogo": "", "topics": [{"id": "gov", "title": "تكامل الحكومة والقطاعات", "time": "09:00", "desc": "نماذج التكامل وتسريع الإجراءات"}, {"id": "csr", "title": "المسؤولية الاجتماعية والاستثمار المؤثر", "time": "10:30", "desc": "آليات التمكين عبر حصيف"}, {"id": "youth", "title": "تمكين الشباب والابتكار", "time": "12:00", "desc": "حلول مبتكرة ومسرعات"}], "speakers": [{"topic": "gov", "name": "أ. راكان العقلاء", "role": "حوكمة وتحول", "bio": "مختص في تطوير العمليات وتنظيم الفعاليات التنموية.", "photo": ""}, {"topic": "csr", "name": "م. محمد الغزال", "role": "ريادة وتقنية", "bio": "عمل على تقنيات التحول الرقمي وحلول الاستدامة.", "photo": ""}, {"topic": "csr", "name": "م. أحمد الطائفي", "role": "غير ربحي", "bio": "خبرة في بناء الشراكات وإدارة المبادرات.", "photo": ""}], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "northborders": {"date": "—", "venue": "—", "about": "نسخة منطقة الحدود الشمالية من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "jazan": {"date": "—", "venue": "—", "about": "نسخة منطقة جازان من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "najran": {"date": "—", "venue": "—", "about": "نسخة منطقة نجران من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "albaha": {"date": "—", "venue": "—", "about": "نسخة منطقة الباحة من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}, "aljouf": {"date": "—", "venue": "—", "about": "نسخة منطقة الجوف من ملتقى تلبية.", "emirateLogo": "", "topics": [], "speakers": [], "partners": ["assets/vision2030.svg", "assets/hasseef.svg", "assets/talbiya.svg"]}}};
-const qs = s => document.querySelector(s);
-const regionSelect = qs('#regionSelect'), topicSelect = qs('#topicSelect'), regionGrid = qs('#regionGrid'), regionTabs = qs('#regionTabs');
-const agendaGrid = qs('#agendaGrid'), speakersGrid = qs('#speakersGrid'), partnersGrid = qs('#partnersGrid');
-const regForm = qs('#regForm'), regMsg = qs('#regMsg'), speakerModal = qs('#speakerModal'), adminModal = qs('#adminModal');
+function setEmirateLogo(imgEl, regionId){
+  const candidates=[`assets/emirates/${regionId}.png`,`assets/emirates/${regionId}.svg`,`assets/emirates/${regionId}.jpg`,`assets/emirates/${regionId}.webp`];
+  let i=0; const tryNext=()=>{ if(i>=candidates.length){imgEl.style.display='none';return;} imgEl.onerror=()=>{i++; imgEl.src=candidates[i]||''}; imgEl.src=candidates[i]; imgEl.style.display='block'; };
+  tryNext();
+}
+</script>
 
-DATA.meta.regions.forEach(r => { const opt=document.createElement('option'); opt.value=r.id; opt.textContent=r.name; regionSelect.appendChild(opt); });
-regionTabs.innerHTML = DATA.meta.regions.map(r => `<a href="#home" data-id="${r.id}">${r.name}</a>`).join('');
-regionGrid.innerHTML = DATA.meta.regions.map(r => `<a href="#home" data-id="${r.id}"><div class="title">${r.name}</div><div style="color:#65728A;font-size:14px">اضغط للانتقال لتفاصيل المنطقة</div></a>`).join('');
+<script>
+const urlParams=new URLSearchParams(location.search);
+const regionParam=urlParams.get('region');
+const PARTNERS=["assets/Vision2030.png","assets/hasseef.png","assets/talbiya.png"];
+const REGIONS=[
+  {id:"riyadh",name:"منطقة الرياض"},{id:"makkah",name:"منطقة مكة المكرمة"},{id:"madinah",name:"منطقة المدينة المنورة"},
+  {id:"qassim",name:"منطقة القصيم"},{id:"eastern",name:"المنطقة الشرقية"},{id:"asir",name:"منطقة عسير"},
+  {id:"tabuk",name:"منطقة تبوك"},{id:"hail",name:"منطقة حائل"},{id:"northborders",name:"منطقة الحدود الشمالية"},
+  {id:"jazan",name:"منطقة جازان"},{id:"najran",name:"منطقة نجران"},{id:"albaha",name:"منطقة الباحة"},{id:"aljouf",name:"منطقة الجوف"}
+];
+const DATA={meta:{regions:REGIONS},byRegion:{}};
+const emirateImg=document.getElementById('emirateLogo');
+const qs=s=>document.querySelector(s);
+const heroTitle=qs('#heroTitle'),heroLead=qs('#heroLead');
+const regionSelect=qs('#regionSelect'),topicSelect=qs('#topicSelect'),regionGrid=qs('#regionGrid'),regionTabs=qs('#regionTabs');
+const agendaGrid=qs('#agendaGrid'),speakersGrid=qs('#speakersGrid'),partnersGrid=qs('#partnersGrid');
+const regionControl=qs('#regionControl');const regForm=qs('#regForm'),regMsg=qs('#regMsg');
 
-let currentRegion = 'hail'; regionSelect.value = currentRegion; updateUI();
+for(const r of REGIONS){
+  DATA.byRegion[r.id]={date:"—",venue:"—",about:`${r.name}: ملتقى تلبية يربط الجهات ويصنع شراكات تحقق أثرًا ملموسًا.`,topics:[],speakers:[],partners:[...PARTNERS]};
+}
+const sampleTopics=[
+  {id:"gov",title:"تكامل الجهات الحكومية والقطاعات",time:"09:00",desc:"أمثلة ونماذج عملية لتسريع الإجراءات وتحسين التنسيق."},
+  {id:"csr",title:"الاستثمار الاجتماعي والأثر",time:"10:30",desc:"كيف نمكّن مبادرات المسؤولية الاجتماعية عبر حصيف."},
+  {id:"youth",title:"تمكين الشباب والابتكار",time:"12:00",desc:"مسرّعات وحلول مبتكرة لفرص جديدة."}
+];
+const hailSpeakers=[
+  {topic:"gov",name:"أ. راكان العقلاء",role:"حوكمة وتحول",bio:"مختص في تطوير العمليات وتنظيم الفعاليات التنموية.",photo:"assets/speakers/أ.راكان العقلاء.jpg"},
+  {topic:"csr",name:"م. محمد الغزال",role:"ريادة وتقنية",bio:"خبرة في التحول الرقمي وحلول الاستدامة.",photo:"assets/speakers/م. محمد الغزال.png"},
+  {topic:"csr",name:"م. أحمد الطائفي",role:"غير ربحي",bio:"يبني الشراكات ويدير المبادرات المجتمعية.",photo:"assets/speakers/م.أحمد الطائفي.png"},
+  {topic:"youth",name:"م. بندر الحمدان",role:"ابتكار وريادة",bio:"يدعم برامج تمكين الشباب وريادة الأعمال.",photo:"assets/speakers/م.بندر الحمدان.png"},
+  {topic:"gov",name:"د. هنادي داود",role:"إعلام وتنمية",bio:"متخصصة في الإعلام التنموي والمشاركة المجتمعية.",photo:"assets/speakers/د.هنادي داود.png"},
+  {topic:"gov",name:"م. عماد سعد",role:"استدامة",bio:"خبرة في الاستدامة والمسؤولية الاجتماعية.",photo:"assets/speakers/م.عماد سعد.png"},
+  {topic:"gov",name:"أ. فيصل الباسم",role:"تطوير أعمال",bio:"يساهم في بناء الشراكات وتعزيز الاستثمار التنموي.",photo:"assets/speakers/أ.فيصل الباسم.jfif"}
+];
+
+DATA.byRegion["hail"]={...DATA.byRegion["hail"],date:"ربيع الثاني 1447هـ",venue:"قاعة غرفة حائل",topics:sampleTopics,speakers:hailSpeakers};
+DATA.byRegion["riyadh"]={...DATA.byRegion["riyadh"],date:"جمادى الأولى 1447هـ",venue:"مركز الرياض الدولي للمؤتمرات والمعارض",topics:sampleTopics,speakers:[
+  {topic:"gov",name:"د. هنادي داود",role:"مستشارة إعلام وتنمية",bio:"متخصصة في الإعلام التنموي والمشاركة المجتمعية.",photo:"assets/speakers/د.هنادي داود.png"},
+  {topic:"gov",name:"أ. راكان العقلاء",role:"مدير تطوير مؤسسي",bio:"يركّز على تحسين الأداء المؤسسي وبناء الشراكات الفاعلة.",photo:"assets/speakers/أ.راكان العقلاء.jpg"},
+  {topic:"youth",name:"م. محمد الغزال",role:"رائد أعمال تقني",bio:"يقود مبادرات التحول الرقمي وريادة الأعمال.",photo:"assets/speakers/م. محمد الغزال.png"},
+  {topic:"csr",name:"م. عماد سعد",role:"خبير استدامة",bio:"متخصص في إدارة المسؤولية الاجتماعية والاستدامة المؤسسية.",photo:"assets/speakers/م.عماد سعد.png"}
+]};
+DATA.byRegion["eastern"]={...DATA.byRegion["eastern"],date:"جمادى الآخرة 1447هـ",venue:"معارض الظهران إكسبو",topics:sampleTopics,speakers:[
+  {topic:"youth",name:"م. بندر الحمدان",role:"رائد أعمال شاب",bio:"يدعم المبادرات الريادية وفرص العمل النوعية.",photo:"assets/speakers/م.بندر الحمدان.png"},
+  {topic:"csr",name:"م. أحمد الطائفي",role:"ممثل قطاع غير ربحي",bio:"يعمل على بناء مبادرات مجتمعية مؤثرة.",photo:"assets/speakers/م.أحمد الطائفي.png"},
+  {topic:"gov",name:"أ. فيصل الباسم",role:"مستشار تطوير أعمال",bio:"يساهم في بناء الشراكات وتعزيز الاستثمار التنموي.",photo:"assets/speakers/أ.فيصل الباسم.jfif"}
+]};
+
+DATA.meta.regions.forEach(r=>{const o=document.createElement('option');o.value=r.id;o.textContent=r.name;regionSelect.appendChild(o);});
+regionTabs.innerHTML=DATA.meta.regions.map(r=>`<a href="#home" data-id="${r.id}">${r.name}</a>`).join('');
+regionGrid.innerHTML=DATA.meta.regions.map(r=>`<a href="#home" data-id="${r.id}"><div class="title">${r.name}</div><div style="color:#65728A;font-size:14px">اضغط للانتقال لتفاصيل المنطقة</div></a>`).join('');
+
+let currentRegion=regionParam && DATA.byRegion[regionParam]?regionParam:null;
+if(currentRegion){document.getElementById('home').classList.add('hide');regionTabs.classList.add('hide');regionControl.classList.add('hide');heroTitle.textContent=DATA.meta.regions.find(r=>r.id===currentRegion)?.name||'منطقتك';heroLead.textContent='هذه الصفحة تعرض تفاصيل ملتقى المنطقة فقط.';}else{currentRegion='riyadh';}
+regionSelect.value=currentRegion;updateUI();
 
 function updateUI(){
-  const data = DATA.byRegion[currentRegion];
-  const opts = (data.topics||[]).map(t => `<option value="${t.id}">${t.title}</option>`).join('');
-  topicSelect.innerHTML = '<option value="all">كل المحاور</option>' + opts;
-
-  agendaGrid.innerHTML = (data.topics||[]).map(t => `<div class="card p"><div style="display:grid;grid-template-columns:100px 1fr;gap:12px"><div>${t.time||''}</div><div><div style="font-weight:700">${t.title}</div><div style="color:#65728A;margin-top:4px">${t.desc||''}</div></div></div></div>`).join('') || `<div class="card p" style="color:#65728A">لا توجد محاور بعد لهذه المنطقة.</div>`;
-
-  const selectedTopic = topicSelect.value;
-  const list = selectedTopic==='all' ? (data.speakers||[]) : (data.speakers||[]).filter(s=>s.topic===selectedTopic);
-  speakersGrid.innerHTML = list.map(s => `<div class="card p"><div class="speaker"><img src="${s.photo||'assets/talbiya.svg'}" alt="${s.name}"><div><div style="font-weight:700">${s.name}</div><div style="color:#65728A;font-size:14px">${s.role||''}</div><p style="margin:6px 0 0;color:#65728A">${s.bio||''}</p><button class="btn ghost" data-sp='${encodeURIComponent(JSON.stringify(s))}' style="margin-top:8px">نبذة موسعة</button></div></div></div>`).join('') || `<div class="card p" style="color:#65728A">لا توجد أسماء متحدثين بعد.</div>`;
-
-  partnersGrid.innerHTML = (data.partners||[]).map(src => `<div class="card p"><img src="${src}" alt="شعار"></div>`).join('') || `<div class="card p" style="color:#65728A">لا يوجد شركاء بعد.</div>`;
-
-  regionTabs.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.dataset.id===currentRegion));
+  setEmirateLogo(emirateImg, currentRegion);
+  const d=DATA.byRegion[currentRegion];
+  topicSelect.innerHTML='<option value="all">كل المحاور</option>'+((d.topics||[]).map(t=>`<option value="${t.id}">${t.title}</option>`).join(''));
+  agendaGrid.innerHTML=(d.topics||[]).map(t=>`<div class="card p"><div style="display:grid;grid-template-columns:100px 1fr;gap:12px"><div>${t.time||''}</div><div><div style="font-weight:700">${t.title}</div><div style="color:#65728A;margin-top:4px">${t.desc||''}</div></div></div></div>`).join('')||`<div class="card p" style="color:#65728A">لا توجد محاور بعد لهذه المنطقة.</div>`;
+  const sel=topicSelect.value;const list=sel==='all'?(d.speakers||[]):(d.speakers||[]).filter(s=>s.topic===sel);
+  speakersGrid.innerHTML=list.map(s=>`<div class="card p speaker-card"><div class="ph"><img src="${s.photo||'assets/talbiya.png'}" alt="${s.name}" loading="lazy"></div><div class="meta"><div class="name">${s.name}</div><div class="role">${s.role||''}</div><p class="bio">${s.bio||''}</p><button class="btn ghost" data-sp='${encodeURIComponent(JSON.stringify(s))}' style="margin-top:8px">نبذة موسعة</button></div></div>`).join('')||`<div class="card p" style="color:#65728A">لا توجد أسماء متحدثين بعد.</div>`;
+  partnersGrid.innerHTML=(d.partners||[]).map(src=>`<div class="card p"><img src="${src}" alt="شعار" loading="lazy"></div>`).join('')||`<div class="card p" style="color:#65728A">لا يوجد شركاء بعد.</div>`;
+  regionTabs.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.dataset.id===currentRegion));
 }
+regionSelect.addEventListener('change',()=>{currentRegion=regionSelect.value;updateUI();});
+topicSelect.addEventListener('change',updateUI);
+regionTabs.addEventListener('click',e=>{const a=e.target.closest('a[data-id]');if(!a)return;e.preventDefault();currentRegion=a.dataset.id;regionSelect.value=currentRegion;updateUI();});
+regionGrid.addEventListener('click',e=>{const a=e.target.closest('a[data-id]');if(!a)return;e.preventDefault();currentRegion=a.dataset.id;regionSelect.value=currentRegion;updateUI();location.hash='#agenda';});
 
-regionSelect.addEventListener('change', ()=>{ currentRegion = regionSelect.value; updateUI(); });
-topicSelect.addEventListener('change', updateUI);
+document.getElementById('copyLink').addEventListener('click',async()=>{const url=`${location.origin}${location.pathname}?region=${currentRegion}`;try{await navigator.clipboard.writeText(url);alert('تم نسخ رابط المنطقة: '+url);}catch{prompt('انسخ الرابط:',url);}});
+const speakerModal=document.getElementById('speakerModal');
+document.getElementById('speakersGrid').addEventListener('click',e=>{const b=e.target.closest('button[data-sp]');if(!b)return;const s=JSON.parse(decodeURIComponent(b.dataset.sp));document.getElementById('spName').textContent=s.name;const t=(DATA.byRegion[currentRegion].topics||[]).find(x=>x.id===s.topic)?.title||s.topic;document.getElementById('spTopic').textContent='المحور: '+t;document.getElementById('spBio').textContent=s.bio||'';speakerModal.style.display='flex';});
+document.getElementById('closeModal').addEventListener('click',()=>speakerModal.style.display='none');
+speakerModal.addEventListener('click',e=>{if(e.target===speakerModal)speakerModal.style.display='none';});
 
-regionTabs.addEventListener('click', e => {
-  const a = e.target.closest('a[data-id]'); if(!a) return; e.preventDefault();
-  currentRegion = a.dataset.id; regionSelect.value = currentRegion; updateUI();
-});
-regionGrid.addEventListener('click', e => {
-  const a = e.target.closest('a[data-id]'); if(!a) return; e.preventDefault();
-  currentRegion = a.dataset.id; regionSelect.value = currentRegion; updateUI(); location.hash = '#agenda';
-});
+const adminModal=document.getElementById('adminModal');
+document.getElementById('openAdmin').addEventListener('click',()=>adminModal.style.display='flex');
+document.getElementById('closeAdmin').addEventListener('click',()=>adminModal.style.display='none');
+adminModal.addEventListener('click',e=>{if(e.target===adminModal)adminModal.style.display='none';});
 
-document.getElementById('copyLink').addEventListener('click', async()=>{
-  const url = `${location.origin}${location.pathname}?region=${currentRegion}`;
-  try{ await navigator.clipboard.writeText(url); alert('تم نسخ رابط المنطقة: '+url); } catch{ prompt('انسخ الرابط:', url); }
-});
+document.getElementById('downloadJson').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({id:currentRegion,data:DATA.byRegion[currentRegion]},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`talbiya-${currentRegion}.json`;a.click();});
+document.getElementById('fileInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);if(!obj.id||!obj.data)throw new Error('صيغة الملف غير صحيحة: نحتاج { id, data }');DATA.byRegion[obj.id]=obj.data;currentRegion=obj.id;regionSelect.value=currentRegion;updateUI();alert('تم استيراد بيانات المنطقة ✅');}catch(err){alert('خطأ: '+err.message);}};r.readAsText(f);});
 
-speakersGrid.addEventListener('click', e => {
-  const btn = e.target.closest('button[data-sp]'); if(!btn) return;
-  const s = JSON.parse(decodeURIComponent(btn.dataset.sp));
-  document.getElementById('spName').textContent = s.name;
-  const t = (DATA.byRegion[currentRegion].topics||[]).find(x=>x.id===s.topic)?.title || s.topic;
-  document.getElementById('spTopic').textContent = 'المحور: ' + t;
-  document.getElementById('spBio').textContent = s.bio || '';
-  document.getElementById('speakerModal').style.display = 'flex';
-});
-document.getElementById('closeModal').addEventListener('click', ()=> document.getElementById('speakerModal').style.display='none');
-document.getElementById('speakerModal').addEventListener('click', e => { if(e.target.id==='speakerModal') e.currentTarget.style.display='none'; });
-
-document.getElementById('openAdmin').addEventListener('click', ()=> document.getElementById('adminModal').style.display='flex');
-document.getElementById('closeAdmin').addEventListener('click', ()=> document.getElementById('adminModal').style.display='none');
-document.getElementById('adminModal').addEventListener('click', e => { if(e.target.id==='adminModal') e.currentTarget.style.display='none'; });
-
-document.getElementById('downloadJson').addEventListener('click', ()=>{
-  const data = DATA.byRegion[currentRegion];
-  const blob = new Blob([JSON.stringify({"id":currentRegion,"data":data}, null, 2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `talbiya-${currentRegion}.json`; a.click();
-});
-
-const fileInput = document.getElementById('fileInput');
-fileInput.addEventListener('change', e => {
-  const f = e.target.files[0]; if(!f) return;
-  const r = new FileReader();
-  r.onload = () => {
-    try{ const obj = JSON.parse(r.result);
-      if(!obj.id || !obj.data) throw new Error('صيغة الملف غير صحيحة: نحتاج { id, data }');
-      DATA.byRegion[obj.id] = obj.data; currentRegion = obj.id; regionSelect.value = currentRegion; updateUI();
-      alert('تم استيراد بيانات المنطقة ✅');
-    }catch(err){ alert('خطأ: ' + err.message); }
-  };
-  r.readAsText(f);
-});
-
-regForm.addEventListener('submit', e => { e.preventDefault(); regMsg.style.display='block'; setTimeout(()=> regMsg.style.display='none', 3000); });
-
-const snap = document.getElementById('snapTabs');
-snap.addEventListener('change', ()=>{ document.getElementById('regionTabs').style.scrollSnapType = snap.checked ? 'x mandatory' : 'initial'; });
+document.getElementById('regForm').addEventListener('submit',e=>{e.preventDefault();regMsg.style.display='block';setTimeout(()=>regMsg.style.display='none',3000);});
+document.getElementById('snapTabs').addEventListener('change',e=>{document.getElementById('regionTabs').style.scrollSnapType=e.target.checked?'x mandatory':'initial';});
 </script>
 </body></html>

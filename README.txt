@@ -1,0 +1,1 @@
+Talbiya - Forum Updated v6\n- افتح index.html أو ارفعه على GitHub Pages.\n- ضع شعارات الإمارات داخل assets/emirates/ بالاسم المعياري (riyadh.* ... aljouf.*).\n- روابط التذييل: X/TikTok/Instagram/الموقع/البريد.\n- شعار الإمارة يعمل بآلية Fallback حسب الامتداد.\n
