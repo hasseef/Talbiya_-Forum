@@ -1,0 +1,69 @@
+{
+  "regions": [
+    {
+      "id": "riyadh",
+      "name": "الرياض",
+      "emblem": "./assets/logos/emblems/riyadh.png"
+    },
+    {
+      "id": "eastern",
+      "name": "الشرقية",
+      "emblem": "./assets/logos/emblems/eastern.png"
+    },
+    {
+      "id": "hail",
+      "name": "حائل",
+      "emblem": "./assets/logos/emblems/hail.png"
+    },
+    {
+      "id": "makkah",
+      "name": "مكة المكرمة",
+      "emblem": "./assets/logos/emblems/makkah.png"
+    },
+    {
+      "id": "madinah",
+      "name": "المدينة المنورة",
+      "emblem": "./assets/logos/emblems/madinah.png"
+    },
+    {
+      "id": "qassim",
+      "name": "القصيم",
+      "emblem": "./assets/logos/emblems/qassim.png"
+    },
+    {
+      "id": "asir",
+      "name": "عسير",
+      "emblem": "./assets/logos/emblems/asir.png"
+    },
+    {
+      "id": "tabuk",
+      "name": "تبوك",
+      "emblem": "./assets/logos/emblems/tabuk.png"
+    },
+    {
+      "id": "northborders",
+      "name": "الحدود الشمالية",
+      "emblem": "./assets/logos/emblems/northborders.png"
+    },
+    {
+      "id": "jazan",
+      "name": "جازان",
+      "emblem": "./assets/logos/emblems/jazan.png"
+    },
+    {
+      "id": "najran",
+      "name": "نجران",
+      "emblem": "./assets/logos/emblems/najran.png"
+    },
+    {
+      "id": "albaha",
+      "name": "الباحة",
+      "emblem": "./assets/logos/emblems/albaha.png"
+    },
+    {
+      "id": "aljouf",
+      "name": "الجوف",
+      "emblem": "./assets/logos/emblems/aljouf.png"
+    }
+  ]
+}
